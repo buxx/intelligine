@@ -39,6 +39,9 @@ config = {
             'font': {
                 'name': 'arial',
                 'size': 13
+            },
+            'background': {
+              'color': (125, 125, 125)
             }
         }
     }
