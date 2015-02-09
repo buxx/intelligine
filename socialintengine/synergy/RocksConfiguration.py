@@ -11,16 +11,33 @@ class RocksConfiguration(Configuration):
 
       rocks = []
 
-      for i in range(20):
+      for i in range(50):
           rock = Rock()
           metas.list.add(Simulation.STATE, rock.get_id(), IMPENETRABLE)
-          rock.add_trace((0, 10+i, 15))
+          rock.set_position((0, 0+i, 0))
           rocks.append(rock)
 
-      for i in range(20):
+      for i in range(50):
           rock = Rock()
-          rock.add_trace((0, 10+i, 25))
+          metas.list.add(Simulation.STATE, rock.get_id(), IMPENETRABLE)
+          rock.set_position((0, 0+i, 50))
+          rocks.append(rock)
+
+      for i in range(50):
+          rock = Rock()
+          rock.set_position((0, 0, 0+i))
           metas.list.add(Simulation.STATE, rock.get_id(), IMPENETRABLE)
           rocks.append(rock)
+
+      for i in range(50):
+          rock = Rock()
+          rock.set_position((0, 50, 0+i))
+          metas.list.add(Simulation.STATE, rock.get_id(), IMPENETRABLE)
+          rocks.append(rock)
+
+      rock = Rock()
+      rock.set_position((0, 50, 50))
+      metas.list.add(Simulation.STATE, rock.get_id(), IMPENETRABLE)
+      rocks.append(rock)
 
       return rocks

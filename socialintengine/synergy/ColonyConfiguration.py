@@ -10,9 +10,9 @@ class ColonyConfiguration(Configuration):
     def get_start_objects(self):
 
       ants = []
-      for i in range(20):
+      for i in range(10):
           ant = Ant()
-          ant.add_trace((0, 20, 20))
+          ant.set_position((0, 20, 20))
           metas.list.add(Simulation.STATE, ant.get_id(), ALIVE)
           ants.append(ant)
 

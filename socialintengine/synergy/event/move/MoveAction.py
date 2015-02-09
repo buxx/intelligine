@@ -40,6 +40,8 @@ class MoveAction(Action):
             try:
                 previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, self._object_id)
                 directions_list = directions_slighty[previous_direction]
+                # TODO: TMP tant que 1 niveau (z)
+                directions_list = [direction for direction in directions_list if direction > 9 and direction < 19]
                 direction_name = choice(directions_list)
             except KeyError:
                 pass
@@ -58,7 +60,7 @@ class MoveAction(Action):
 
     def run(self, obj, collection, context):
         if self._move_to_point is not None:
-            obj.add_trace(self._move_to_point)
+            obj.set_position(self._move_to_point)
             context.metas.value.set(PREVIOUS_DIRECTION, self._object_id, self._move_to_direction)
             context.metas.value.set(BLOCKED_SINCE, self._object_id, 0)
         else:
