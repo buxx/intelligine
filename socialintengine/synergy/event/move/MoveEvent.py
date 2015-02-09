@@ -1,5 +1,5 @@
 from synergine.synergy.event.Event import Event
-from xyzworld.mechanism.PositionedArroundMechanism import PositionedArroundMechanism
+from synergine.core.simulation.mechanism.Mechanism import Mechanism
 
 
 class MoveEvent(Event):
@@ -9,7 +9,7 @@ class MoveEvent(Event):
 
     def __init__(self, actions):
         super().__init__(actions)
-        self._mechanism = PositionedArroundMechanism
+        self._mechanism = Mechanism
 
     def _object_match(self, object_id, context, parameters={}):
       return True
