@@ -7,12 +7,15 @@ from synergine.synergy.Simulation import Simulation
 
 class ColonyConfiguration(Configuration):
 
+    _start_position = (0, 20, 20)
+    _ant_class = Ant
+
     def get_start_objects(self):
 
       ants = []
-      for i in range(10):
-          ant = Ant()
-          ant.set_position((0, 20, 20))
+      for i in range(100):
+          ant = self._ant_class()
+          ant.set_position(self._start_position)
           metas.list.add(Simulation.STATE, ant.get_id(), ALIVE)
           ants.append(ant)
 

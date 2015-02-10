@@ -1,12 +1,8 @@
 from xyzworld.Context import Context as XyzContext
 from socialintengine.synergy.Simulation import Simulation
-from socialintengine.synergy.Colony import Colony
-from socialintengine.synergy.ColonyConfiguration import ColonyConfiguration
-from socialintengine.synergy.Rocks import Rocks
-from socialintengine.synergy.RocksConfiguration import RocksConfiguration
 from socialintengine.display.Pygame import Pygame
 from socialintengine.display.pygame.visualisation import visualisation as pygame_visualisation
-
+from socialintengine.sandbox.redblue.red_blue_colonys import collections
 
 config = {
     'app': {
@@ -18,11 +14,11 @@ config = {
     'engine': {
         'fpsmax': 5,
         'debug': {
-            'mainprocess': False,
+            'mainprocess': True,
             'cycles': -1
         }
     },
-    'simulations' : [Simulation([Colony(ColonyConfiguration()), Rocks(RocksConfiguration())])],
+    'simulations' : [Simulation(collections)],
     'connections': [Pygame],
     'terminal': {
       'pygame': {
