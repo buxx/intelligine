@@ -1,5 +1,5 @@
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
-from socialintengine.synergy.event.move.MoveAction import MoveAction
+from intelligine.synergy.event.move.MoveAction import MoveAction
 
 
 class Colony(SynergyCollection):

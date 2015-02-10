@@ -1,19 +1,19 @@
 from xyworld.display.object.pygame.PygameImage import PygameImage
 from xyworld.display.object.pygame.DirectionnedImage import DirectionnedImage
-from socialintengine.synergy.object.Bug import Bug
-from socialintengine.synergy.object.ant.Ant import Ant
-from socialintengine.sandbox.redblue.BlueAnt import BlueAnt
-from socialintengine.sandbox.redblue.RedAnt import RedAnt
-from socialintengine.synergy.object.Rock import Rock
+from intelligine.synergy.object.Bug import Bug
+from intelligine.synergy.object.ant.Ant import Ant
+from intelligine.sandbox.redblue.BlueAnt import BlueAnt
+from intelligine.sandbox.redblue.RedAnt import RedAnt
+from intelligine.synergy.object.Rock import Rock
 from os import getcwd
 from synergine.metas import metas
-from socialintengine.cst import PREVIOUS_DIRECTION
+from intelligine.cst import PREVIOUS_DIRECTION
 
-ant = PygameImage.from_filepath(getcwd()+'/socialintengine/display/pygame/image/ant.png')
-red_ant = PygameImage.from_filepath(getcwd()+'/socialintengine/display/pygame/image/red_ant.png')
-blue_ant = PygameImage.from_filepath(getcwd()+'/socialintengine/display/pygame/image/blue_ant.png')
-bug = PygameImage.from_filepath(getcwd()+'/socialintengine/display/pygame/image/ant.png')
-rock = PygameImage.from_filepath(getcwd()+'/socialintengine/display/pygame/image/rock.png')
+ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
+red_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/red_ant.png')
+blue_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/blue_ant.png')
+bug = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
+rock = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/rock.png')
 
 directions_ant = DirectionnedImage(ant)
 directions_red_ant = DirectionnedImage(red_ant)

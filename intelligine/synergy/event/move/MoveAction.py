@@ -1,10 +1,10 @@
 from synergine.synergy.event.Action import Action
-from socialintengine.synergy.event.move.MoveEvent import MoveEvent
+from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice
 from xyzworld.cst import POSITION, POSITIONS
-from socialintengine.cst import IMPENETRABLE, PREVIOUS_DIRECTION, BLOCKED_SINCE
+from intelligine.cst import IMPENETRABLE, PREVIOUS_DIRECTION, BLOCKED_SINCE
 from synergine.synergy.Simulation import Simulation
-from socialintengine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
+from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
 
 
 class MoveAction(Action):

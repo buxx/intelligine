@@ -1,8 +1,8 @@
 from xyzworld.Context import Context as XyzContext
-from socialintengine.synergy.Simulation import Simulation
-from socialintengine.display.Pygame import Pygame
-from socialintengine.display.pygame.visualisation import visualisation as pygame_visualisation
-from socialintengine.sandbox.redblue.red_blue_colonys import collections
+from intelligine.synergy.Simulation import Simulation
+from intelligine.display.Pygame import Pygame
+from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
+from intelligine.sandbox.redblue.red_blue_colonys import collections
 
 config = {
     'app': {

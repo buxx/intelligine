@@ -1,7 +1,7 @@
 from synergine.synergy.collection.Configuration import Configuration
-from socialintengine.synergy.object.Rock import Rock
+from intelligine.synergy.object.Rock import Rock
 from synergine.metas import metas
-from socialintengine.cst import IMPENETRABLE
+from intelligine.cst import IMPENETRABLE
 from synergine.synergy.Simulation import Simulation
 
 

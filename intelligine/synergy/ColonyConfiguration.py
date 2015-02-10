@@ -1,7 +1,7 @@
 from synergine.synergy.collection.Configuration import Configuration
-from socialintengine.synergy.object.ant.Ant import Ant
+from intelligine.synergy.object.ant.Ant import Ant
 from synergine.metas import metas
-from socialintengine.cst import ALIVE
+from intelligine.cst import ALIVE
 from synergine.synergy.Simulation import Simulation
 
 
