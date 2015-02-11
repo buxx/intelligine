@@ -4,6 +4,14 @@ from intelligine.display.Pygame import Pygame
 from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
 from intelligine.sandbox.redblue.red_blue_colonys import collections
 
+"""
+ TODO:
+ * AttackAction :: comment choisir entre les actions ?
+ * TakeAction, PutAction, Object Egg
+ * Plusieurs objets au mm endroit; Cinq oeuf => dessein de cinq oeuf; etc (image dynamique (param max_supperposer ?)
+ * 3d
+"""
+
 config = {
     'app': {
         'name': 'StigEngine',
@@ -12,7 +20,7 @@ config = {
         }
     },
     'engine': {
-        'fpsmax': 5,
+        'fpsmax': 225,
         'debug': {
             'mainprocess': True,
             'cycles': -1

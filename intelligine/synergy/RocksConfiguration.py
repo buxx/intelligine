@@ -7,7 +7,7 @@ from synergine.synergy.Simulation import Simulation
 
 class RocksConfiguration(Configuration):
 
-    def get_start_objects(self):
+    def get_start_objects(self, collection):
 
       rocks = []
 
