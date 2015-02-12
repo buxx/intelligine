@@ -1,5 +1,5 @@
 from intelligine.synergy.ColonyConfiguration import ColonyConfiguration
-from intelligine.sandbox.redblue.BlueAnt import BlueAnt
+from intelligine.sandbox.colored.BlueAnt import BlueAnt
 
 
 class BlueColonyConfiguration(ColonyConfiguration):

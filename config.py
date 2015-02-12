@@ -2,7 +2,7 @@ from xyzworld.Context import Context as XyzContext
 from intelligine.synergy.Simulation import Simulation
 from intelligine.display.Pygame import Pygame
 from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
-from intelligine.sandbox.redblue.red_blue_colonys import collections
+from intelligine.sandbox.colored.colors_colonys import collections
 
 """
  TODO:
