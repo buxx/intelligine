@@ -15,7 +15,7 @@ class NearAttackableEvent(Event):
         self._mechanism = ArroundMechanism
 
     def _object_match(self, object_id, context, parameters={}):
-      # TODO: nettoyer
+        # TODO: nettoyer
         obj_colony_id = context.metas.value.get(COLONY, object_id)
         for obj_near_id in parameters['objects_ids_near']:
             if context.metas.list.have(Simulation.STATE, obj_near_id, ATTACKABLE):

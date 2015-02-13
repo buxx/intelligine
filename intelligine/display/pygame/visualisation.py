@@ -6,6 +6,7 @@ from intelligine.sandbox.colored.BlueAnt import BlueAnt
 from intelligine.sandbox.colored.RedAnt import RedAnt
 from intelligine.sandbox.colored.GreenAnt import GreenAnt
 from intelligine.synergy.object.Rock import Rock
+from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
 from synergine.metas import metas
 from intelligine.cst import PREVIOUS_DIRECTION
@@ -22,6 +23,7 @@ dead_green_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame
 dead_blue_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/dead_blue_ant.png')
 bug = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
 rock = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/rock.png')
+egg = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg.png')
 
 directions_ant = DirectionnedImage(ant)
 directions_red_ant = DirectionnedImage(red_ant)
@@ -86,6 +88,9 @@ visualisation = {
         Bug: {
             'default': bug,
             'callbacks': [bug_direction]
+        },
+        Egg: {
+            'default': egg
         },
         Rock: {
             'default': rock
