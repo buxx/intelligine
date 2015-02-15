@@ -12,6 +12,15 @@ class Ant(Bug):
         metas.list.add(Simulation.STATE, self.get_id(), ATTACKER)
         self._carried = []
 
+    def put_carry(self, obj):
+        self._carried.remove(obj)
+        obj.set_position(self.get_position())
+        metas.list.remove(Simulation.STATE, self.get_id(), CARRYING)
+
+    def get_carried(self):
+        # TODO: cas ou plusieurs ?
+        return self._carried[0]
+
     def carry(self, obj):
         self._carried.append(obj)
         metas.list.add(Simulation.STATE, self.get_id(), CARRYING)

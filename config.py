@@ -8,8 +8,10 @@ from intelligine.sandbox.colored.colors_colonys import collections
  TODO:
  * AttackAction :: comment choisir entre les actions ?
  * TakeAction, PutAction, Object Egg
+ * --> frameworkiser les usage de states, metas etc ?
  * Plusieurs objets au mm endroit; Cinq oeuf => dessein de cinq oeuf; etc (image dynamique (param max_supperposer ?)
  * 3d
+ * Optimisation display pygame: ne pas tout reafficher; opt google
 """
 
 config = {
@@ -20,7 +22,7 @@ config = {
         }
     },
     'engine': {
-        'fpsmax': 225,
+        'fpsmax': 25,
         'debug': {
             'mainprocess': True,
             'cycles': -1

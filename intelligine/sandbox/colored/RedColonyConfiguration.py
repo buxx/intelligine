@@ -15,7 +15,7 @@ class RedColonyConfiguration(ColonyConfiguration):
 
         for x in range(50):
           for y in range(1, 50):
-            if x % 2 == 0 and y % 2 == 0:
+            if x % 3 == 0 and y % 3 == 0:
               egg = Egg()
               egg.set_position((0, 1+x, 50+y))
               # TODO: Ce COLONY doit devenir un truc automatise au niveau de la collection (qd get_object)

@@ -12,7 +12,7 @@ class ColonyConfiguration(Configuration):
     def get_start_objects(self, collection):
 
       ants = []
-      for i in range(100):
+      for i in range(20):
           ant = self._ant_class()
           metas.value.set(COLONY, ant.get_id(), collection.get_id())
           ant.set_position(self._start_position)

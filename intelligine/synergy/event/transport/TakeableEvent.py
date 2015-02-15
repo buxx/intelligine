@@ -1,7 +1,7 @@
 from synergine.synergy.event.Event import Event
 from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
 from intelligine.synergy.Simulation import Simulation
-from intelligine.cst import TRANSPORTABLE, TRANSPORTER, ALIVE, CARRYING
+from intelligine.cst import TRANSPORTABLE, TRANSPORTER, ALIVE, CARRYING, CANT_CARRY_STILL
 
 
 class TakeableEvent(Event):
@@ -9,7 +9,8 @@ class TakeableEvent(Event):
     def concern(self, object_id, context):
         return context.metas.list.have(Simulation.STATE, object_id, TRANSPORTER) and \
                context.metas.list.have(Simulation.STATE, object_id, ALIVE) and \
-               not context.metas.list.have(Simulation.STATE, object_id, CARRYING)
+               not context.metas.list.have(Simulation.STATE, object_id, CARRYING) and \
+               not context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True)
 
     def __init__(self, actions):
         super().__init__(actions)

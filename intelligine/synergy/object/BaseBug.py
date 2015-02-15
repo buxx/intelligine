@@ -11,7 +11,7 @@ class BaseBug(XyzSynergyObject):
         metas.list.add(Simulation.STATE, self.get_id(), ALIVE)
         metas.list.add(Simulation.STATE, self.get_id(), ATTACKABLE)
         self._life_points = 10
-        self._carried_by = []
+        self._carried_by = None
 
     def hurted(self, points):
         self._life_points -= points
@@ -20,8 +20,14 @@ class BaseBug(XyzSynergyObject):
         return self._life_points
 
     def set_carried_by(self, obj):
-        self._carried_by.append(obj)
-        metas.list.remove(Simulation.STATE, self.get_id(), TRANSPORTABLE)
+        if obj is not None:
+            assert self._carried_by is None
+            self._carried_by = obj
+            metas.list.remove(Simulation.STATE, self.get_id(), TRANSPORTABLE)
+        else:
+            assert self._carried_by is not None
+            self._carried_by = None
+            metas.list.add(Simulation.STATE, self.get_id(), TRANSPORTABLE)
 
     def is_carried(self):
         if self._carried_by:
