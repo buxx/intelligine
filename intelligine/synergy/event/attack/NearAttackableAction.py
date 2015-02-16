@@ -1,7 +1,6 @@
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.attack.NearAttackableEvent import NearAttackableEvent
 from random import randint
-from intelligine.synergy.Simulation import Simulation
 from intelligine.cst import ALIVE, ATTACKABLE
 
 
@@ -22,7 +21,7 @@ class NearAttackableAction(Action):
             obj_attackable.hurted(randint(0, 2))
             if obj_attackable.get_life_points() <= 0:
                 try:
-                    context.metas.list.remove(Simulation.STATE, obj_id_attackable, ALIVE)
-                    context.metas.list.remove(Simulation.STATE, obj_id_attackable, ATTACKABLE)
+                    # TODO: Doit etre dans l'objet, lui sais cz qu'il perd comme etat
+                    context.metas.states.remove_list(obj_id_attackable, [ALIVE, ATTACKABLE])
                 except ValueError:  # Ant maybed killed by other ant at same turn
                     pass

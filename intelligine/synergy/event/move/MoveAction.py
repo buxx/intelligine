@@ -3,7 +3,6 @@ from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice
 from xyzworld.cst import POSITION, POSITIONS
 from intelligine.cst import IMPENETRABLE, PREVIOUS_DIRECTION, BLOCKED_SINCE
-from synergine.synergy.Simulation import Simulation
 from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
 
 
@@ -54,7 +53,7 @@ class MoveAction(Action):
     def _direction_point_is_possible(self, context, direction_point):
         objects_ids_on_this_point = context.metas.list.get(POSITIONS, direction_point, allow_empty=True)
         for object_id_on_this_point in objects_ids_on_this_point:
-          if context.metas.list.have(Simulation.STATE, object_id_on_this_point, IMPENETRABLE):
+          if context.metas.states.have(object_id_on_this_point, [IMPENETRABLE]):
             return False
         return True
 
