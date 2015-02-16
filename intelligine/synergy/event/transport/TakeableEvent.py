@@ -6,8 +6,8 @@ from intelligine.cst import TRANSPORTABLE, TRANSPORTER, ALIVE, CARRYING, CANT_CA
 class TakeableEvent(Event):
 
     def concern(self, object_id, context):
-        return context.metas.states.have(object_id, [TRANSPORTER, ALIVE]) and \
-               context.metas.states.dont_have(object_id, [CARRYING]) and not \
+        return context.metas.states.have_list(object_id, [TRANSPORTER, ALIVE]) and \
+               context.metas.states.dont_have(object_id, CARRYING) and not \
                context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True)
 
     def __init__(self, actions):
@@ -17,7 +17,7 @@ class TakeableEvent(Event):
     def _object_match(self, object_id, context, parameters={}):
         # TODO: Nettoyer (refact possible sur ces objets ont tel states, comme dans concern)
         for obj_near_id in parameters['objects_ids_near']:
-            if context.metas.states.have(obj_near_id, [TRANSPORTABLE]):
+            if context.metas.states.have(obj_near_id, TRANSPORTABLE):
                 if 'objects_ids_transportable' not in parameters:
                     parameters['objects_ids_transportable'] = []
                 parameters['objects_ids_transportable'].append(obj_near_id)

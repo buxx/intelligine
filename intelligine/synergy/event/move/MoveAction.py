@@ -53,7 +53,7 @@ class MoveAction(Action):
     def _direction_point_is_possible(self, context, direction_point):
         objects_ids_on_this_point = context.metas.list.get(POSITIONS, direction_point, allow_empty=True)
         for object_id_on_this_point in objects_ids_on_this_point:
-          if context.metas.states.have(object_id_on_this_point, [IMPENETRABLE]):
+          if context.metas.states.have(object_id_on_this_point, IMPENETRABLE):
             return False
         return True
 

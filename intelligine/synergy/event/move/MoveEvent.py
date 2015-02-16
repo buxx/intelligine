@@ -6,7 +6,7 @@ from intelligine.cst import ALIVE, WALKER
 class MoveEvent(Event):
 
     def concern(self, object_id, context):
-        return context.metas.states.have(object_id, [ALIVE, WALKER])
+        return context.metas.states.have_list(object_id, [ALIVE, WALKER])
 
     def __init__(self, actions):
         super().__init__(actions)
