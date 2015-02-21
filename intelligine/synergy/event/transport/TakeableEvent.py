@@ -8,7 +8,7 @@ class TakeableEvent(Event):
     def concern(self, object_id, context):
         return context.metas.states.have_list(object_id, [TRANSPORTER, ALIVE]) and \
                context.metas.states.dont_have(object_id, CARRYING) and not \
-               context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True)
+               context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True) # TODO: si COLS: ca plus dans concern mais dans object_match
 
     def __init__(self, actions):
         super().__init__(actions)
