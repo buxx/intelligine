@@ -8,7 +8,6 @@ from intelligine.sandbox.colored.GreenAnt import GreenAnt
 from intelligine.synergy.object.Rock import Rock
 from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
-from synergine.metas import metas
 from intelligine.cst import PREVIOUS_DIRECTION
 
 # TODO: Analyser les procedes ici pour proposer des outils dans le framework
@@ -30,38 +29,40 @@ directions_red_ant = DirectionnedImage(red_ant)
 directions_blue_ant = DirectionnedImage(blue_ant)
 directions_green_ant = DirectionnedImage(green_ant)
 
-def bug_direction(bug):
+# TODO: context donne au callbacks
+
+def bug_direction(bug, context):
     if bug.get_life_points() <= 0:
         return dead_ant
     try:
-        previous_direction = metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
+        previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
     except KeyError:
         previous_direction = 14
     return directions_ant.get_for_direction(previous_direction)
 
-def red_ant_direction(bug):
+def red_ant_direction(bug, context):
     if bug.get_life_points() <= 0:
         return dead_red_ant
     try:
-        previous_direction = metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
+        previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
     except KeyError:
         previous_direction = 14
     return directions_red_ant.get_for_direction(previous_direction)
 
-def blue_ant_direction(bug):
+def blue_ant_direction(bug, context):
     if bug.get_life_points() <= 0:
         return dead_blue_ant
     try:
-        previous_direction = metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
+        previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
     except KeyError:
         previous_direction = 14
     return directions_blue_ant.get_for_direction(previous_direction)
 
-def green_ant_direction(bug):
+def green_ant_direction(bug, context):
     if bug.get_life_points() <= 0:
         return dead_green_ant
     try:
-        previous_direction = metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
+        previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, bug.get_id())
     except KeyError:
         previous_direction = 14
     return directions_green_ant.get_for_direction(previous_direction)

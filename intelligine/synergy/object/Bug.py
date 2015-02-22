@@ -1,10 +1,10 @@
 from intelligine.synergy.object.BaseBug import BaseBug
-from synergine.metas import metas
-from intelligine.cst import WALKER
+from intelligine.cst import WALKER, COL_WALKER
 
 
 class Bug(BaseBug):
 
-    def __init__(self):
-        super().__init__()
-        metas.states.add(self.get_id(), WALKER)
+    def __init__(self, context):
+        super().__init__(context)
+        context.metas.states.add(self.get_id(), WALKER)
+        context.metas.collections.add(self.get_id(), COL_WALKER)

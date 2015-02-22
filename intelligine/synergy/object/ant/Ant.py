@@ -1,19 +1,20 @@
 from intelligine.synergy.object.Bug import Bug
-from synergine.metas import metas
-from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER
+from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
+    COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER
 
 
 class Ant(Bug):
 
-    def __init__(self):
-        super().__init__()
-        metas.states.add_list(self.get_id(), [TRANSPORTER, ATTACKER])
+    def __init__(self, context):
+        super().__init__(context)
+        context.metas.states.add_list(self.get_id(), [TRANSPORTER, ATTACKER])
+        context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER])
         self._carried = []
 
     def put_carry(self, obj):
         self._carried.remove(obj)
         obj.set_position(self.get_position())
-        metas.states.remove(self.get_id(), CARRYING)
+        self._context.metas.states.remove(self.get_id(), CARRYING)
 
     def get_carried(self):
         # TODO: cas ou plusieurs ?
@@ -21,7 +22,7 @@ class Ant(Bug):
 
     def carry(self, obj):
         self._carried.append(obj)
-        metas.states.add(self.get_id(), CARRYING)
+        self._context.metas.states.add(self.get_id(), CARRYING)
 
     def is_carrying(self):
         if len(self._carried):

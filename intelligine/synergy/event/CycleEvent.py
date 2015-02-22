@@ -1,11 +1,10 @@
 from synergine.synergy.event.Event import Event
-from intelligine.cst import CANT_CARRY_STILL, TRANSPORTER, ALIVE
+from intelligine.cst import COL_ALIVE # TODO: Crer une col TRANPORTER ?
 
 
 class CycleEvent(Event):
 
-    def concern(self, object_id, context):
-        return context.metas.states.have_list(object_id, [TRANSPORTER, ALIVE])
+    concern = COL_ALIVE
 
     def _object_match(self, object_id, context, parameters):
         return True

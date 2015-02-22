@@ -4,7 +4,7 @@ from intelligine.synergy.object.Rock import Rock
 
 class RocksConfiguration(Configuration):
 
-    def get_start_objects(self, collection):
+    def get_start_objects(self, collection, context):
 
       rocks = []
       rocks_positions = []
@@ -29,7 +29,7 @@ class RocksConfiguration(Configuration):
       rocks_positions.append((0, 100, 100))
 
       for rock_position in rocks_positions:
-          rock = Rock()
+          rock = Rock(context)
           rock.set_position(rock_position)
           rocks.append(rock)
 

@@ -1,12 +1,11 @@
 from synergine.synergy.event.Event import Event
 from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
-from intelligine.cst import ATTACKER, ATTACKABLE, COLONY, ALIVE
+from intelligine.cst import ATTACKABLE, COLONY, COL_FIGHTER
 
 
 class NearAttackableEvent(Event):
 
-    def concern(self, object_id, context):
-        return context.metas.states.have_list(object_id, [ATTACKER, ALIVE])
+    concern = COL_FIGHTER
 
     def __init__(self, actions):
         super().__init__(actions)
