@@ -6,7 +6,7 @@ from intelligine.synergy.event.transport.TakeableAction import TakeableAction
 from intelligine.synergy.event.move.MoveAction import MoveAction
 from intelligine.synergy.event.CycleAction import CycleAction
 from intelligine.cst import COL_TRANSPORTER_CARRYING, COL_TRANSPORTER_NOT_CARRYING, \
-    COL_WALKER, ACTION_DIE, COL_ALIVE
+    COL_WALKER, ACTION_DIE, COL_ALIVE, ALIVE, ATTACKABLE
 
 # TODO: Mettre ailleurs ?
 def bug_die(bug, context):
