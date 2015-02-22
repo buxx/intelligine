@@ -16,7 +16,7 @@ def bug_die(bug, context):
                                            COL_WALKER, \
                                            COL_ALIVE],
                                           allow_not_in=True)
-    context.metas.states.remove_list(bug.get_id(), [ALIVE, ATTACKABLE])
+    context.metas.states.remove_list(bug.get_id(), [ALIVE, ATTACKABLE], allow_not_in=True)
 
 class Simulation(BaseSimulation):
 
