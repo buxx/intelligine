@@ -11,9 +11,11 @@ class Ant(Bug):
         context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER])
         self._carried = []
 
-    def put_carry(self, obj):
+    def put_carry(self, obj, position=None):
+        if position is None:
+            position = self._get_position()
         self._carried.remove(obj)
-        obj.set_position(self.get_position())
+        obj.set_position(position)
         self._context.metas.states.remove(self.get_id(), CARRYING)
 
     def get_carried(self):
