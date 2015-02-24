@@ -43,6 +43,6 @@ class PutableAction(Action):
     def _is_available_position(self, context, position):
         # TODO: Pour le moment on ne regarde pas si ce sont tous des oeufs
         count_obj_here = len(context.metas.list.get(POSITIONS, position, allow_empty=True))
-        if count_obj_here <= 5:
+        if count_obj_here <= 5 and context.position_is_penetrable(position):
             return True
         return False

@@ -1,4 +1,4 @@
-from xyzworld.Context import Context as XyzContext
+from intelligine.core.Context import Context
 from intelligine.synergy.Simulation import Simulation
 from intelligine.display.Pygame import Pygame
 from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
@@ -18,7 +18,7 @@ config = {
     'app': {
         'name': 'StigEngine',
         'classes': {
-          'Context': XyzContext
+          'Context': Context
         }
     },
     'engine': {

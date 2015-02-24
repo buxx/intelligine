@@ -2,7 +2,7 @@ from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice
 from xyzworld.cst import POSITION, POSITIONS
-from intelligine.cst import IMPENETRABLE, PREVIOUS_DIRECTION, BLOCKED_SINCE
+from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE
 from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
 
 
@@ -51,11 +51,7 @@ class MoveAction(Action):
         return direction_name
 
     def _direction_point_is_possible(self, context, direction_point):
-        objects_ids_on_this_point = context.metas.list.get(POSITIONS, direction_point, allow_empty=True)
-        for object_id_on_this_point in objects_ids_on_this_point:
-          if context.metas.states.have(object_id_on_this_point, IMPENETRABLE):
-            return False
-        return True
+        return context.position_is_penetrable(direction_point)
 
     def run(self, obj, collection, context, synergy_manager):
         if self._move_to_point is not None:
