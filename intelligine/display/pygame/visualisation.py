@@ -23,6 +23,11 @@ dead_blue_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/
 bug = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
 rock = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/rock.png')
 egg = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg.png')
+eggc2 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c2.png')
+eggc3 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c3.png')
+eggc4 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c4.png')
+eggc5 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c5.png')
+eggc7 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c7.png')
 
 directions_ant = DirectionnedImage(ant)
 directions_red_ant = DirectionnedImage(red_ant)
@@ -67,8 +72,28 @@ def green_ant_direction(bug, context):
         previous_direction = 14
     return directions_green_ant.get_for_direction(previous_direction)
 
+
+def for_position(position, objects, context):
+    # TODO: DEV TMP: refact, etc
+    eggs = []
+    for obj in objects:
+        if isinstance(obj, Egg):
+            eggs.append(obj)
+    if len(eggs) == 2:
+        return (eggc2, eggs)
+    if len(eggs) == 3:
+        return (eggc3, eggs)
+    if len(eggs) == 4:
+        return (eggc4, eggs)
+    if len(eggs) > 4:
+        return (eggc7, eggs)
+    return (None, [])
+
 visualisation = {
     'window': {},
+    'callbacks': {
+        'position': for_position
+    },
     'objects': {
         RedAnt: {
             'default': red_ant,
