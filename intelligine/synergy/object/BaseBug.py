@@ -4,8 +4,8 @@ from intelligine.cst import ALIVE, ATTACKABLE, TRANSPORTABLE, COL_ALIVE
 
 class BaseBug(XyzSynergyObject):
 
-    def __init__(self, context):
-        super().__init__(context)
+    def __init__(self, collection, context):
+        super().__init__(collection, context)
         context.metas.states.add_list(self.get_id(), [ALIVE, ATTACKABLE])
         context.metas.collections.add(self.get_id(), COL_ALIVE)
         self._life_points = 10

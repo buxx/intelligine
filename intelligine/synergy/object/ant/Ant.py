@@ -5,8 +5,8 @@ from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
 
 class Ant(Bug):
 
-    def __init__(self, context):
-        super().__init__(context)
+    def __init__(self, collection, context):
+        super().__init__(collection, context)
         context.metas.states.add_list(self.get_id(), [TRANSPORTER, ATTACKER])
         context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER])
         self._carried = []

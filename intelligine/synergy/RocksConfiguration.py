@@ -29,7 +29,7 @@ class RocksConfiguration(Configuration):
       rocks_positions.append((0, 100, 100))
 
       for rock_position in rocks_positions:
-          rock = Rock(context)
+          rock = Rock(collection, context)
           rock.set_position(rock_position)
           rocks.append(rock)
 

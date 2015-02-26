@@ -15,7 +15,7 @@ class NearAttackableAction(Action):
     def prepare(self, context):
         pass
 
-    def run(self, obj, collection, context, synergy_manager):
+    def run(self, obj, context, synergy_manager):
         # TODO: reprendre ?
         for obj_id_attackable in self._parameters['objects_ids_attackable']:
             obj_attackable = synergy_manager.get_map().get_object(obj_id_attackable)

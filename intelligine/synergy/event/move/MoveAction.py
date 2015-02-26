@@ -53,7 +53,7 @@ class MoveAction(Action):
     def _direction_point_is_possible(self, context, direction_point):
         return context.position_is_penetrable(direction_point)
 
-    def run(self, obj, collection, context, synergy_manager):
+    def run(self, obj, context, synergy_manager):
         if self._move_to_point is not None:
             obj.set_position(self._move_to_point)
             context.metas.value.set(PREVIOUS_DIRECTION, self._object_id, self._move_to_direction)

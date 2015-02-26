@@ -14,7 +14,7 @@ class TakeableAction(Action):
     def prepare(self, context):
         pass
 
-    def run(self, obj, collection, context, synergy_manager):
+    def run(self, obj, context, synergy_manager):
         # TODO: TEST
         # TODO: Enlever le state de transportable a ce qui est transporte
         # ?! Comment gerer lorsque deux obj vont vouloir transporter le meme objet ? process !

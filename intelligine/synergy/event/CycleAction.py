@@ -7,7 +7,7 @@ class CycleAction(Action):
 
     _listen = CycleEvent
 
-    def run(self, obj, collection, context, synergy_manager):
+    def run(self, obj, context, synergy_manager):
       # TODO: refact ...
       cant_carry_still = context.metas.value.get(CANT_CARRY_STILL, obj.get_id(), allow_empty=True, empty_value=0)
       if cant_carry_still > 0:

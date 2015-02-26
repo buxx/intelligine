@@ -4,7 +4,7 @@ from intelligine.cst import WALKER, COL_WALKER
 
 class Bug(BaseBug):
 
-    def __init__(self, context):
-        super().__init__(context)
+    def __init__(self, collection, context):
+        super().__init__(collection, context)
         context.metas.states.add(self.get_id(), WALKER)
         context.metas.collections.add(self.get_id(), COL_WALKER)

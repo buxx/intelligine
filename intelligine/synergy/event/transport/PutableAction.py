@@ -15,7 +15,7 @@ class PutableAction(Action):
     def prepare(self, context):
         pass
 
-    def run(self, obj, collection, context, synergy_manager):
+    def run(self, obj, context, synergy_manager):
         # TODO: DEV
         obj_id_transportable = self._parameters['objects_ids_transportable'][0]
         obj_transportable = synergy_manager.get_map().get_object(obj_id_transportable)

@@ -11,8 +11,8 @@ class ColonyConfiguration(Configuration):
     def get_start_objects(self, collection, context):
 
       ants = []
-      for i in range(20):
-          ant = self._ant_class(context)
+      for i in range(50):
+          ant = self._ant_class(collection, context)
           context.metas.value.set(COLONY, ant.get_id(), collection.get_id())
           ant.set_position(self._start_position)
           ants.append(ant)
