@@ -5,7 +5,7 @@ from intelligine.synergy.event.transport.PutableAction import PutableAction
 from intelligine.synergy.event.transport.TakeableAction import TakeableAction
 from intelligine.synergy.event.move.MoveAction import MoveAction
 from intelligine.synergy.event.CycleAction import CycleAction
-from intelligine.cst import COL_TRANSPORTER_CARRYING, COL_TRANSPORTER_NOT_CARRYING, \
+from intelligine.cst import COL_TRANSPORTER_CARRYING, COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER, \
     COL_WALKER, ACTION_DIE, COL_ALIVE, ALIVE, ATTACKABLE
 
 
@@ -14,7 +14,8 @@ class Simulation(BaseSimulation):
     @staticmethod
     def event_bug_die(bug, context):
         context.metas.collections.remove_list(bug.get_id(),
-                                              [COL_TRANSPORTER_CARRYING, \
+                                              [COL_TRANSPORTER, \
+                                               COL_TRANSPORTER_CARRYING, \
                                                COL_TRANSPORTER_NOT_CARRYING, \
                                                COL_WALKER, \
                                                COL_ALIVE],

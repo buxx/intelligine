@@ -1,6 +1,6 @@
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
-    COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER
+   COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER
 
 
 class Ant(Bug):
@@ -8,7 +8,9 @@ class Ant(Bug):
     def __init__(self, collection, context):
         super().__init__(collection, context)
         context.metas.states.add_list(self.get_id(), [TRANSPORTER, ATTACKER])
-        context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER])
+        context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER,
+                                                           COL_TRANSPORTER_NOT_CARRYING,
+                                                           COL_FIGHTER])
         self._carried = []
 
     def put_carry(self, obj, position=None):
