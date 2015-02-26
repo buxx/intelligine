@@ -8,24 +8,25 @@ from intelligine.synergy.event.CycleAction import CycleAction
 from intelligine.cst import COL_TRANSPORTER_CARRYING, COL_TRANSPORTER_NOT_CARRYING, \
     COL_WALKER, ACTION_DIE, COL_ALIVE, ALIVE, ATTACKABLE
 
-# TODO: Mettre ailleurs ?
-def bug_die(bug, context):
-    context.metas.collections.remove_list(bug.get_id(),
-                                          [COL_TRANSPORTER_CARRYING, \
-                                           COL_TRANSPORTER_NOT_CARRYING, \
-                                           COL_WALKER, \
-                                           COL_ALIVE],
-                                          allow_not_in=True)
-    context.metas.states.remove_list(bug.get_id(), [ALIVE, ATTACKABLE], allow_not_in=True)
 
 class Simulation(BaseSimulation):
+
+    @staticmethod
+    def event_bug_die(bug, context):
+        context.metas.collections.remove_list(bug.get_id(),
+                                              [COL_TRANSPORTER_CARRYING, \
+                                               COL_TRANSPORTER_NOT_CARRYING, \
+                                               COL_WALKER, \
+                                               COL_ALIVE],
+                                              allow_not_in=True)
+        context.metas.states.remove_list(bug.get_id(), [ALIVE, ATTACKABLE], allow_not_in=True)
 
     def connect_actions_signals(self, Signals):
         Signals.signal(PutableAction).connect(lambda obj, context: \
             context.metas.collections.add_remove(obj.get_id(), COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING))
         Signals.signal(TakeableAction).connect(lambda obj, context: \
             context.metas.collections.add_remove(obj.get_id(), COL_TRANSPORTER_CARRYING, COL_TRANSPORTER_NOT_CARRYING))
-        Signals.signal(ACTION_DIE).connect(lambda obj, context: bug_die(obj, context))
+        Signals.signal(ACTION_DIE).connect(lambda obj, context: self.event_bug_die(obj, context))
 
     def end_cycle(self, context):
         if context.get_cycle() % 100 is 0:

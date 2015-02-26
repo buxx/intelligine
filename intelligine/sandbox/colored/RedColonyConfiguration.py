@@ -17,7 +17,6 @@ class RedColonyConfiguration(ColonyConfiguration):
             if x % 3 == 0 and y % 3 == 0:
               egg = Egg(collection, context)
               egg.set_position((0, 1+x, 50+y))
-              # TODO: Ce COLONY doit devenir un truc automatise au niveau de la collection (qd get_object)
               context.metas.value.set(COLONY, egg.get_id(), collection.get_id())
               objects.append(egg)
 
