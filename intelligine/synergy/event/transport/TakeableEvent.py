@@ -1,11 +1,13 @@
-from synergine.synergy.event.Event import Event
+from intelligine.synergy.event.src.NearEvent import NearEvent
 from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
 from intelligine.cst import TRANSPORTABLE, CANT_CARRY_STILL, COL_TRANSPORTER_NOT_CARRYING
 
 
-class TakeableEvent(Event):
+class TakeableEvent(NearEvent):
 
     concern = COL_TRANSPORTER_NOT_CARRYING
+    _near_name = 'objects_ids_transportable'
+    _near_map = lambda self, near_object_id, context: context.metas.states.have(near_object_id, TRANSPORTABLE)
 
     def __init__(self, actions):
         super().__init__(actions)
@@ -14,12 +16,7 @@ class TakeableEvent(Event):
     def _object_match(self, object_id, context, parameters={}):
         if context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True):
             return False
-        # TODO: Nettoyer (refact possible sur ces objets ont tel states, comme dans concern)
-        for obj_near_id in parameters['objects_ids_near']:
-            if context.metas.states.have(obj_near_id, TRANSPORTABLE):
-                if 'objects_ids_transportable' not in parameters:
-                    parameters['objects_ids_transportable'] = []
-                parameters['objects_ids_transportable'].append(obj_near_id)
-        if 'objects_ids_transportable' not in parameters:
+        self.map(context, parameters, stop_at_first=True)
+        if self._near_name not in parameters:
             return False
         return True
