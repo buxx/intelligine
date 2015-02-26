@@ -34,8 +34,6 @@ directions_red_ant = DirectionnedImage(red_ant)
 directions_blue_ant = DirectionnedImage(blue_ant)
 directions_green_ant = DirectionnedImage(green_ant)
 
-# TODO: context donne au callbacks
-
 def bug_direction(bug, context):
     if bug.get_life_points() <= 0:
         return dead_ant
