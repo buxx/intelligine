@@ -12,6 +12,7 @@ class Ant(Bug):
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
         self._carried = []
+        self._last_pheromones_points = {}
 
     def put_carry(self, obj, position=None):
         if position is None:
@@ -39,3 +40,11 @@ class Ant(Bug):
         if self.is_carrying():
             for obj_carried in self._carried:
                 obj_carried.set_position(position)
+
+    def get_last_pheromone_point(self, pheromone_name):
+        if pheromone_name in self._last_pheromones_points:
+            return self._last_pheromones_points[pheromone_name]
+        return self._start_position
+
+    def set_last_pheromone_point(self, pheromone_name, position):
+        self._last_pheromones_points[pheromone_name] = position

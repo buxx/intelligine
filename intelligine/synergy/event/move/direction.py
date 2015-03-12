@@ -97,3 +97,43 @@ directions_slighty = {
   26: (25, 26, 27, 16, 17, 18),
   27: (24, 27, 26, 15, 18, 17),
 }
+
+directions_degrees = {
+    (0, 22): 11,
+    (22, 67): 12,
+    (68, 112): 15,
+    (112, 158): 18,
+    (158, 201): 17,
+    (201, 246): 16,
+    (246, 291): 13,
+    (291, 338): 10,
+    (338, 0): 11
+}
+
+def get_direction_for_degrees(degrees):
+    if degrees < 0:
+        degrees = 360 - degrees - degrees - degrees # TODO: math absolute !!!
+    for plage in directions_degrees:
+        if degrees >= plage[0] and degrees <= plage[1]:
+            return directions_degrees[plage]
+    raise IndexError()  # TODO: personnalised exception
+
+"""
+niv 0:   10 11 12
+         13 14 15
+         16 17 18
+"""
+
+directions_opposites = {
+    10: 18,
+    11: 17,
+    12: 16,
+    13: 15,
+    15: 13,
+    16: 12,
+    17: 11,
+    18: 10
+}
+
+def get_direction_opposite(direction):
+    return directions_opposites[direction]

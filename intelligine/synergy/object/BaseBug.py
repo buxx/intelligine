@@ -10,6 +10,7 @@ class BaseBug(XyzSynergyObject):
         context.metas.collections.add(self.get_id(), COL_ALIVE)
         self._life_points = 10
         self._carried_by = None
+        self._movements_count = -1
 
     def hurted(self, points):
         self._life_points -= points
@@ -31,3 +32,10 @@ class BaseBug(XyzSynergyObject):
         if self._carried_by:
             return True
         return False
+
+    def set_position(self, point):
+        super().set_position(point)
+        self._movements_count += 1
+
+    def get_movements_count(self):
+        return self._movements_count

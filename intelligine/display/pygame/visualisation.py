@@ -29,10 +29,19 @@ eggc4 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/eg
 eggc5 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c5.png')
 eggc7 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c7.png')
 
+
+from intelligine.synergy.object.ant.Pheromon import Pheromon
+phee = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/phee.png')
+dir_phee = directions_ant = DirectionnedImage(phee)
+
+
 directions_ant = DirectionnedImage(ant)
 directions_red_ant = DirectionnedImage(red_ant)
 directions_blue_ant = DirectionnedImage(blue_ant)
 directions_green_ant = DirectionnedImage(green_ant)
+
+def phee_direction(phee, context):
+    return dir_phee.get_for_direction(phee.get_direction())
 
 def bug_direction(bug, context):
     if bug.get_life_points() <= 0:
@@ -118,6 +127,10 @@ visualisation = {
         },
         Rock: {
             'default': rock
-        }
+        },
+        Pheromon: {
+            'default': phee,
+            'callbacks': [phee_direction]
+        },
     }
 }

@@ -4,6 +4,7 @@ from intelligine.synergy.event.attack.NearAttackableAction import NearAttackable
 from intelligine.synergy.event.transport.TakeableAction import TakeableAction
 from intelligine.synergy.event.transport.PutableAction import PutableAction
 from intelligine.synergy.event.CycleAction import CycleAction
+from intelligine.synergy.event.pheromone.ApposeDirection import ApposeDirection
 
 
 class Colony(SynergyCollection):
@@ -11,4 +12,5 @@ class Colony(SynergyCollection):
 
     def __init__(self, configuration):
         super().__init__(configuration)
-        self._actions = [MoveAction, NearAttackableAction, TakeableAction, PutableAction, CycleAction]
+        self._actions = [MoveAction, NearAttackableAction, TakeableAction, PutableAction,
+                         CycleAction, ApposeDirection]
