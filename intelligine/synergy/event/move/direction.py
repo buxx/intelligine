@@ -1,4 +1,3 @@
-
 """
 Directions identifiers 3D, central position is 14.
 niv -1:  1   2  3

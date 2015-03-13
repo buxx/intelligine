@@ -1,9 +1,17 @@
 from xyzworld.Context import Context as XyzContext
 from intelligine.cst import IMPENETRABLE
 from xyzworld.cst import POSITIONS
+from intelligine.synergy.stigmergy.PheromonesManager import PheromonesManager
 
 
 class Context(XyzContext):
+
+    def __init__(self):
+        super().__init__()
+        self._pheromones = PheromonesManager(self)
+
+    def pheromones(self):
+        return self._pheromones
 
     def position_is_penetrable(self, position):
         objects_ids_on_this_point = self.metas.list.get(POSITIONS, position, allow_empty=True)

@@ -18,19 +18,11 @@ class Pygame(XyzPygame):
 
     def _display_pheromones(self, pheromones_positions, context):
         for point in pheromones_positions:
-            ######
-            # refact
-            point_pheromones_infos = context.metas.value.get(PHEROMON_INFOS, point, allow_empty=True,
+            exploration_info = context.pheromones().get_info(point,
+                                                             [PHEROMON_DIRECTION,
+                                                              PHEROMON_DIR_EXPLO],
+                                                             allow_empty=True,
                                                              empty_value={})
-            # TODO: Tout ca dans un get_pheromone_info(PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, direction)
-            #point_pheromones_infos={}
-            if PHEROMON_DIRECTION not in point_pheromones_infos:
-                point_pheromones_infos[PHEROMON_DIRECTION] = {}
-            direction_pheromone = point_pheromones_infos[PHEROMON_DIRECTION]
-            if PHEROMON_DIR_EXPLO not in direction_pheromone:
-                 direction_pheromone[PHEROMON_DIR_EXPLO] = {}
-            exploration_info = direction_pheromone[PHEROMON_DIR_EXPLO]
-            ########
 
             for direction in exploration_info:
                 intensity = exploration_info[direction]
