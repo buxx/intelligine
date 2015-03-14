@@ -1,6 +1,7 @@
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
-   COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, COL_FIGHTER
+                            COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
+                            COL_FIGHTER, MOVE_MODE_EXPLO
 
 
 class Ant(Bug):
@@ -13,6 +14,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = []
         self._last_pheromones_points = {}
+        self._movement_mode = MOVE_MODE_EXPLO
 
     def put_carry(self, obj, position=None):
         if position is None:
@@ -48,3 +50,9 @@ class Ant(Bug):
 
     def set_last_pheromone_point(self, pheromone_name, position):
         self._last_pheromones_points[pheromone_name] = position
+
+    def get_movement_mode(self):
+        return self._movement_mode
+
+    def set_movement_mode(self, movement_mode):
+        self._movement_mode = movement_mode

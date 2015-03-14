@@ -14,6 +14,10 @@ CARRYING = IncrementedNamedInt.get('intelligine.carrying')
 CANT_CARRY_STILL = IncrementedNamedInt.get('intelligine.cantcarry.still')
 CANT_PUT_STILL = IncrementedNamedInt.get('intelligine.cantput.still')
 ACTION_DIE = IncrementedNamedInt.get('intelligine.basebug.action.die')
+
+MOVE_MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.mode.explo')
+MOVE_MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.gohome')
+
 PHEROMON_POSITIONS = IncrementedNamedInt.get('intelligine.phero.positions')
 PHEROMON_INFOS = IncrementedNamedInt.get('intelligine.phero.infos')
 PHEROMON_DIRECTION = IncrementedNamedInt.get('intelligine.phero.direction')
