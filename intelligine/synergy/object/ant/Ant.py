@@ -1,7 +1,9 @@
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
                             COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
-                            COL_FIGHTER, MOVE_MODE_EXPLO
+                            COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, \
+                            PHEROMON_DIR_EXPLO
+from intelligine.synergy.object.Food import Food
 
 
 class Ant(Bug):
@@ -30,6 +32,10 @@ class Ant(Bug):
     def carry(self, obj):
         self._carried.append(obj)
         self._context.metas.states.add(self.get_id(), CARRYING)
+        # TODO: pour le moment hardcode
+        if isinstance(obj, Food):
+            self.set_movement_mode(MOVE_MODE_GOHOME)
+            self.set_last_pheromone_point(PHEROMON_DIR_EXPLO, obj.get_position())
 
     def is_carrying(self):
         if len(self._carried):

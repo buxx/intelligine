@@ -1,7 +1,8 @@
 from xyzworld.display.Pygame import Pygame as XyzPygame
 import pygame
-from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_POSITIONS
-from intelligine.synergy.object.ant.Pheromon import Pheromon
+from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
+from intelligine.synergy.object.ant.PheromonExploration import PheromonExploration
+from intelligine.synergy.object.ant.PheromonHome import PheromonHome
 
 
 class Pygame(XyzPygame):
@@ -27,7 +28,21 @@ class Pygame(XyzPygame):
             for direction in exploration_info:
                 intensity = exploration_info[direction]
                 # TODO: ne pas avoir a creer d'objet, voir comment dans display
-                pheromon = Pheromon(object(), context)
+                pheromon = PheromonHome(object(), context)
+                pheromon.set_direction(direction)
+                self._draw_objects_with_decal(point, [pheromon])
+
+
+            exploration_info = context.pheromones().get_info(point,
+                                                             [PHEROMON_DIRECTION,
+                                                              PHEROMON_DIR_EXPLO],
+                                                             allow_empty=True,
+                                                             empty_value={})
+
+            for direction in exploration_info:
+                intensity = exploration_info[direction]
+                # TODO: ne pas avoir a creer d'objet, voir comment dans display
+                pheromon = PheromonExploration(object(), context)
                 pheromon.set_direction(direction)
                 self._draw_objects_with_decal(point, [pheromon])
 
