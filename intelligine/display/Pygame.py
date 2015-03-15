@@ -1,6 +1,6 @@
 from xyzworld.display.Pygame import Pygame as XyzPygame
 import pygame
-from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
+from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_POSITIONS
 from intelligine.synergy.object.ant.Pheromon import Pheromon
 
 
@@ -20,7 +20,7 @@ class Pygame(XyzPygame):
         for point in pheromones_positions:
             exploration_info = context.pheromones().get_info(point,
                                                              [PHEROMON_DIRECTION,
-                                                              PHEROMON_DIR_EXPLO],
+                                                              PHEROMON_DIR_HOME],
                                                              allow_empty=True,
                                                              empty_value={})
 

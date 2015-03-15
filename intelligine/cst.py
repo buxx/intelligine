@@ -22,6 +22,7 @@ PHEROMON_POSITIONS = IncrementedNamedInt.get('intelligine.phero.positions')
 PHEROMON_INFOS = IncrementedNamedInt.get('intelligine.phero.infos')
 PHEROMON_DIRECTION = IncrementedNamedInt.get('intelligine.phero.direction')
 PHEROMON_DIR_EXPLO = IncrementedNamedInt.get('intelligine.phero.direction.explo')
+PHEROMON_DIR_HOME = IncrementedNamedInt.get('intelligine.phero.direction.home')
 
 COL_ALIVE = IncrementedNamedInt.get('intelligine.col.alive')
 COL_WALKER = IncrementedNamedInt.get('intelligine.col.walker')
