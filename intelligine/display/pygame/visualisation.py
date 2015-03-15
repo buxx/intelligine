@@ -1,6 +1,7 @@
 from xyworld.display.object.pygame.PygameImage import PygameImage
 from xyworld.display.object.pygame.DirectionnedImage import DirectionnedImage
 from intelligine.synergy.object.Bug import Bug
+from intelligine.synergy.object.Food import Food
 from intelligine.synergy.object.ant.Ant import Ant
 from intelligine.sandbox.colored.BlueAnt import BlueAnt
 from intelligine.sandbox.colored.RedAnt import RedAnt
@@ -13,6 +14,7 @@ from intelligine.cst import PREVIOUS_DIRECTION
 # TODO: Analyser les procedes ici pour proposer des outils dans le framework
 
 ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
+food = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/food.png')
 dead_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/dead_ant.png')
 red_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/red_ant.png')
 green_ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/green_ant.png')
@@ -127,6 +129,9 @@ visualisation = {
         },
         Rock: {
             'default': rock
+        },
+        Food: {
+            'default': food
         },
         Pheromon: {
             'default': phee,
