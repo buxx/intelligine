@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="200" height="100" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="Rock" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/rock.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Rock"/>
+    <property name="file" value="intelligine.synergy.object.Rock"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque 1" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3Ntu6lAMRVH4/58+QpVVVacpxMQk2x5DylMhqRZ7PvVyv91ud5fLtXlxLJv2oI8aNu1BHzVs2oM+ati0B33UsGkP+qhh0x70UcOmPeijhk170EcNm/agjxo27WFvH2f/nH+V3zHQRw+ZPnjOTj3oo4adetBHDTv1oI8adupBHzXs1IM+atipB33UsFMP+qhhpx70UcNOPeijhp160EcNO/Wgjxp26kEfNezUgz5q2KkHfdSwUw/6qGGnHvRRw0496KOGnXrQRw079aAP2KYP2KYP2KYP2KYP2HalPrL/iw2qnNXH0f+vECqc2cezr2uEs121j3iNRjjTlfuI12mEs1y9j3itRjjDCn3E6zXCp63SR7xHI3zSSn3E+zTCp6zWR7xXI3zCin3E+zVCtVX7iHtohEor9xH30QhVVu8j7qURKnToI+6nEY7WpY+4p0Y4Uqc+4r4a4Sjd+oh7a4QjdOwj7q8R3tW1j3iGRnhH5z7iORohq3sf8SyNkDGhj3ieRthrSh/xTI2wx6Q+4rkaed+UDaf1Ec+e8vlWmbLfxD7i+Wd/Dyubst3UPh40kjdlt8l9PGgkZ8pm0/t40Mh+U/bSxxeN7DNlK31808jrpuykj5808popG511Hq68r0aem7KPPn6nkb9N2UYf2zSybcou+vibRn43ZRN9PKeR/03ZQx+v0chPU7bQx+s08m3KDvrYRyNfpmygj/1W/t6PMmUDfZAx5fPTBxlTPr/7iRfrmvL5OatkTDkz+iBjypnRBxlTzow+yJhyZvRBxpQzow8yppwZfZAx5czog4wpZ0YfZEw5M/ogY8qZ0QcZU86MPsiYcmb0QcaUM6MPMqacGX2QMeXM6IOMKWdGH2RMOTP6IGPKmTnz72tdrhWufwjmA7Q=
+  </data>
+ </layer>
+</map>

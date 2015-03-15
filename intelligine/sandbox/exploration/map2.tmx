@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="200" height="100" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="Rock" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/rock.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Rock"/>
+    <property name="file" value="intelligine.synergy.object.Rock"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="Food" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/food.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Food"/>
+    <property name="file" value="intelligine.synergy.object.Food"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque 1" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt3MEKg0AQREH1/z86lxyFBFnxTVIFc2+36av7tm27u3z8tikdF3MWM7HWlI6LOYuZWGtKx8WcxUysNaXjYs5iJtaa0nExZzETa03p+FPOJ75jyttxXaHjbzLYB08odGwfVBU6tg+qCh3bB1WFju2DqkLH9kFVoWP7oKrQsX1QVejYPqgqdGwfVBU6tg+qCh1P28fxvsLbca9Cxysy3P0dx8kV3o57FTqu7+NsG/bxHwod2wdVhY7tg6qn/48z/QAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaHgB3d0BMg==
+  </data>
+ </layer>
+</map>

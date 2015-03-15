@@ -1,9 +1,10 @@
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
-from random import randint, choice
+from random import randint, choice, randrange
 from xyzworld.cst import POSITION, POSITIONS
 from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE
 from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
+from intelligine.core.exceptions import NoPheromoneMove
 
 
 class MoveAction(Action):
@@ -17,7 +18,10 @@ class MoveAction(Action):
 
     def prepare(self, context):
       object_point = context.metas.value.get(POSITION, self._object_id)
-      choosed_direction_name, choosed_direction_point = self._get_random_direction_point(context, object_point)
+      try:
+          choosed_direction_name, choosed_direction_point = self._get_pheromone_direction_point(context, object_point)
+      except NoPheromoneMove:
+          choosed_direction_name, choosed_direction_point = self._get_random_direction_point(context, object_point)
       if self._direction_point_is_possible(context, choosed_direction_point):
         self._move_to_point = choosed_direction_point
         self._move_to_direction = choosed_direction_name
@@ -38,6 +42,11 @@ class MoveAction(Action):
         if blocked_since <= 3:  #TODO: config
             try:
                 previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, self._object_id)
+                # TODO: Faut mettre ca en plus propre (proba d'aller tou droit, config, etc)
+                if randrange(100) < 75:  # 75% de change d'aller tout droit
+                    # Dans le futur: les fourmis vont moins tout droit quand elle se croient et se touche
+                    return previous_direction
+
                 directions_list = directions_slighty[previous_direction]
                 # TODO: TMP tant que 1 niveau (z)
                 directions_list = [direction for direction in directions_list if direction > 9 and direction < 19]
@@ -64,3 +73,7 @@ class MoveAction(Action):
             except:
                 blocked_since = 0
             context.metas.value.set(BLOCKED_SINCE, self._object_id, blocked_since+1)
+
+    def _get_pheromone_direction_point(self, context, object_point):
+
+        raise NoPheromoneMove()
