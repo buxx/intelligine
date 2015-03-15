@@ -1,7 +1,7 @@
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.pheromone.PheromoneEvent import PheromoneEvent
 from xyzworld.cst import POSITION
-from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS, MOVE_MODE_EXPLO
+from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_POSITIONS, MOVE_MODE_EXPLO
 from xyzworld.geometry import get_degree_from_north
 from intelligine.synergy.event.move.direction import get_direction_for_degrees, get_direction_opposite
 from intelligine.core.exceptions import SamePosition
@@ -58,4 +58,5 @@ class ApposeDirection(Action):
 
     def _get_pheromone_direction_type(self, obj):
         if obj.get_movement_mode() == MOVE_MODE_EXPLO:
-            return PHEROMON_DIR_EXPLO
+            return PHEROMON_DIR_HOME
+        raise NotImplementedError()
