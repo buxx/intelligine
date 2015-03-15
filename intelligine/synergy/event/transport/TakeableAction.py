@@ -23,7 +23,7 @@ class TakeableAction(Action):
         if obj_transportable.is_carried():
             raise ActionAborted()
         try:
-            obj_carried = obj_transportable.get_carry()
+            obj_carried = obj_transportable.get_what_carry()
             obj_carried.set_carried_by(obj)
             obj.carry(obj_carried)
             context.metas.value.set(CANT_PUT_STILL, obj.get_id(), 5)
