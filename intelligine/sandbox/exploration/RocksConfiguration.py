@@ -9,7 +9,7 @@ class RocksConfiguration(Configuration):
     def get_start_objects(self, collection, context):
         rocks = []
         # TODO: Experimental: Crer un loader de TMX (qui gere aussi les visualisation ?)
-        tmxdata = pytmx.TiledMap(getcwd()+"/intelligine/sandbox/exploration/map2.tmx")
+        tmxdata = pytmx.TiledMap(getcwd()+"/intelligine/sandbox/exploration/map.tmx")
 
         objects = {}
         for tileset in tmxdata.tilesets:

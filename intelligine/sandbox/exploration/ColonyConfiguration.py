@@ -9,4 +9,4 @@ class ColonyConfiguration(ColonyConfiguration):
 
     _start_position = (0, 5, 5)
     _ant_class = Ant
-    _ant_count = 5
+    _ant_count = 100
