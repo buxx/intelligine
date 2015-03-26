@@ -1,9 +1,13 @@
+from intelligine.core.exceptions import BestPheromoneHere
+from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
                             COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
                             COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, \
-                            PHEROMON_DIR_EXPLO
+                            PHEROMON_DIR_EXPLO, LAST_PHERMONES_POINTS
 from intelligine.synergy.object.Food import Food
+from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
+from intelligine.simulation.object.brain.AntBrain import AntBrain
 
 
 class Ant(Bug):
@@ -16,7 +20,14 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = []
         self._last_pheromones_points = {}
-        self._movement_mode = MOVE_MODE_EXPLO
+        self._movement_pheromone_gland = MovementPheromoneGland(self)
+        self._brain.switch_to_mode(MOVE_MODE_EXPLO)
+
+    def _get_brain_instance(self):
+        return AntBrain(self._context, self)
+
+    def get_movement_pheromone_gland(self):
+        return self._movement_pheromone_gland
 
     def put_carry(self, obj, position=None):
         if position is None:
@@ -34,7 +45,7 @@ class Ant(Bug):
         self._context.metas.states.add(self.get_id(), CARRYING)
         # TODO: pour le moment hardcode
         if isinstance(obj, Food):
-            self.set_movement_mode(MOVE_MODE_GOHOME)
+            self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
             self.set_last_pheromone_point(PHEROMON_DIR_EXPLO, obj.get_position())
 
     def is_carrying(self):
@@ -56,9 +67,13 @@ class Ant(Bug):
 
     def set_last_pheromone_point(self, pheromone_name, position):
         self._last_pheromones_points[pheromone_name] = position
+        self._context.metas.value.set(LAST_PHERMONES_POINTS, self.get_id(), self._last_pheromones_points)
 
-    def get_movement_mode(self):
-        return self._movement_mode
-
-    def set_movement_mode(self, movement_mode):
-        self._movement_mode = movement_mode
+    def initialize(self):
+        super().initialize()
+        try:
+            DirectionPheromone.appose(self._context,
+                                      self.get_position(),
+                                      self.get_movement_pheromone_gland().get_movement_molecules())
+        except BestPheromoneHere as best_pheromone_here:
+            pass

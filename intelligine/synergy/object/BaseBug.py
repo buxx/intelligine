@@ -1,5 +1,6 @@
 from intelligine.synergy.object.Transportable import Transportable
 from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE
+from intelligine.simulation.object.brain.Brain import Brain
 
 
 class BaseBug(Transportable):
@@ -10,6 +11,7 @@ class BaseBug(Transportable):
         context.metas.collections.add(self.get_id(), COL_ALIVE)
         self._life_points = 10
         self._movements_count = -1
+        self._brain = self._get_brain_instance()
 
     def hurted(self, points):
         self._life_points -= points
@@ -23,3 +25,9 @@ class BaseBug(Transportable):
 
     def get_movements_count(self):
         return self._movements_count
+
+    def _get_brain_instance(self):
+        return Brain(self._context, self)
+
+    def get_brain(self):
+        return self._brain

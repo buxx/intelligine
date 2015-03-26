@@ -1,0 +1,30 @@
+Warning:
+ * Lorsque une f trp un objet, l'event PUtableEvent observe cjaque tours. C parce que la fourmis rentre dans les clous
+ (carrying). Mais le mechanisme n'a rien trouve: on peux economier les observe dans ce cas la.
+
+Pheromones:
+
+ * Une pheromone doit transporter les données:
+ ** Direction
+ ** Intensité (cumul des pheromones identique, ou depot plus puissant)
+ ** Age (exprimé en "pas"/"nb de cases" depuis l'objectif (colonie/nourriture).
+
+ * Une fourmis ne pose de pheromone que sur la case ou elle se trouve.
+ * Une fourmis ne lit de pheromone que sur la case ou elle se trouve.
+ ** Si il n'y en a pas elle regarde sur les cases autour d'elle
+ *** Si il y a une pheromone (si plusieurs choisir la plus forte, et parmis les plus forte la plus recente (distance))
+ **** Aller dessus, repdrendre depuis "*".
+
+BUGS:
+ * Comme c'est une action qui pose les pheromones, elle survient parfois avant le mouvement. La direction ne pointe
+ alors pas vers la ou il faut. Le depot de pheromone doit etre declenché par l'action de mouvement effectué.
+
+
+NOTE:
+ * Lorsque une fourmis prend un Food; Elle effectue un deplacement en meme temps. Ce qui fait qu'elle va
+   se retrouver a 2 case (?) de la derniere trace de pheromone.aa
+
+Questions en suspens:
+  * Pour limiter la quantité de données, lorsque l'on pose une pheromone pour la direction x, peut-on (au lieu d'ajouter une nouvelle pheromone avec l'age préci) redescendre l'age de la pheromone precedente a l'age en cours.
+    Ex: Directions: Nord: (intensité 5 += 1, age 22 <= 15)
+  * Deux fourmis qui se croisent, posant respectivement ce qu'elle cherche comme pheromone. Vont-elle se bloquer ?

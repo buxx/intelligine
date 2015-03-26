@@ -25,11 +25,10 @@ class Pygame(XyzPygame):
                                                              allow_empty=True,
                                                              empty_value={})
 
-            for direction in exploration_info:
-                intensity = exploration_info[direction]
-                # TODO: ne pas avoir a creer d'objet, voir comment dans display
+            # TODO: ne pas avoir a creer d'objet, voir comment dans display
+            if exploration_info:
                 pheromon = PheromonHome(object(), context)
-                pheromon.set_direction(direction)
+                pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
                 self._draw_objects_with_decal(point, [pheromon])
 
 
@@ -38,12 +37,10 @@ class Pygame(XyzPygame):
                                                               PHEROMON_DIR_EXPLO],
                                                              allow_empty=True,
                                                              empty_value={})
-
-            for direction in exploration_info:
-                intensity = exploration_info[direction]
+            if exploration_info:
                 # TODO: ne pas avoir a creer d'objet, voir comment dans display
                 pheromon = PheromonExploration(object(), context)
-                pheromon.set_direction(direction)
+                pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
                 self._draw_objects_with_decal(point, [pheromon])
 
     def _key_pressed(self, key):

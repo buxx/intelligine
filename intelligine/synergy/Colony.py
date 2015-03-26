@@ -13,4 +13,4 @@ class Colony(SynergyCollection):
     def __init__(self, configuration):
         super().__init__(configuration)
         self._actions = [MoveAction, NearAttackableAction, TakeableAction, PutableAction,
-                         CycleAction, ApposeDirection]
+                         CycleAction]
