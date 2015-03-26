@@ -4,7 +4,6 @@ from intelligine.synergy.event.attack.NearAttackableAction import NearAttackable
 from intelligine.synergy.event.transport.TakeableAction import TakeableAction
 from intelligine.synergy.event.transport.PutableAction import PutableAction
 from intelligine.synergy.event.CycleAction import CycleAction
-from intelligine.synergy.event.pheromone.ApposeDirection import ApposeDirection
 
 
 class Colony(SynergyCollection):
