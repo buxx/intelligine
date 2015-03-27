@@ -32,13 +32,31 @@ class TestDirection(Base):
         :param direction:
         :param pheromone_type:
         :param reference_point:
-        :return: void
+        :return:
         """
         self._set_up_pheromones(pheromones)
         direction_tested = DirectionPheromone.get_direction_for_point(self._context, reference_point, pheromone_type)
         self.assertEqual(direction, direction_tested, "Direction must be %s" % direction)
 
-    def test_direct_route(self):
+    def _test_direction_for_points(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
+                                   reference_point=(0, 0, 0)):
+        """
+
+        :param pheromones:
+        :param direction:
+        :param pheromone_type:
+        :param reference_point:
+        :return:
+        """
+        self._set_up_pheromones(pheromones)
+        around_points = self._context.get_arround_points_of(reference_point)
+        direction_tested = DirectionPheromone.get_best_pheromone_direction_in(self._context,
+                                                                              reference_point,
+                                                                              around_points,
+                                                                              pheromone_type)
+        self.assertEqual(direction, direction_tested, "Direction must be %s" % direction)
+
+    def test_route_direct_route(self):
         """
         Test easy direction with 1 best pheromones just near actual position
         :return:
@@ -81,7 +99,7 @@ class TestDirection(Base):
         for direction_wanted in test_data:
             self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
 
-    def test_with_multiple_same_intensity(self):
+    def test_route_with_multiple_same_intensity(self):
         """
         Test find route in middle of multiple pheromones
         :return:
@@ -103,7 +121,7 @@ class TestDirection(Base):
         for direction_wanted in test_data:
             self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
 
-    def test_with_multiple_different_intensity(self):
+    def test_route_with_multiple_different_intensity(self):
         """
         Test find route in middle of multiple pheromones
         :return:
@@ -118,3 +136,18 @@ class TestDirection(Base):
 
         for direction_wanted in test_data:
             self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
+
+    def test_direction_direct(self):
+        test_data = {
+            11: {
+                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
+            }
+        }
+        self._test_direction_for_points({(0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}},
+                                        11)
+
+    def test_direction_with_multiple_intensity(self):
+        self._test_direction_for_points({(0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                                         (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                                         (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}},
+                                        11)
