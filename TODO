@@ -1,9 +1,10 @@
 TODO:
  * Tester les Action et classes de pheromones
  * Nettoyer le code des pheromones: Refactoriser
+ * Mechanisme qui donne les pheromones arround
  * Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)
  * Appliquer la disparition des pheromones
- 
+
 
 Future:
  * Chambres
