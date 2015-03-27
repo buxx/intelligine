@@ -50,6 +50,17 @@ directions_modifiers = {
   27: (1, 1, 1),
 }
 
+NORTH = 11
+NORTH_EST = 12
+EST = 15
+SOUTH_EST = 18
+SOUTH = 17
+SOUTH_WEST = 16
+WEST = 13
+NORTH_WEST = 10
+
+CENTER = 14
+
 """
 Directions identifiers 3D, central position is 14.
 niv -1:  1   2  3
@@ -134,5 +145,11 @@ directions_opposites = {
     18: 10
 }
 
+
 def get_direction_opposite(direction):
     return directions_opposites[direction]
+
+def get_position_with_direction_decal(direction=CENTER, point=(0, 0, 0)):
+    z, x, y = point
+    directions_modifier = directions_modifiers[direction]
+    return z + directions_modifier[0], x + directions_modifier[1], y + directions_modifier[2]

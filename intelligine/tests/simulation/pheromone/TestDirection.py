@@ -9,6 +9,9 @@ from intelligine.tests.simulation.pheromone.Base import Base
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 from intelligine.core.Context import Context
 from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
+from intelligine.synergy.event.move.direction import NORTH, NORTH_EST, EST, SOUTH_EST, SOUTH, SOUTH_WEST, WEST, \
+    NORTH_WEST, CENTER
+from intelligine.synergy.event.move.direction import get_position_with_direction_decal as _p
 
 
 class TestDirection(Base):
@@ -27,7 +30,7 @@ class TestDirection(Base):
             self._context.pheromones().set_pheromones(position, pheromones[position])
 
     def _test_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
-                                  reference_point=(0, 0, 0)):
+                                  reference_point=_p(CENTER)):
         """
 
         :param pheromones:
@@ -41,7 +44,7 @@ class TestDirection(Base):
         self.assertEqual(direction, direction_tested, "Direction must be %s" % direction)
 
     def _test_direction_for_points(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
-                                   reference_point=(0, 0, 0)):
+                                   reference_point=_p(CENTER)):
         """
 
         :param pheromones:
@@ -64,37 +67,37 @@ class TestDirection(Base):
         :return:
         """
         test_data = {
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            11: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            NORTH: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            12: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, 1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            NORTH_EST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            13: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            15: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, 1, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            EST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            16: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            SOUTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            17: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            SOUTH: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
-            18: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+            SOUTH_EST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             }
         }
 
@@ -107,22 +110,22 @@ class TestDirection(Base):
         :return:
         """
         test_data = {
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
             },
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
-                (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
             },
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
-                (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (8, 1)}}
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (8, 1)}}
             },
         }
 
@@ -135,16 +138,16 @@ class TestDirection(Base):
         :return:
         """
         test_data = {
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
             },
-            10: {
-                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (5, 10)}}  # an other pheromone type
+            NORTH_WEST: {
+                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (5, 10)}}  # an other pheromone type
             }
         }
 
@@ -153,12 +156,12 @@ class TestDirection(Base):
 
     def test_direction_direct(self):
         test_data = {
-            11: {
-                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
+            NORTH: {
+                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
             },
-            11: {
-                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}}  # An other pheromone type
+            NORTH: {
+                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}}  # An other pheromone type
             }
         }
 
@@ -167,16 +170,16 @@ class TestDirection(Base):
 
     def test_direction_with_multiple_intensity(self):
         test_data = {
-            11: {
-                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+            NORTH: {
+                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
             },
-            11: {
-                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
-                (0, -1, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}},  # An other pheromone_type
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
-                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+            NORTH: {
+                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                _p(WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}},  # An other pheromone_type
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
             }
         }
 
@@ -193,7 +196,7 @@ class TestDirection(Base):
         # Wrong pheromone type
         try:  # WTF ?
             self.assertRaises(NoPheromone, self._test_direction_for_points({
-                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
+                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
             }, -1))
         except NoPheromone:
             self.assertTrue(True)
