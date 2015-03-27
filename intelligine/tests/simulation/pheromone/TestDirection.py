@@ -79,3 +79,41 @@ class TestDirection(Base):
 
         for direction_wanted in test_data:
             self._test_direction(test_data[direction_wanted], direction_wanted)
+
+    def test_with_multiple_same_intensity(self):
+        """
+        Test find route in middle of multiple pheromones
+        :return:
+        """
+        test_data = {
+            10: {
+                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+            },
+            10: {
+                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+            },
+        }
+
+        for direction_wanted in test_data:
+            self._test_direction(test_data[direction_wanted], direction_wanted)
+
+    def test_with_multiple_different_intensity(self):
+        """
+        Test find route in middle of multiple pheromones
+        :return:
+        """
+        test_data = {
+            10: {
+                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
+            }
+        }
+
+        for direction_wanted in test_data:
+            self._test_direction(test_data[direction_wanted], direction_wanted)
