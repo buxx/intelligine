@@ -1,12 +1,14 @@
 from os import getcwd
 from sys import path as ppath
+from intelligine.core.exceptions import NoPheromone
+
 ppath.insert(1,getcwd()+'/modules') # TODO: win32 compatibilite (python path)
 # TODO: load et launch des tests auto (avec bootstrap contenant ci dessus)
 
 from intelligine.tests.simulation.pheromone.Base import Base
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 from intelligine.core.Context import Context
-from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO
+from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
 
 
 class TestDirection(Base):
@@ -141,13 +143,45 @@ class TestDirection(Base):
         test_data = {
             11: {
                 (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
+            },
+            11: {
+                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}}  # An other pheromone type
             }
         }
-        self._test_direction_for_points({(0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}},
-                                        11)
+
+        for direction in test_data:
+            self._test_direction_for_points(test_data[direction], direction)
 
     def test_direction_with_multiple_intensity(self):
-        self._test_direction_for_points({(0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
-                                         (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
-                                         (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}},
-                                        11)
+        test_data = {
+            11: {
+                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+            },
+            11: {
+                (0, 0, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                (0, -1, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}},  # An other pheromone_type
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+            }
+        }
+
+        for direction in test_data:
+            self._test_direction_for_points(test_data[direction], direction)
+
+    def test_no_pheromones_around(self):
+        # No pheromone
+        try:  # WTF ?
+            self.assertRaises(NoPheromone, self._test_direction_for_points({}, -1))
+        except NoPheromone:
+            self.assertTrue(True)
+
+        # Wrong pheromone type
+        try:  # WTF ?
+            self.assertRaises(NoPheromone, self._test_direction_for_points({
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
+            }, -1))
+        except NoPheromone:
+            self.assertTrue(True)
