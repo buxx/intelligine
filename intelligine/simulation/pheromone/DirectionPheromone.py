@@ -98,7 +98,7 @@ class DirectionPheromone():
             raise NoPheromone()
 
         shuffle(arround_pheromones_points)
-        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1])
+        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1], reverse=True)
         go_to_point = arround_pheromones_sorted[0][0]
 
         direction_degrees = get_degree_from_north(reference_point, go_to_point)
