@@ -52,7 +52,7 @@ class DirectionPheromone():
             raise NoPheromone()
 
         shuffle(arround_pheromones_points)
-        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1])
+        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1], reverse=True)
         max_intensity = arround_pheromones_sorted[0][1][1]
 
         arround_pheromones_max = []
