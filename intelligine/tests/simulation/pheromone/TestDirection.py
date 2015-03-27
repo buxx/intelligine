@@ -118,6 +118,12 @@ class TestDirection(Base):
                 (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
                 (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
             },
+            10: {
+                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                (0, 0, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (8, 1)}}
+            },
         }
 
         for direction_wanted in test_data:
@@ -133,6 +139,12 @@ class TestDirection(Base):
                 (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
                 (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
                 (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
+            },
+            10: {
+                (0, 0, 0): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                (0, -1, -1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}},
+                (0, 1, 1): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (5, 10)}}  # an other pheromone type
             }
         }
 
