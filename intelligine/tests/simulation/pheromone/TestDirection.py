@@ -24,8 +24,8 @@ class TestDirection(Base):
         for position in pheromones:
             self._context.pheromones().set_pheromones(position, pheromones[position])
 
-    def _get_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
-                                 reference_point=(0, 0, 0)):
+    def _test_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
+                                  reference_point=(0, 0, 0)):
         """
 
         :param pheromones:
@@ -79,7 +79,7 @@ class TestDirection(Base):
         }
 
         for direction_wanted in test_data:
-            self._get_direction_for_point(test_data[direction_wanted], direction_wanted)
+            self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
 
     def test_with_multiple_same_intensity(self):
         """
@@ -101,7 +101,7 @@ class TestDirection(Base):
         }
 
         for direction_wanted in test_data:
-            self._get_direction_for_point(test_data[direction_wanted], direction_wanted)
+            self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
 
     def test_with_multiple_different_intensity(self):
         """
@@ -117,4 +117,4 @@ class TestDirection(Base):
         }
 
         for direction_wanted in test_data:
-            self._get_direction_for_point(test_data[direction_wanted], direction_wanted)
+            self._test_direction_for_point(test_data[direction_wanted], direction_wanted)
