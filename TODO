@@ -1,5 +1,8 @@
 TODO:
  * Tester les Action et classes de pheromones
+   * test des directions (a partir d'une pheromone et vers une pheromone)
+   * Changement de mode (explo;go home)
+
  * Nettoyer le code des pheromones: Refactoriser
  * Mechanisme qui donne les pheromones arround
  * Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)

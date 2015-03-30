@@ -30,7 +30,7 @@ class TestDirection(Base):
             self._context.pheromones().set_pheromones(position, pheromones[position])
 
     def _test_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
-                                  reference_point=_p(CENTER)):
+                                  reference_point=_p(CENTER), re_init=True):
         """
 
         :param pheromones:
@@ -39,12 +39,12 @@ class TestDirection(Base):
         :param reference_point:
         :return:
         """
-        self._set_up_pheromones(pheromones)
+        self._set_up_pheromones(pheromones, re_init=re_init)
         direction_tested = DirectionPheromone.get_direction_for_point(self._context, reference_point, pheromone_type)
         self.assertEqual(direction, direction_tested, "Direction must be %s" % direction)
 
     def _test_direction_for_points(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
-                                   reference_point=_p(CENTER)):
+                                   reference_point=_p(CENTER), re_init=True):
         """
 
         :param pheromones:
@@ -53,7 +53,7 @@ class TestDirection(Base):
         :param reference_point:
         :return:
         """
-        self._set_up_pheromones(pheromones)
+        self._set_up_pheromones(pheromones, re_init=re_init)
         around_points = self._context.get_arround_points_of(reference_point)
         direction_tested = DirectionPheromone.get_best_pheromone_direction_in(self._context,
                                                                               reference_point,
@@ -198,5 +198,40 @@ class TestDirection(Base):
             self.assertRaises(NoPheromone, self._test_direction_for_points({
                 _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
             }, -1))
+        except NoPheromone:
+            self.assertTrue(True)
+
+    def test_appose(self):
+        self._test_point_raise_no_pheromone()
+        self._test_points_raise_no_pheromone()
+
+        # Une pheromone au centre
+        DirectionPheromone.appose(self._context,
+                                  _p(CENTER),
+                                  (PHEROMON_DIR_EXPLO, 2))
+        # Ne permet pas de trouver une route
+        self._test_point_raise_no_pheromone(re_init=False)
+        self._test_points_raise_no_pheromone(re_init=False)
+
+        # Une pheromone au nord
+        DirectionPheromone.appose(self._context,
+                                  _p(NORTH),
+                                  (PHEROMON_DIR_EXPLO, 1))
+        # le permet
+        self._test_direction_for_points({}, NORTH, re_init=False)
+        self._test_direction_for_point({}, NORTH, re_init=False)
+
+
+    def _test_point_raise_no_pheromone(self, pheromones={}, direction=-1, pheromone_type=PHEROMON_DIR_EXPLO,
+                                 reference_point=_p(CENTER), re_init=True):
+        try:  # WTF ?
+            self._test_direction_for_point(pheromones, direction, re_init=re_init)
+        except NoPheromone:
+            self.assertTrue(True)
+
+    def _test_points_raise_no_pheromone(self, pheromones={}, direction=-1, pheromone_type=PHEROMON_DIR_EXPLO,
+                                 reference_point=_p(CENTER), re_init=True):
+        try:  # WTF ?
+            self._test_direction_for_points(pheromones, direction, re_init=re_init)
         except NoPheromone:
             self.assertTrue(True)
