@@ -1,16 +1,12 @@
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice, randrange
-from xyzworld.cst import POSITION, POSITIONS
-from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, MOVE_MODE, MOVE_MODE_GOHOME, MOVE_MODE_EXPLO, \
-                            PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME, PHEROMON_DIRECTION, \
-    COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
+from xyzworld.cst import POSITION
+from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, MOVE_MODE, MOVE_MODE_EXPLO
+from intelligine.cst import COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
 from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
-from intelligine.core.exceptions import NoPheromoneMove, NoPheromone, BestPheromoneHere
-import operator
+from intelligine.core.exceptions import NoPheromone, BestPheromoneHere
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
-from xyzworld.geometry import get_degree_from_north
-from intelligine.synergy.event.move.direction import get_direction_for_degrees, directions_opposites
 
 
 class MoveAction(Action):
