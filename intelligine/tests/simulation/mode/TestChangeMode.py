@@ -108,8 +108,7 @@ class TestChangeMode(Base):
         self.assertEquals(self.food.__class__, self.ant.get_carried().__class__)
         self.assertEquals(MOVE_MODE_GOHOME, self.ant.get_brain().get_movement_mode())
         # Now it appose exploration pheromone
-        self.assertEquals((PHEROMON_DIR_EXPLO, 0),
-                          self.ant.get_movement_pheromone_gland().get_movement_molecules())
+        self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_pheromone_gland().get_pheromone_type())
 
         self._run_and_get_core(4)
         self.assertEquals((0, 0, -2), self.ant.get_position())
@@ -126,3 +125,4 @@ class TestChangeMode(Base):
 
         self.assertFalse(self.ant.is_carrying())
         self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(PHEROMON_DIR_HOME, self.ant.get_movement_pheromone_gland().get_pheromone_type())
