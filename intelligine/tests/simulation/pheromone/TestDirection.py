@@ -2,8 +2,7 @@ from os import getcwd
 from sys import path as ppath
 from intelligine.core.exceptions import NoPheromone
 
-ppath.insert(1,getcwd()+'/modules') # TODO: win32 compatibilite (python path)
-# TODO: load et launch des tests auto (avec bootstrap contenant ci dessus)
+ppath.insert(1,getcwd()+'/modules')
 
 from intelligine.tests.simulation.pheromone.Base import Base
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone

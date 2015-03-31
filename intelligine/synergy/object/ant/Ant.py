@@ -77,3 +77,6 @@ class Ant(Bug):
                                       self.get_movement_pheromone_gland().get_movement_molecules())
         except BestPheromoneHere as best_pheromone_here:
             pass
+
+    def get_colony(self):
+        return self.get_collection()

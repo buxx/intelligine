@@ -120,7 +120,7 @@ class MoveAction(Action):
             self._appose_pheromone(obj, context)
 
             # TEST: le temps de tout tester
-            if self._move_to_point == (0, 5, 5) and obj.is_carrying():
+            if self._move_to_point == obj.get_colony().get_start_position() and obj.is_carrying():
                 obj_transported = obj.get_carried()
                 obj_transported.set_carried_by(None)
                 obj.put_carry(obj_transported, (-1, 0, 0))

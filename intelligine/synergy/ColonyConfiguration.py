@@ -10,6 +10,10 @@ class ColonyConfiguration(Configuration):
     _ant_class = Ant
     _ant_count = 50
 
+    @classmethod
+    def get_start_position(cls):
+        return cls._start_position
+
     def get_start_objects(self, collection, context):
       context.metas.value.set(POSITION, collection.get_id(), self._start_position)
 
