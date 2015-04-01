@@ -10,14 +10,6 @@ from intelligine.synergy.event.move.direction import get_direction_for_degrees
 class DirectionPheromone():
 
     @staticmethod
-    def get_pheromone_type_for_move_mode(move_mode):
-        if move_mode == MOVE_MODE_EXPLO:
-            return PHEROMON_DIR_EXPLO
-        if move_mode == MOVE_MODE_GOHOME:
-            return PHEROMON_DIR_HOME
-        raise NotImplementedError()
-
-    @staticmethod
     def appose(context, point, movement_molecules):
         pheromone_type, distance_from = movement_molecules
         # TODO: Ajouter l'age de la pheromone !

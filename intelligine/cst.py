@@ -14,6 +14,7 @@ CARRYING = IncrementedNamedInt.get('intelligine.carrying')
 CANT_CARRY_STILL = IncrementedNamedInt.get('intelligine.cantcarry.still')
 CANT_PUT_STILL = IncrementedNamedInt.get('intelligine.cantput.still')
 ACTION_DIE = IncrementedNamedInt.get('intelligine.basebug.action.die')
+PHEROMONE_SEARCHING = IncrementedNamedInt.get('intelligine.pheromone_searching')
 
 MOVE_MODE = IncrementedNamedInt.get('intelligine.basebug.move.mode')
 MOVE_MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.mode.explo')

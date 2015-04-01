@@ -2,7 +2,7 @@ from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice, randrange
 from xyzworld.cst import POSITION
-from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, MOVE_MODE, MOVE_MODE_EXPLO
+from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, MOVE_MODE, MOVE_MODE_EXPLO, PHEROMONE_SEARCHING
 from intelligine.cst import COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
 from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
@@ -36,8 +36,7 @@ class MoveAction(Action):
             pass
 
     def _get_direction_with_pheromones(self, context, object_point):
-        object_movement_mode = context.metas.value.get(MOVE_MODE, self._object_id)
-        pheromone_type = DirectionPheromone.get_pheromone_type_for_move_mode(object_movement_mode)
+        pheromone_type = context.metas.value.get(PHEROMONE_SEARCHING, self._object_id)
         try:
             direction = self._get_pheromone_direction_for_point(context, object_point, pheromone_type)
         except NoPheromone:
@@ -119,7 +118,7 @@ class MoveAction(Action):
     @staticmethod
     def _appose_pheromone(obj, context):
         # TODO: Cette action de pheromone doit etre une surcharge de Move afin d'avoir une Action Move generique.
-        obj.get_brain().host_moved()
+        obj.get_brain().host_moved()  # TODO: Auto quand set_position ? (test iit)
         try:
             DirectionPheromone.appose(context,
                                       obj.get_position(),
