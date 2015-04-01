@@ -1,13 +1,11 @@
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from random import randint, choice, randrange
+from synergine.synergy.event.exception.ActionAborted import ActionAborted
 from xyzworld.cst import POSITION
-from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, MOVE_MODE, MOVE_MODE_EXPLO, PHEROMONE_SEARCHING
-from intelligine.cst import COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
-from intelligine.synergy.event.move.direction import directions_same_level, directions_modifiers, directions_slighty
+from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE
+from intelligine.synergy.event.move.direction import directions_same_level, directions_slighty
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
-from intelligine.core.exceptions import NoPheromone, BestPheromoneHere
-from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 
 
 class MoveAction(Action):
@@ -21,12 +19,13 @@ class MoveAction(Action):
 
     def prepare(self, context):
         object_point = context.metas.value.get(POSITION, self._object_id)
+        direction = self._get_prepared_direction(context, object_point)
+        self._set_prepared_direction(context, object_point, direction)
 
-        try:
-            direction = self._get_direction_with_pheromones(context, object_point)
-        except NoPheromone:
-            direction = self._get_random_direction(context)
+    def _get_prepared_direction(self, context, object_point):
+        return self._get_random_direction(context)
 
+    def _set_prepared_direction(self, context, object_point, direction):
         move_to_point = get_position_with_direction_decal(direction, object_point)
         if self._direction_point_is_possible(context, move_to_point):
             self._move_to_point = move_to_point
@@ -34,33 +33,6 @@ class MoveAction(Action):
         else:
             # TODO: mettre self._dont_move = True ?
             pass
-
-    def _get_direction_with_pheromones(self, context, object_point):
-        pheromone_type = context.metas.value.get(PHEROMONE_SEARCHING, self._object_id)
-        try:
-            direction = self._get_pheromone_direction_for_point(context, object_point, pheromone_type)
-        except NoPheromone:
-            try:
-                direction = self._get_direction_of_pheromone(context, object_point, pheromone_type)
-            except NoPheromone:
-                raise
-        return direction
-
-    @staticmethod
-    def _get_pheromone_direction_for_point(context, point, pheromone_type):
-        return DirectionPheromone.get_direction_for_point(context, point, pheromone_type)
-
-    @staticmethod
-    def _get_direction_of_pheromone(context, point, pheromone_type):
-        search_pheromone_in_points = context.get_arround_points_of(point, distance=1)
-        try:
-            best_pheromone_direction = DirectionPheromone.get_best_pheromone_direction_in(context,
-                                                                                          point,
-                                                                                          search_pheromone_in_points,
-                                                                                          pheromone_type)
-            return best_pheromone_direction
-        except NoPheromone as err:
-            raise err
 
     def _get_random_direction(self, context):
         try:
@@ -93,34 +65,17 @@ class MoveAction(Action):
         return context.position_is_penetrable(direction_point)
 
     def run(self, obj, context, synergy_manager):
-        if self._move_to_point is not None and self._move_to_direction != 14: # TODO: il ne faut pas choisir une direction 14.
-            obj.set_position(self._move_to_point)
-            context.metas.value.set(PREVIOUS_DIRECTION, self._object_id, self._move_to_direction)
-            context.metas.value.set(BLOCKED_SINCE, self._object_id, 0)
-            self._appose_pheromone(obj, context)
-
-            # TEST: le temps de tout tester
-            if self._move_to_point == obj.get_colony().get_start_position() and obj.is_carrying():
-                obj_transported = obj.get_carried()
-                obj_transported.set_carried_by(None)
-                obj.put_carry(obj_transported, (-1, 0, 0))
-                obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
-                context.metas.collections.add_remove(obj.get_id(),
-                                                     COL_TRANSPORTER_NOT_CARRYING,
-                                                     COL_TRANSPORTER_CARRYING)
-        else:
-            try:
-                blocked_since = context.metas.value.get(BLOCKED_SINCE, self._object_id)
-            except:
-                blocked_since = 0
+        try:
+            self._apply_move(obj, context)
+        except ActionAborted:
+            blocked_since = context.metas.value.get(BLOCKED_SINCE, self._object_id, allow_empty=True, empty_value=0)
             context.metas.value.set(BLOCKED_SINCE, self._object_id, blocked_since+1)
 
-    @staticmethod
-    def _appose_pheromone(obj, context):
-        # TODO: Cette action de pheromone doit etre une surcharge de Move afin d'avoir une Action Move generique.
-        try:
-            DirectionPheromone.appose(context,
-                                      obj.get_position(),
-                                      obj.get_movement_pheromone_gland().get_movement_molecules())
-        except BestPheromoneHere as best_pheromone_here:
-            obj.get_brain().set_distance_from_objective(best_pheromone_here.get_best_distance())
+    def _apply_move(self, obj, context):
+        # TODO: il ne faut pas choisir une direction 14.
+        if self._move_to_point is None or self._move_to_direction == 14:
+            raise ActionAborted()
+
+        obj.set_position(self._move_to_point)
+        context.metas.value.set(PREVIOUS_DIRECTION, self._object_id, self._move_to_direction)
+        context.metas.value.set(BLOCKED_SINCE, self._object_id, 0)

@@ -10,7 +10,7 @@ from intelligine.tests.simulation.mode.Base import Base
 from intelligine.synergy.Colony import Colony
 from intelligine.synergy.Simulation import Simulation
 from intelligine.synergy.ColonyConfiguration import ColonyConfiguration
-from intelligine.synergy.event.move.MoveAction import MoveAction
+from intelligine.synergy.event.move.PheromoneMoveAction import PheromoneMoveAction
 from intelligine.synergy.event.move.direction import NORTH, SOUTH
 from intelligine.tests.src.event.MoveAction import MoveAction as TestMoveAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
@@ -43,7 +43,7 @@ class TestChangeMode(Base):
         class TestColony(Colony):
             def __init__(self, configuration):
                 super().__init__(configuration)
-                self._actions.remove(MoveAction)
+                self._actions.remove(PheromoneMoveAction)
                 TestMoveAction.force_direction = test_case._force_move
                 self._actions.append(TestMoveAction)
         return TestColony(self._get_colony_configuration())

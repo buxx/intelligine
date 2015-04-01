@@ -1,4 +1,4 @@
-from intelligine.synergy.event.move.MoveAction import MoveAction as BaseMoveAction
+from intelligine.synergy.event.move.PheromoneMoveAction import PheromoneMoveAction as BaseMoveAction
 from intelligine.synergy.event.move.direction import NORTH
 
 
