@@ -55,6 +55,8 @@ class Ant(Bug):
 
     # TODO: Est-ce ici que doit etre ce code ?
     def set_position(self, position):
+        if self._position is not None:
+            self._brain.host_moved()
         super().set_position(position)
         if self.is_carrying():
             for obj_carried in self._carried:

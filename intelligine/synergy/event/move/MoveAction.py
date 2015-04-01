@@ -118,7 +118,6 @@ class MoveAction(Action):
     @staticmethod
     def _appose_pheromone(obj, context):
         # TODO: Cette action de pheromone doit etre une surcharge de Move afin d'avoir une Action Move generique.
-        obj.get_brain().host_moved()  # TODO: Auto quand set_position ? (test iit)
         try:
             DirectionPheromone.appose(context,
                                       obj.get_position(),
