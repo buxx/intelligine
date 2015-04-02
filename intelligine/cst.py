@@ -34,3 +34,6 @@ COL_FIGHTER = IncrementedNamedInt.get('intelligine.col.walker')
 COL_TRANSPORTER = IncrementedNamedInt.get('intelligine.col.transporter')
 COL_TRANSPORTER_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_carrying')
 COL_TRANSPORTER_NOT_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_not_carrying')
+
+BRAIN_SCHEMA = IncrementedNamedInt.get('intelligine.brain_schema')
+BRAIN_PART_MOVE = IncrementedNamedInt.get('intelligine.brain.part.move')

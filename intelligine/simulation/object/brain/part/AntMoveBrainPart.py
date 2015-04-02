@@ -1,25 +1,28 @@
-from intelligine.synergy.event.move.MoveAction import MoveAction
-from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO
-from intelligine.cst import COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
+from intelligine.simulation.object.brain.part.MoveBrainPart import MoveBrainPart
+from xyzworld.cst import POSITION
 from intelligine.core.exceptions import NoPheromone, BestPheromoneHere
+from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO, COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 
 
-class PheromoneMoveAction(MoveAction):
+class AntMoveBrainPart(MoveBrainPart):
 
-    def _get_prepared_direction(self, context, object_point):
+    @classmethod
+    def get_direction(cls, context, object_id):
         try:
-            return self._get_direction_with_pheromones(context, object_point)
+            return cls._get_direction_with_pheromones(context, object_id)
         except NoPheromone:
-            return super()._get_prepared_direction(context, object_point)
+            return super().get_direction(context, object_id)
 
-    def _get_direction_with_pheromones(self, context, object_point):
-        pheromone_type = context.metas.value.get(PHEROMONE_SEARCHING, self._object_id)
+    @classmethod
+    def _get_direction_with_pheromones(cls, context, object_id):
+        object_point = context.metas.value.get(POSITION, object_id)
+        pheromone_type = context.metas.value.get(PHEROMONE_SEARCHING, object_id)
         try:
-            direction = self._get_pheromone_direction_for_point(context, object_point, pheromone_type)
+            direction = cls._get_pheromone_direction_for_point(context, object_point, pheromone_type)
         except NoPheromone:
             try:
-                direction = self._get_direction_of_pheromone(context, object_point, pheromone_type)
+                direction = cls._get_direction_of_pheromone(context, object_point, pheromone_type)
             except NoPheromone:
                 raise
         return direction
@@ -40,12 +43,12 @@ class PheromoneMoveAction(MoveAction):
         except NoPheromone as err:
             raise err
 
-    def _apply_move(self, obj, context):
-        super()._apply_move(obj, context)
+    def done(self, obj, context):
+        super().done(obj, context)
         self._appose_pheromone(obj, context)
 
         # TEST: le temps de tout tester
-        if self._move_to_point == obj.get_colony().get_start_position() and obj.is_carrying():
+        if obj.get_position() == obj.get_colony().get_start_position() and obj.is_carrying():
             obj_transported = obj.get_carried()
             obj_transported.set_carried_by(None)
             obj.put_carry(obj_transported, (-1, 0, 0))
@@ -63,5 +66,4 @@ class PheromoneMoveAction(MoveAction):
                                       obj.get_movement_pheromone_gland().get_movement_molecules())
         except BestPheromoneHere as best_pheromone_here:
             obj.get_brain().set_distance_from_objective(best_pheromone_here.get_best_distance())
-
 
