@@ -1,0 +1,2 @@
+class PheromoneFlavour():
+    pass

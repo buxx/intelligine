@@ -10,7 +10,6 @@ class DirectionPheromone():
     @staticmethod
     def appose(context, point, movement_molecules):
         pheromone_type, distance_from = movement_molecules
-        # TODO: Ajouter l'age de la pheromone !
         context.pheromones().increment(point, [PHEROMON_DIRECTION, pheromone_type], distance=distance_from)
         context.metas.list.add(PHEROMON_POSITIONS, PHEROMON_POSITIONS, point, assert_not_in=False)
 

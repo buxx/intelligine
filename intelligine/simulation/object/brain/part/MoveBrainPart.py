@@ -37,4 +37,4 @@ class MoveBrainPart(BrainPart):
 
     @classmethod
     def _get_random_direction(cls, context, object_id):
-        return randint(directions_same_level)
+        return randint(directions_same_level[0], directions_same_level[-1])
