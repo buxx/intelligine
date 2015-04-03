@@ -51,4 +51,5 @@ class MoveAction(Action):
             raise ActionAborted()
 
         obj.set_position(self._move_to_point)
+        obj.set_previous_direction(self._move_to_direction)
         obj.get_brain().get_part(BRAIN_PART_MOVE).done(obj, context)
