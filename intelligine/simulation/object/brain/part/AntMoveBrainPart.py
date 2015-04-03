@@ -1,6 +1,6 @@
 from intelligine.simulation.object.brain.part.MoveBrainPart import MoveBrainPart
 from xyzworld.cst import POSITION
-from intelligine.core.exceptions import NoPheromone, BestPheromoneHere
+from intelligine.core.exceptions import NoPheromone
 from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO, COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
 
@@ -45,7 +45,7 @@ class AntMoveBrainPart(MoveBrainPart):
 
     def done(self, obj, context):
         super().done(obj, context)
-        self._appose_pheromone(obj, context)
+        self._appose_pheromone(obj)
 
         # TEST: le temps de tout tester
         if obj.get_position() == obj.get_colony().get_start_position() and obj.is_carrying():
@@ -58,12 +58,6 @@ class AntMoveBrainPart(MoveBrainPart):
                                                  COL_TRANSPORTER_CARRYING)
 
     @staticmethod
-    def _appose_pheromone(obj, context):
-        # TODO: Cette action de pheromone doit etre une surcharge de Move afin d'avoir une Action Move generique.
-        try:
-            DirectionPheromone.appose(context,
-                                      obj.get_position(),
-                                      obj.get_movement_pheromone_gland().get_movement_molecules())
-        except BestPheromoneHere as best_pheromone_here:
-            obj.get_brain().set_distance_from_objective(best_pheromone_here.get_best_distance())
+    def _appose_pheromone(obj):
+        obj.get_movement_pheromone_gland().appose()
 

@@ -20,7 +20,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = []
         self._last_pheromones_points = {}
-        self._movement_pheromone_gland = MovementPheromoneGland(self)
+        self._movement_pheromone_gland = MovementPheromoneGland(self, self._context)
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
 
     def _get_brain_instance(self):
