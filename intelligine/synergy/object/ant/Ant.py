@@ -20,6 +20,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = []
         self._last_pheromones_points = {}
+        # TODO: Faire un body_part schema pour ces trucs la
         self._movement_pheromone_gland = MovementPheromoneGland(self, self._context)
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
 
@@ -56,13 +57,14 @@ class Ant(Bug):
 
     # TODO: Est-ce ici que doit etre ce code ?
     def set_position(self, position):
-        if self._position is not None:
+        if self._position is not None and position != self._position:
             self._brain.host_moved()
         super().set_position(position)
         if self.is_carrying():
             for obj_carried in self._carried:
                 obj_carried.set_position(position)
 
+    # TODO: N'est plus utiliser ! delete it !
     def get_last_pheromone_point(self, pheromone_name):
         if pheromone_name in self._last_pheromones_points:
             return self._last_pheromones_points[pheromone_name]
