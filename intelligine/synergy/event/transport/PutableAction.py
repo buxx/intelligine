@@ -31,13 +31,13 @@ class PutableAction(Action):
         obj_transportable_pos = obj_transportable.get_position()
         if self._is_available_position(context, obj_transportable_pos):
             return obj_transportable_pos
-        poss_arround_target = context.get_arround_points_of_point(obj_transportable_pos)
-        poss_arround_obj = context.get_arround_points_of_point(obj.get_position())
+        poss_around_target = context.get_around_points_of_point(obj_transportable_pos)
+        poss_around_obj = context.get_around_points_of_point(obj.get_position())
         # For each position between target and current transporter
-        for pos_arround_target in poss_arround_target:
-            if pos_arround_target in poss_arround_obj:
-                if self._is_available_position(context, pos_arround_target):
-                    return pos_arround_target
+        for pos_around_target in poss_around_target:
+            if pos_around_target in poss_around_obj:
+                if self._is_available_position(context, pos_around_target):
+                    return pos_around_target
         raise ActionAborted()
 
     def _is_available_position(self, context, position):

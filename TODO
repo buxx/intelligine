@@ -4,14 +4,14 @@ TODO:
    * Changement de mode (explo;go home)
  * Pheromones: Mettre en place un systeme objet qui permet de donner aux Obj leur comportement pheromone. Au lieu de le deduire a la mano (aujourd'hui un MoveAction le fait pour tous, or cela doit dependre de l'obj)
  * Nettoyer le code des pheromones: Refactoriser
- * Mechanisme qui donne les pheromones arround
+ * Mechanisme qui donne les pheromones around
  * Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)
  * Appliquer la disparition des pheromones
 
 
 Future:
  * Chambres
-
+ *
 
 Warning:
  * Lorsque une f trp un objet, le PutableEvent observe chaque tours. C parce que la fourmis rentre dans la COL

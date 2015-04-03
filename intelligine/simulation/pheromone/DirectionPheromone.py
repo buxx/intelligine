@@ -26,32 +26,32 @@ class DirectionPheromone():
 
         point_intensity = pheromone_info[1]
         point_distance = pheromone_info[0]
-        arround_points = context.get_arround_points_of(point)
+        around_points = context.get_around_points_of(point)
 
-        arround_pheromones_points = []
-        for arround_point in arround_points:
-            arround_pheromone_info = context.pheromones().get_info(arround_point,
+        around_pheromones_points = []
+        for around_point in around_points:
+            around_pheromone_info = context.pheromones().get_info(around_point,
                                                                    [PHEROMON_DIRECTION, pheromone_type],
                                                                    allow_empty=True,
                                                                    empty_value={})
-            if arround_pheromone_info and arround_pheromone_info[0] < point_distance:
-                arround_pheromones_points.append((arround_point, arround_pheromone_info))
+            if around_pheromone_info and around_pheromone_info[0] < point_distance:
+                around_pheromones_points.append((around_point, around_pheromone_info))
 
-        if not arround_pheromones_points:
+        if not around_pheromones_points:
             raise NoPheromone()
 
-        shuffle(arround_pheromones_points)
-        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1], reverse=True)
-        max_intensity = arround_pheromones_sorted[0][1][1]
+        shuffle(around_pheromones_points)
+        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1][1], reverse=True)
+        max_intensity = around_pheromones_sorted[0][1][1]
 
-        arround_pheromones_max = []
-        for arround_pheromone_sorted in arround_pheromones_sorted:
-            if arround_pheromone_sorted[1][1] == max_intensity:
-                arround_pheromones_max.append(arround_pheromone_sorted)
+        around_pheromones_max = []
+        for around_pheromone_sorted in around_pheromones_sorted:
+            if around_pheromone_sorted[1][1] == max_intensity:
+                around_pheromones_max.append(around_pheromone_sorted)
 
-        arround_pheromones_sorted_by_distance = sorted(arround_pheromones_max, key=lambda x: x[1][0], reverse=False)
+        around_pheromones_sorted_by_distance = sorted(around_pheromones_max, key=lambda x: x[1][0], reverse=False)
 
-        go_to_point = arround_pheromones_sorted_by_distance[0][0]
+        go_to_point = around_pheromones_sorted_by_distance[0][0]
 
         direction_degrees = get_degree_from_north(point, go_to_point)
         direction = get_direction_for_degrees(direction_degrees)
@@ -74,21 +74,21 @@ class DirectionPheromone():
 
     @staticmethod
     def get_best_pheromone_direction_in(context, reference_point, points, pheromone_type):
-        arround_pheromones_points = []
-        for arround_point in points:
-            arround_pheromone_info = context.pheromones().get_info(arround_point,
+        around_pheromones_points = []
+        for around_point in points:
+            around_pheromone_info = context.pheromones().get_info(around_point,
                                                                    [PHEROMON_DIRECTION, pheromone_type],
                                                                    allow_empty=True,
                                                                    empty_value={})
-            if arround_pheromone_info:
-                arround_pheromones_points.append((arround_point, arround_pheromone_info))
+            if around_pheromone_info:
+                around_pheromones_points.append((around_point, around_pheromone_info))
 
-        if not arround_pheromones_points:
+        if not around_pheromones_points:
             raise NoPheromone()
 
-        shuffle(arround_pheromones_points)
-        arround_pheromones_sorted = sorted(arround_pheromones_points, key=lambda x: x[1][1], reverse=True)
-        go_to_point = arround_pheromones_sorted[0][0]
+        shuffle(around_pheromones_points)
+        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1][1], reverse=True)
+        go_to_point = around_pheromones_sorted[0][0]
 
         direction_degrees = get_degree_from_north(reference_point, go_to_point)
         direction = get_direction_for_degrees(direction_degrees)
