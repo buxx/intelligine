@@ -47,6 +47,7 @@ class Ant(Bug):
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
             self.set_last_pheromone_point(PHEROMON_DIR_EXPLO, obj.get_position())
+            self.get_movement_pheromone_gland().appose()
 
     def is_carrying(self):
         if len(self._carried):
