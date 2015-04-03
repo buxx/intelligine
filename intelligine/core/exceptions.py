@@ -32,3 +32,6 @@ class BrainException(Exception):
 
 class BrainPartAlreadyExist(BrainException):
     pass
+
+class DirectionException(Exception):
+    pass

@@ -1,3 +1,4 @@
+from intelligine.core.exceptions import DirectionException
 from intelligine.simulation.object.brain.part.BrainPart import BrainPart
 from intelligine.synergy.event.move.direction import directions_same_level, directions_slighty
 from random import randint, choice, randrange
@@ -8,15 +9,15 @@ class MoveBrainPart(BrainPart):
 
     @classmethod
     def get_direction(cls, context, object_id):
-        return cls._get_random_direction(context, object_id)
+        try:
+            return cls._get_slighty_direction(context, object_id)
+        except DirectionException:
+            return cls._get_random_direction(context, object_id)
 
     @classmethod
-    def _get_random_direction(cls, context, object_id):
-        try:
-            blocked_since = context.metas.value.get(BLOCKED_SINCE, object_id)
-        except KeyError:
-            blocked_since = 0
-        direction_name = None
+    def _get_slighty_direction(cls, context, object_id):
+        # TODO: A terme le calcul de la direction devra prendre en compte les directions bloques
+        blocked_since = context.metas.value.get(BLOCKED_SINCE, object_id, allow_empty=True, empty_value=0)
         if blocked_since <= 3:  #TODO: config
             try:
                 previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, object_id)
@@ -28,11 +29,12 @@ class MoveBrainPart(BrainPart):
                 directions_list = directions_slighty[previous_direction]
                 # TODO: TMP tant que 1 niveau (z)
                 directions_list = [direction for direction in directions_list if 9 < direction < 19]
-                direction_name = choice(directions_list)
+                return choice(directions_list)
             except KeyError:
                 pass
 
-        if not direction_name:
-            direction_name = randint(directions_same_level)
+        raise DirectionException()
 
-        return direction_name
+    @classmethod
+    def _get_random_direction(cls, context, object_id):
+        return randint(directions_same_level)
