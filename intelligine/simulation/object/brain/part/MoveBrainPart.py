@@ -27,12 +27,12 @@ class MoveBrainPart(BrainPart):
 
                 directions_list = directions_slighty[previous_direction]
                 # TODO: TMP tant que 1 niveau (z)
-                directions_list = [direction for direction in directions_list if direction > 9 and direction < 19]
+                directions_list = [direction for direction in directions_list if 9 < direction < 19]
                 direction_name = choice(directions_list)
             except KeyError:
                 pass
 
         if not direction_name:
-            direction_name = randint(directions_same_level[0], directions_same_level[1])
+            direction_name = randint(directions_same_level)
 
         return direction_name

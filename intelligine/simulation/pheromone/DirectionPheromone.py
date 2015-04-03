@@ -1,6 +1,4 @@
-from collections import OrderedDict
-from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_POSITIONS, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME,\
-    PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
+from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_POSITIONS
 from intelligine.core.exceptions import NoPheromone
 from random import shuffle
 from xyzworld.geometry import get_degree_from_north

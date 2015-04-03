@@ -2,7 +2,7 @@ from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from synergine.synergy.event.exception.ActionAborted import ActionAborted
 from xyzworld.cst import POSITION
-from intelligine.cst import PREVIOUS_DIRECTION, BLOCKED_SINCE, BRAIN_PART_MOVE, BRAIN_SCHEMA
+from intelligine.cst import BLOCKED_SINCE, BRAIN_PART_MOVE, BRAIN_SCHEMA
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
 
 
@@ -52,7 +52,3 @@ class MoveAction(Action):
 
         obj.set_position(self._move_to_point)
         obj.get_brain().get_part(BRAIN_PART_MOVE).done(obj, context)
-
-        # TODO: Ces metas update dans ant ?
-        context.metas.value.set(PREVIOUS_DIRECTION, self._object_id, self._move_to_direction)
-        context.metas.value.set(BLOCKED_SINCE, self._object_id, 0)
