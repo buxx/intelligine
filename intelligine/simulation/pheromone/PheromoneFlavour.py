@@ -11,7 +11,9 @@ class PheromoneFlavour():
             pheromones_by_category = raw_data[category]
             for type in pheromones_by_category:
                 distance, intensity = pheromones_by_category[type]
-                flavour.update({category: {type: Pheromone(category, type, distance, intensity)}})
+                if category not in flavour:
+                    flavour[category] = {}
+                flavour[category][type] = Pheromone(category, type, distance, intensity)
         return cls(flavour)
 
     def get_raw_data(self):
@@ -20,7 +22,9 @@ class PheromoneFlavour():
             pheromones_by_category = self._flavour[category]
             for type in pheromones_by_category:
                 pheromone = pheromones_by_category[type]
-                raw_data.update({category: {type: (pheromone.get_distance(), pheromone.get_intensity())}})
+                if category not in raw_data:
+                    raw_data[category] = {}
+                raw_data[category][type] = (pheromone.get_distance(), pheromone.get_intensity())
         return raw_data
 
     def __init__(self, flavour):
