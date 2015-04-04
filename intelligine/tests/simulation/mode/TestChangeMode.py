@@ -96,8 +96,8 @@ class TestChangeMode(Base):
 
         self._run_and_get_core(2)
         self.assertEquals((0, 0, -2), self.ant.get_position())
-        self.assertEquals((PHEROMON_DIR_EXPLO, 0),
-                          self.ant.get_movement_pheromone_gland().get_movement_molecules())
+        pheromone = self.ant.get_movement_pheromone_gland().get_pheromone()
+        self.assertEquals((PHEROMON_DIR_EXPLO, 0), (pheromone.get_type(), pheromone.get_distance()))
 
         # Ant has take Food piece
         self._run_and_get_core(3)

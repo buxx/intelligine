@@ -18,6 +18,14 @@ class NoPheromoneMove(PheromoneException, MovementException):
     pass
 
 
+class NoTypeInPheromone(NoPheromone):
+    pass
+
+
+class NoCategoryInPheromone(NoPheromone):
+    pass
+
+
 class BestPheromoneHere(PheromoneException):
 
     def __init__(self, best_distance,  *args, **kwargs):

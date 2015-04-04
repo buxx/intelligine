@@ -1,3 +1,4 @@
+from intelligine.core.exceptions import NoPheromone
 from xyzworld.display.Pygame import Pygame as XyzPygame
 import pygame
 from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
@@ -11,37 +12,29 @@ class Pygame(XyzPygame):
         super().__init__(config, context)
         self._is_display_pheromones = False
 
-
     def receive(self, synergy_object_manager, context):
         super().receive(synergy_object_manager, context)
         if self._is_display_pheromones:
             self._display_pheromones(context.metas.list.get(PHEROMON_POSITIONS, PHEROMON_POSITIONS, allow_empty=True), context)
 
     def _display_pheromones(self, pheromones_positions, context):
+        # TODO: Code de test bordelique !
         for point in pheromones_positions:
-            exploration_info = context.pheromones().get_info(point,
-                                                             [PHEROMON_DIRECTION,
-                                                              PHEROMON_DIR_HOME],
-                                                             allow_empty=True,
-                                                             empty_value={})
-
-            # TODO: ne pas avoir a creer d'objet, voir comment dans display
-            if exploration_info:
+            flavour = context.pheromones().get_flavour(point)
+            try:
+                flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_HOME)
                 pheromon = PheromonHome(object(), context)
                 pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
                 self._draw_objects_with_decal(point, [pheromon])
-
-
-            exploration_info = context.pheromones().get_info(point,
-                                                             [PHEROMON_DIRECTION,
-                                                              PHEROMON_DIR_EXPLO],
-                                                             allow_empty=True,
-                                                             empty_value={})
-            if exploration_info:
-                # TODO: ne pas avoir a creer d'objet, voir comment dans display
+            except NoPheromone:
+                pass
+            try:
+                flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_EXPLO)
                 pheromon = PheromonExploration(object(), context)
                 pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
                 self._draw_objects_with_decal(point, [pheromon])
+            except NoPheromone:
+                pass
 
     def _key_pressed(self, key):
         if key == pygame.K_p:

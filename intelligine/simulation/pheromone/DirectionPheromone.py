@@ -8,48 +8,43 @@ from intelligine.synergy.event.move.direction import get_direction_for_degrees
 class DirectionPheromone():
 
     @staticmethod
-    def appose(context, point, movement_molecules):
-        pheromone_type, distance_from = movement_molecules
-        context.pheromones().increment(point, [PHEROMON_DIRECTION, pheromone_type], distance=distance_from)
+    def appose(context, point, pheromone):
+        context.pheromones().increment_with_pheromone(point, pheromone)
         context.metas.list.add(PHEROMON_POSITIONS, PHEROMON_POSITIONS, point, assert_not_in=False)
 
     @staticmethod
     def get_direction_for_point(context, point, pheromone_type):
-        try:
-            pheromone_info = context.pheromones().get_info(point, [PHEROMON_DIRECTION, pheromone_type])
-        except KeyError:
-            raise NoPheromone()
+        flavour = context.pheromones().get_flavour(point)
+        pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
 
-        # DEBUG: On se rettrouve avec un {} ...
-        if not pheromone_info:
-            raise NoPheromone()
-
-        point_intensity = pheromone_info[1]
-        point_distance = pheromone_info[0]
+        distance = pheromone.get_distance()
         around_points = context.get_around_points_of(point)
-
+        # TODO: Cet algo around a mettre ailleurs
         around_pheromones_points = []
         for around_point in around_points:
-            around_pheromone_info = context.pheromones().get_info(around_point,
-                                                                   [PHEROMON_DIRECTION, pheromone_type],
-                                                                   allow_empty=True,
-                                                                   empty_value={})
-            if around_pheromone_info and around_pheromone_info[0] < point_distance:
-                around_pheromones_points.append((around_point, around_pheromone_info))
+            flavour = context.pheromones().get_flavour(around_point)
+            try:
+                around_pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
+                if around_pheromone.get_distance() < distance:
+                    around_pheromones_points.append((around_point, around_pheromone))
+            except NoPheromone:
+                pass  # No pheromone, ok continue to sniff around
 
         if not around_pheromones_points:
             raise NoPheromone()
 
         shuffle(around_pheromones_points)
-        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1][1], reverse=True)
-        max_intensity = around_pheromones_sorted[0][1][1]
+        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1].get_intensity(), reverse=True)
+        max_intensity = around_pheromones_sorted[0][1].get_intensity()
 
         around_pheromones_max = []
         for around_pheromone_sorted in around_pheromones_sorted:
-            if around_pheromone_sorted[1][1] == max_intensity:
+            if around_pheromone_sorted[1].get_intensity() == max_intensity:
                 around_pheromones_max.append(around_pheromone_sorted)
 
-        around_pheromones_sorted_by_distance = sorted(around_pheromones_max, key=lambda x: x[1][0], reverse=False)
+        around_pheromones_sorted_by_distance = sorted(around_pheromones_max,
+                                                      key=lambda x: x[1].get_distance(),
+                                                      reverse=False)
 
         go_to_point = around_pheromones_sorted_by_distance[0][0]
 
@@ -76,18 +71,18 @@ class DirectionPheromone():
     def get_best_pheromone_direction_in(context, reference_point, points, pheromone_type):
         around_pheromones_points = []
         for around_point in points:
-            around_pheromone_info = context.pheromones().get_info(around_point,
-                                                                   [PHEROMON_DIRECTION, pheromone_type],
-                                                                   allow_empty=True,
-                                                                   empty_value={})
-            if around_pheromone_info:
-                around_pheromones_points.append((around_point, around_pheromone_info))
+            flavour = context.pheromones().get_flavour(around_point)
+            try:
+                around_pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
+                around_pheromones_points.append((around_point, around_pheromone))
+            except NoPheromone:
+                pass  # Ok, no pheromone, continue to sniff around
 
         if not around_pheromones_points:
             raise NoPheromone()
 
         shuffle(around_pheromones_points)
-        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1][1], reverse=True)
+        around_pheromones_sorted = sorted(around_pheromones_points, key=lambda x: x[1].get_intensity(), reverse=True)
         go_to_point = around_pheromones_sorted[0][0]
 
         direction_degrees = get_degree_from_north(reference_point, go_to_point)

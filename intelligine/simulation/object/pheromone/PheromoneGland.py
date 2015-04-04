@@ -16,10 +16,13 @@ class PheromoneGland():
             raise Exception("pheromone_type not specified")
         return self._pheromone_type
 
+    def get_pheromone(self):
+        raise NotImplementedError()
+
     def appose(self):
         try:
             DirectionPheromone.appose(self._context,
                                       self._host.get_position(),
-                                      self._host.get_movement_pheromone_gland().get_movement_molecules())
+                                      self.get_pheromone())
         except BestPheromoneHere as best_pheromone_here:
             self._host.get_brain().set_distance_from_objective(best_pheromone_here.get_best_distance())

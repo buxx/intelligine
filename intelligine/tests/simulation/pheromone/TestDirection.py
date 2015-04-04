@@ -1,6 +1,8 @@
 from os import getcwd
 from sys import path as ppath
 from intelligine.core.exceptions import NoPheromone
+from intelligine.simulation.pheromone.Pheromone import Pheromone
+from intelligine.simulation.pheromone.PheromoneFlavour import PheromoneFlavour
 
 ppath.insert(1,getcwd()+'/modules')
 
@@ -26,7 +28,7 @@ class TestDirection(Base):
         if re_init:
             self._context = Context()
         for position in pheromones:
-            self._context.pheromones().set_pheromones(position, pheromones[position])
+            self._context.pheromones().set_flavour(position, PheromoneFlavour(pheromones[position]))
 
     def _test_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
                                   reference_point=_p(CENTER), re_init=True):
@@ -207,7 +209,7 @@ class TestDirection(Base):
         # Une pheromone au centre
         DirectionPheromone.appose(self._context,
                                   _p(CENTER),
-                                  (PHEROMON_DIR_EXPLO, 2))
+                                  self._get_pheromone(PHEROMON_DIR_EXPLO, 2))
         # Ne permet pas de trouver une route
         self._test_point_raise_no_pheromone(re_init=False)
         self._test_points_raise_no_pheromone(re_init=False)
@@ -215,7 +217,7 @@ class TestDirection(Base):
         # Une pheromone au nord
         DirectionPheromone.appose(self._context,
                                   _p(NORTH),
-                                  (PHEROMON_DIR_EXPLO, 1))
+                                  self._get_pheromone(PHEROMON_DIR_EXPLO, 1))
         # le permet
         self._test_direction_for_points({}, NORTH, re_init=False)
         self._test_direction_for_point({}, NORTH, re_init=False)
@@ -234,3 +236,6 @@ class TestDirection(Base):
             self._test_direction_for_points(pheromones, direction, re_init=re_init)
         except NoPheromone:
             self.assertTrue(True)
+
+    def _get_pheromone(self, type, distance):
+        return Pheromone(PHEROMON_DIRECTION, type, distance=distance)

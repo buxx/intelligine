@@ -1,6 +1,7 @@
-from intelligine.core.exceptions import BestPheromoneHere
+from intelligine.core.exceptions import BestPheromoneHere, NoPheromone
 from intelligine.cst import PHEROMON_INFOS
-from intelligine.core.exceptions import NoPheromone
+from intelligine.simulation.pheromone.PheromoneFlavour import PheromoneFlavour
+from intelligine.simulation.pheromone.Pheromone import Pheromone
 
 
 class PheromonesManager():
@@ -8,11 +9,13 @@ class PheromonesManager():
     def __init__(self, context):
         self._context = context
 
-    def get_pheromones(self, position, prepare=[]):
+    def get_flavour(self, position):
         point_pheromones = self._context.metas.value.get(PHEROMON_INFOS,
                                                          position,
                                                          allow_empty=True,
                                                          empty_value={})
+        return PheromoneFlavour(point_pheromones)
+
         current_check = point_pheromones
         for prepare_key in prepare:
             if prepare_key not in current_check:
@@ -21,11 +24,19 @@ class PheromonesManager():
 
         return point_pheromones
 
-    def set_pheromones(self, position, pheromones):
-        self._context.metas.value.set(PHEROMON_INFOS, position, pheromones)
+    def set_flavour(self, position, flavour):
+        self._context.metas.value.set(PHEROMON_INFOS, position, flavour.get_raw_data())
 
-    def get_info(self, position, address, allow_empty=False, empty_value=None):
-        pheromones = self.get_pheromones(position, address[:-1])
+    def get_pheromone(self, position, category, type, allow_empty=False, empty_value=None):
+        # TODO: empty_value as du sens ?
+        flavour = self.get_flavour(position)
+        try:
+            return flavour.get_pheromone(category, type)
+        except NoPheromone:
+            if allow_empty:
+                return Pheromone()
+            raise
+
 
         pheromone = pheromones
         for key in address[:-1]:
@@ -39,29 +50,22 @@ class PheromonesManager():
 
         return pheromone[address[-1]]
 
-    def increment(self, position, address, distance, increment_value=1):
-        pheromones = self.get_pheromones(position, address[:-1])
+    def increment_with_pheromone(self, position, apposed_pheromone):
+        flavour = self.get_flavour(position)
+        try:
+            position_pheromone = flavour.get_pheromone(apposed_pheromone.get_category(), apposed_pheromone.get_type())
+        except NoPheromone:
+            position_pheromone = Pheromone(apposed_pheromone.get_category(),
+                                           apposed_pheromone.get_type(),
+                                           distance=apposed_pheromone.get_distance())
 
-        pheromone = pheromones
-        for key in address[:-1]:
-            pheromone = pheromone[key]
+        position_pheromone.increment_intensity(apposed_pheromone.get_intensity())
 
-        if address[-1] not in pheromone:
-            pheromone[address[-1]] = (distance, 0)
-        # On se retrouve avec un {} dans pheromone[address[-1]]. A cause de la recherche de pheromone avant (et main process)
-        if not pheromone[address[-1]]:
-            pheromone[address[-1]] = (distance, 0)
+        if apposed_pheromone.get_distance() < position_pheromone.get_distance():
+            position_pheromone.set_distance(apposed_pheromone.get_distance())
 
-        pheromone_distance = pheromone[address[-1]][0]
-        pheromone_intensity = pheromone[address[-1]][1]
+        flavour.update_pheromone(position_pheromone)
+        self.set_flavour(position, flavour)
 
-        pheromone_intensity += increment_value
-
-        if distance < pheromone_distance:
-            pheromone_distance = distance
-
-        pheromone[address[-1]] = (pheromone_distance, pheromone_intensity)
-        self.set_pheromones(position, pheromones)
-
-        if distance > pheromone_distance:
-            raise BestPheromoneHere(pheromone_distance)
+        if apposed_pheromone.get_distance() > position_pheromone.get_distance():
+            raise BestPheromoneHere(position_pheromone.get_distance())

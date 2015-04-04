@@ -77,9 +77,7 @@ class Ant(Bug):
     def initialize(self):
         super().initialize()
         try:
-            DirectionPheromone.appose(self._context,
-                                      self.get_position(),
-                                      self.get_movement_pheromone_gland().get_movement_molecules())
+            self.get_movement_pheromone_gland().appose()
         except BestPheromoneHere as best_pheromone_here:
             pass
 
