@@ -28,7 +28,7 @@ class TestDirection(Base):
         if re_init:
             self._context = Context()
         for position in pheromones:
-            self._context.pheromones().set_flavour(position, PheromoneFlavour(pheromones[position]))
+            self._context.pheromones().set_flavour(position, PheromoneFlavour.new_from_raw_data(pheromones[position]))
 
     def _test_direction_for_point(self, pheromones, direction, pheromone_type=PHEROMON_DIR_EXPLO,
                                   reference_point=_p(CENTER), re_init=True):

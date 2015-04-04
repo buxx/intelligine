@@ -14,7 +14,7 @@ class PheromonesManager():
                                                          position,
                                                          allow_empty=True,
                                                          empty_value={})
-        return PheromoneFlavour(point_pheromones)
+        return PheromoneFlavour.new_from_raw_data(point_pheromones)
 
         current_check = point_pheromones
         for prepare_key in prepare:
@@ -64,7 +64,7 @@ class PheromonesManager():
         if apposed_pheromone.get_distance() < position_pheromone.get_distance():
             position_pheromone.set_distance(apposed_pheromone.get_distance())
 
-        flavour.update_pheromone(position_pheromone)
+        flavour.set_pheromone(position_pheromone)
         self.set_flavour(position, flavour)
 
         if apposed_pheromone.get_distance() > position_pheromone.get_distance():

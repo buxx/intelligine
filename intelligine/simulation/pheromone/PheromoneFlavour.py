@@ -4,29 +4,44 @@ from intelligine.simulation.pheromone.Pheromone import Pheromone
 
 class PheromoneFlavour():
 
-    def __init__(self, point_data):
-        self._point_data = point_data
+    @classmethod
+    def new_from_raw_data(cls, raw_data):
+        flavour = {}
+        for category in raw_data:
+            pheromones_by_category = raw_data[category]
+            for type in pheromones_by_category:
+                distance, intensity = pheromones_by_category[type]
+                flavour.update({category: {type: Pheromone(category, type, distance, intensity)}})
+        return cls(flavour)
+
+    def get_raw_data(self):
+        raw_data = {}
+        for category in self._flavour:
+            pheromones_by_category = self._flavour[category]
+            for type in pheromones_by_category:
+                pheromone = pheromones_by_category[type]
+                raw_data.update({category: {type: (pheromone.get_distance(), pheromone.get_intensity())}})
+        return raw_data
+
+    def __init__(self, flavour):
+        self._flavour = flavour
 
     def get_pheromone(self, category, type):
         types = self.get_types(category)
         if type not in types:
             raise NoTypeInPheromone()
-        distance, intensity = types[type]
-        return Pheromone(category, type, distance, intensity)
+        return types[type]
 
     def get_types(self, category):
-        if category not in self._point_data:
+        if category not in self._flavour:
             raise NoCategoryInPheromone()
-        return self._point_data[category]
+        return self._flavour[category]
 
-    def update_pheromone(self, pheromone):
+    def set_pheromone(self, pheromone):
         category = pheromone.get_category()
         type = pheromone.get_type()
 
-        if category not in self._point_data:
-            self._point_data[category] = {}
+        if category not in self._flavour:
+            self._flavour[category] = {}
 
-        self._point_data[category][type] = (pheromone.get_distance(), pheromone.get_intensity())
-
-    def get_raw_data(self):
-        return self._point_data
+        self._flavour[category][type] = pheromone
