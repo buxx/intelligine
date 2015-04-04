@@ -10,7 +10,7 @@ from intelligine.sandbox.colored.GreenAnt import GreenAnt
 from intelligine.synergy.object.Rock import Rock
 from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
-from intelligine.cst import PREVIOUS_DIRECTION
+from xyzworld.cst import PREVIOUS_DIRECTION
 
 # TODO: Analyser les procedes ici pour proposer des outils dans le framework
 

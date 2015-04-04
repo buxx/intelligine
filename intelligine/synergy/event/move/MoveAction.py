@@ -2,7 +2,8 @@ from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from synergine.synergy.event.exception.ActionAborted import ActionAborted
 from xyzworld.cst import POSITION
-from intelligine.cst import BLOCKED_SINCE, BRAIN_PART_MOVE, BRAIN_SCHEMA
+from intelligine.cst import BRAIN_PART_MOVE, BRAIN_SCHEMA
+from xyzworld.cst import BLOCKED_SINCE
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
 
 
