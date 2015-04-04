@@ -52,20 +52,6 @@ class DirectionPheromone():
         direction = get_direction_for_degrees(direction_degrees)
 
         return direction
-        # # 1: On melange
-        # items = pheromone_info.items()
-        # shuffle(items)
-        # ph = OrderedDict(items)
-        # foo = True
-        # # 2: On trie par puissance
-        # ph_sorted = sorted(ph.items(), key=lambda x: x[1])
-        # # 3: On recupere les direction de la puissance max
-        # max_intensity = ph_sorted[0][1][1]
-        # max_directions = [direction_name for direction_name in pheromone_info
-        #                  if pheromone_info[direction_name][1] == max_intensity]
-        # # 4: On trie par age
-        # # 5: On recupere les directions de l'age le plus court
-        # # 6: On choisis une direction au hasard parmis elles (ou par rapport a direction precedente ??bug autre fois??)
 
     @staticmethod
     def get_best_pheromone_direction_in(context, reference_point, points, pheromone_type):

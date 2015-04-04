@@ -16,19 +16,10 @@ class PheromonesManager():
                                                          empty_value={})
         return PheromoneFlavour.new_from_raw_data(point_pheromones)
 
-        current_check = point_pheromones
-        for prepare_key in prepare:
-            if prepare_key not in current_check:
-                current_check[prepare_key] = {}
-            current_check = current_check[prepare_key]
-
-        return point_pheromones
-
     def set_flavour(self, position, flavour):
         self._context.metas.value.set(PHEROMON_INFOS, position, flavour.get_raw_data())
 
-    def get_pheromone(self, position, category, type, allow_empty=False, empty_value=None):
-        # TODO: empty_value as du sens ?
+    def get_pheromone(self, position, category, type, allow_empty=False):
         flavour = self.get_flavour(position)
         try:
             return flavour.get_pheromone(category, type)
@@ -36,19 +27,6 @@ class PheromonesManager():
             if allow_empty:
                 return Pheromone()
             raise
-
-
-        pheromone = pheromones
-        for key in address[:-1]:
-            pheromone = pheromone[key]
-
-        if address[-1] not in pheromone:
-            if allow_empty:
-                pheromone[address[-1]] = empty_value
-            else:
-                raise KeyError()
-
-        return pheromone[address[-1]]
 
     def increment_with_pheromone(self, position, apposed_pheromone):
         flavour = self.get_flavour(position)
