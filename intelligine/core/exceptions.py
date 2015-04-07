@@ -35,11 +35,14 @@ class BestPheromoneHere(PheromoneException):
     def get_best_distance(self):
         return self._best_distance
 
+
 class BrainException(Exception):
     pass
 
+
 class BrainPartAlreadyExist(BrainException):
     pass
+
 
 class DirectionException(Exception):
     pass

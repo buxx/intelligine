@@ -11,5 +11,5 @@ class MoveEvent(Event):
         super().__init__(actions)
         self._mechanism = Mechanism
 
-    def _object_match(self, object_id, context, parameters={}):
-      return True
+    def _prepare(self, object_id, context, parameters={}):
+        return parameters
