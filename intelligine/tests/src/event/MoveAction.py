@@ -1,10 +1,10 @@
 from intelligine.synergy.event.move.MoveAction import MoveAction as BaseMoveAction
-from intelligine.synergy.event.move.direction import NORTH
+from intelligine.tests.src.event.MoveEvent import MoveEvent
 
 
 class MoveAction(BaseMoveAction):
 
-    force_direction = lambda self, context, object_id: NORTH
-
-    def _get_prepared_direction(self, context):
-        return self.force_direction(context, self._object_id)
+    @classmethod
+    def set_move_event(cls, force_direction_function, event=MoveEvent):
+        event.force_direction = force_direction_function
+        cls._listen = event

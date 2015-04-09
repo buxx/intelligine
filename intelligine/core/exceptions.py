@@ -6,6 +6,10 @@ class SamePosition(MovementException):
     pass
 
 
+class UnableToFoundMovement(MovementException):
+    pass
+
+
 class PheromoneException(Exception):
     pass
 

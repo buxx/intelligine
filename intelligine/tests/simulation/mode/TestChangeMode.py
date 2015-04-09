@@ -29,8 +29,8 @@ class TestChangeMode(Base):
         self._force_move = self._force_move
 
     @staticmethod
-    def _force_move(self_move_action, context, object_point):
-        object_movement_mode = context.metas.value.get(MOVE_MODE, self_move_action._object_id)
+    def _force_move(self_move_action, object_id, context):
+        object_movement_mode = context.metas.value.get(MOVE_MODE, object_id)
         if object_movement_mode == MOVE_MODE_GOHOME:
             return SOUTH
         return NORTH
@@ -44,7 +44,7 @@ class TestChangeMode(Base):
             def __init__(self, configuration):
                 super().__init__(configuration)
                 self._actions.remove(MoveAction)
-                TestMoveAction.force_direction = test_case._force_move
+                TestMoveAction.set_move_event(test_case._force_move)
                 self._actions.append(TestMoveAction)
         return TestColony(self._get_colony_configuration())
 
