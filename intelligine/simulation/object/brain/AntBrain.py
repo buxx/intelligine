@@ -1,23 +1,31 @@
 from intelligine.simulation.object.brain.Brain import Brain
-from intelligine.simulation.object.brain.part.AntMoveBrainPart import AntMoveBrainPart
-from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO
+from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
+from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
+    BRAIN_PART_TAKE
 from intelligine.cst import PHEROMONE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
+from intelligine.simulation.object.brain.part.take.AntTakeBrainPart import AntTakeBrainPart
 
 
 class AntBrain(Brain):
 
     _brain_part_move_class = AntMoveBrainPart
+    _brain_part_take_class = AntTakeBrainPart
 
     def __init__(self, context, host):
         super().__init__(context, host)
+        # TODO: Gerer les BrainPart avec un dictionnaire ?
         self._set_brain_part(BRAIN_PART_MOVE, self._get_move_brain_part_instance())
+        self._set_brain_part(BRAIN_PART_TAKE, self._get_take_brain_part_instance())
         self._movement_mode = MOVE_MODE_EXPLO
         self._distance_from_objective = 0  # TODO rename: distance_since_objective
         self._pheromone_searching = PHEROMON_DIR_EXPLO
 
     def _get_move_brain_part_instance(self):
         return self._brain_part_move_class()
+
+    def _get_take_brain_part_instance(self):
+        return self._brain_part_take_class()
 
     def switch_to_mode(self, mode):
         self._movement_mode = mode

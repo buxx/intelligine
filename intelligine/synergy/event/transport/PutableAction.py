@@ -1,3 +1,4 @@
+from intelligine.synergy.event.move.MoveAction import MoveAction
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.transport.PutableEvent import PutableEvent
 from intelligine.cst import CANT_CARRY_STILL
@@ -8,6 +9,7 @@ from synergine.synergy.event.exception.ActionAborted import ActionAborted
 class PutableAction(Action):
 
     _listen = PutableEvent
+    _depend = [MoveAction]
 
     def __init__(self, object_id, parameters):
         super().__init__(object_id, parameters)

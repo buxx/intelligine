@@ -18,6 +18,9 @@ MOVE_MODE = IncrementedNamedInt.get('intelligine.basebug.move.mode')
 MOVE_MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.mode.explo')
 MOVE_MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.gohome')
 
+TYPE = IncrementedNamedInt.get('intelligine.object.type')
+TYPE_RESOURCE_TRANSFORMABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
+
 LAST_PHERMONES_POINTS = IncrementedNamedInt.get('intelligine.last_pheromones_points')
 
 PHEROMON_POSITIONS = IncrementedNamedInt.get('intelligine.phero.positions')
@@ -35,3 +38,5 @@ COL_TRANSPORTER_NOT_CARRYING = IncrementedNamedInt.get('intelligine.col.transpor
 
 BRAIN_SCHEMA = IncrementedNamedInt.get('intelligine.brain_schema')
 BRAIN_PART_MOVE = IncrementedNamedInt.get('intelligine.brain.part.move')
+BRAIN_PART_TAKE = IncrementedNamedInt.get('intelligine.brain.part.take')
+BRAIN_PART_PUT = IncrementedNamedInt.get('intelligine.brain.part.put')

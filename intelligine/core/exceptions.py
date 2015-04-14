@@ -50,3 +50,14 @@ class BrainPartAlreadyExist(BrainException):
 
 class DirectionException(Exception):
     pass
+
+
+class NearException(Exception):
+    pass
+
+
+class NearFound(NearException):
+    pass
+
+class NearNothingFound(NearException):
+    pass
