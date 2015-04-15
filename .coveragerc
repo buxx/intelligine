@@ -1,0 +1,9 @@
+[run]
+omit =
+    */tests*
+    config.py
+    run.py
+[report]
+exclude_lines =
+    raise NotImplementedError
+    if __name__ == .__main__.:
