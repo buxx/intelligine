@@ -29,7 +29,7 @@ config = {
         }
     },
     'engine': {
-        'fpsmax': 25,
+        'fpsmax': 2555,
         'debug': {
             'mainprocess': True,
             'cycles': -1
