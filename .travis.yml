@@ -4,7 +4,7 @@ python:
 install:
   - "pip install -r tests_requirements.txt"
 before_install:
-  - git clone git@github.com:buxx/synergine.git
+  - git clone https://github.com/buxx/synergine.git
   - rm modules/*
   - ln -s ../synergine/modules/xyzworld modules/xyzworld
   - ln -s ../synergine/modules/xzworld modules/xyworld
