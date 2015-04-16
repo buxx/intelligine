@@ -19,8 +19,7 @@ Execute command
 ````
 C:\Python34\python -m pip install Downloads\pygame-1.9.2a0-cp34-none-win32.whl
 ````
-Launch Git Bash program
-Execute command 
+Launch Git Bash program and execute command 
 ````
 mkdir ant
 ````
@@ -35,9 +34,7 @@ Execute command
 git clone https://github.com/buxx/intelligine.git ant/intelligine
 ````
 
-Open Cmd
-
-Execute commands 
+Open Cmd and execute commands 
 ````
 cd ant\intelligine\modules
 mkdir synergine
