@@ -14,10 +14,6 @@ class MoveAction(Action):
         self._move_to_point = None
         self._move_to_direction = None
 
-    def prepare(self, context):
-        # TODO: C'est event qui doit tout preparer. Action::prepare pourra meme disparaitre ?
-        pass
-
     def run(self, obj, context, synergy_manager):
         try:
             self._apply_move(obj, context)

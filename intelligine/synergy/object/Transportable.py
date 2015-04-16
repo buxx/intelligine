@@ -25,3 +25,6 @@ class Transportable(XyzSynergyObject):
 
     def get_what_carry(self):
         return self
+
+    def is_takable(self):
+        return not self.is_carried()
