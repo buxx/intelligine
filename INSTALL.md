@@ -1,4 +1,8 @@
-## Windows
+INSTALL
+=====================
+
+Windows
+--------------------
 
 (dirty tmp howto)
 
