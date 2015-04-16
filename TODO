@@ -1,33 +1,16 @@
 TODO:
- * Tester les Action et classes de pheromones
-   * test des directions (a partir d'une pheromone et vers une pheromone)
-   * Changement de mode (explo;go home)
- * Pheromones: Mettre en place un systeme objet qui permet de donner aux Obj leur comportement pheromone. Au lieu de le deduire a la mano (aujourd'hui un MoveAction le fait pour tous, or cela doit dependre de l'obj)
- * Pheromones: Un point de pheromone doit identifier un objectif. De façon a ce que lorsque cet objectif n'est
-               plus interessant on puisse l'invalider.
-               Les fourmis se croiant peuvent donc donner des infos sur les routes invalides.
-               pheromone_objectif possede uniqq id
-               Question: Quand un une fourmis arrive au bout de la route d'explo, et qu'il n'y as plus rien
-                         Elle fait rebrousse chemin pour avertir tout le monde; elle explore normalement autour
-                         et donne les infos de'objectif invalidé à celles qu'elle croise;
-                         Mieux ?
 
- * Nettoyer le code des pheromones: Refactoriser
- * Mechanisme qui donne les pheromones around
- * Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)
+ * Put:
+   * Utiliser le systeme brain part
+   * On pose un Food en hardcode (cf. AntMoveBrainPart): Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)
+ * Configurer (sandbox) en fonction d'un argv
+
+ * Mechanisme qui donne les pheromones around ?
  * Appliquer la disparition des pheromones
-
- * Recode:
-   * Objet est prenable / posable.
-
- * Action: Supprimer _prepare
-
-
-
 
 Future:
  * Chambres
- *
+ * 3d (ouch)
 
 Warning:
  * Lorsque une f trp un objet, le PutableEvent observe chaque tours. C parce que la fourmis rentre dans la COL
