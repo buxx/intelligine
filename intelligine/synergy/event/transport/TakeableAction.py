@@ -1,7 +1,7 @@
 from intelligine.synergy.event.move.MoveAction import MoveAction
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.transport.TakeableEvent import TakeableEvent
-from intelligine.cst import CANT_PUT_STILL, BRAIN_SCHEMA, BRAIN_PART_TAKE
+from intelligine.cst import CANT_PUT_STILL, BRAIN_PART_TAKE
 from synergine.synergy.event.exception.ActionAborted import ActionAborted
 
 
