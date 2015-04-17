@@ -4,7 +4,7 @@ from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
                             COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
                             COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, \
-                            PHEROMON_DIR_EXPLO, LAST_PHERMONES_POINTS
+                            PHEROMON_DIR_EXPLO, LAST_PHERMONES_POINTS, CARRIED
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -44,6 +44,8 @@ class Ant(Bug):
     def carry(self, obj):
         self._carried.append(obj)
         self._context.metas.states.add(self.get_id(), CARRYING)
+        #  TODO: On gere une liste de carried (mais pas juste la dessous). Ne gerer qu'un objet carried ?
+        self._context.metas.value.set(CARRIED, self.get_id(), obj.get_id())
         # TODO: pour le moment hardcode
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)

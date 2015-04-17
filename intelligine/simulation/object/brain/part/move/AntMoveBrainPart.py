@@ -47,15 +47,15 @@ class AntMoveBrainPart(MoveBrainPart):
         super().done(obj, context)
         self._appose_pheromone(obj)
 
-        # TEST: le temps de tout tester
-        if obj.get_position() == obj.get_colony().get_start_position() and obj.is_carrying():
-            obj_transported = obj.get_carried()
-            obj_transported.set_carried_by(None)
-            obj.put_carry(obj_transported, (-1, 0, 0))
-            obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
-            context.metas.collections.add_remove(obj.get_id(),
-                                                 COL_TRANSPORTER_NOT_CARRYING,
-                                                 COL_TRANSPORTER_CARRYING)
+        # # TEST: le temps de tout tester
+        # if obj.get_position() == obj.get_colony().get_start_position() and obj.is_carrying():
+        #     obj_transported = obj.get_carried()
+        #     obj_transported.set_carried_by(None)
+        #     obj.put_carry(obj_transported, (-1, 0, 0))
+        #     obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
+        #     context.metas.collections.add_remove(obj.get_id(),
+        #                                          COL_TRANSPORTER_NOT_CARRYING,
+        #                                          COL_TRANSPORTER_CARRYING)
 
     @staticmethod
     def _appose_pheromone(obj):

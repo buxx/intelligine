@@ -1,4 +1,4 @@
-from intelligine.simulation.object.brain.part.take.TakeBrainPart import TakeBrainPart
+from intelligine.simulation.object.brain.part.transport.TakeBrainPart import TakeBrainPart
 from intelligine.synergy.object.ressource.Ressource import Resource
 from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE, TYPE_RESOURCE_TRANSFORMABLE, \
     TYPE, MOVE_MODE_GOHOME, PHEROMON_DIR_EXPLO
@@ -6,24 +6,15 @@ from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE, TYPE_RESOURCE_TRANSFORMA
 
 class AntTakeBrainPart(TakeBrainPart):
 
-    # TODO: methode __nit_ pour la classe ?
-    _take = {
+    # TODO: methode __nit_ pour la classe ? vt mieux surcharger !
+    _mode_matches = {
         MOVE_MODE_EXPLO: [TYPE_RESOURCE_TRANSFORMABLE],
     }
 
     @classmethod
     def can_take(cls, context, object_id, object_to_take_id):
-        if not cls._object_is_takable_type(context, object_id, object_to_take_id):
-            return False
-        return True
-
-    @classmethod
-    def _object_is_takable_type(cls, context, object_id, object_to_take_id):
-        move_mode = context.metas.value.get(MOVE_MODE, object_id)
-        for takable_type in cls._take[move_mode]:
-            if context.metas.list.have(TYPE, takable_type, object_to_take_id, allow_empty=True):
-                return True
-        return False
+        # Pour le moment si le type de l'objet fait partie des types admis pour le mode courant du porteur, c'est bon.
+        return cls._match_with_mode(context, object_id, object_to_take_id)
 
     def done(self, obj, take_object, context):
         # TODO: Ranger ca ? Truc plus dynamique/configurable ?

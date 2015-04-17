@@ -1,3 +1,6 @@
+from synergine.synergy.event.exception.ActionAborted import ActionException
+
+
 class MovementException(Exception):
     pass
 
@@ -59,5 +62,10 @@ class NearException(Exception):
 class NearFound(NearException):
     pass
 
+
 class NearNothingFound(NearException):
+    pass
+
+
+class CantFindWhereToPut(ActionException):
     pass

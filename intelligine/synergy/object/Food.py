@@ -6,7 +6,7 @@ class Food(Resource):
 
     def __init__(self, collection, context):
         super().__init__(collection, context)
-        context.metas.list.add(TYPE, TYPE_RESOURCE_TRANSFORMABLE, self.get_id())
+        context.metas.list.add(TYPE, self.get_id(), TYPE_RESOURCE_TRANSFORMABLE)
         # TODO: ?? TRANSPORTABLE ne devrait pas ette du cote de Transportable ?
         context.metas.states.add(self.get_id(), TRANSPORTABLE)
 

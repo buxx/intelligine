@@ -1,3 +1,4 @@
+from intelligine.synergy.object.Food import Food
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.synergy.object.Rock import Rock
 import pytmx
@@ -29,5 +30,11 @@ class RocksConfiguration(Configuration):
                         rock = objects[y]['class'](collection, context)
                         rock.set_position((0, xi, yi))
                         rocks.append(rock)
+
+        #  TEST
+        food1 = Food(collection, context)
+        food1.set_position((0, 0, 0))
+        food1.is_takable = lambda: False
+        rocks.append(food1)
 
         return rocks
