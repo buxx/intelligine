@@ -1,4 +1,5 @@
 from intelligine.synergy.event.move.MoveAction import MoveAction
+from synergine.core.Core import Core
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.transport.TakeableEvent import TakeableEvent
 from intelligine.cst import CANT_PUT_STILL, BRAIN_PART_TAKE
@@ -23,5 +24,6 @@ class TakeableAction(Action):
         obj_carried = obj_transportable.get_what_carry()
         obj_carried.set_carried_by(obj)
         obj.carry(obj_carried)
-        context.metas.value.set(CANT_PUT_STILL, obj.get_id(), 5)
+        cant_put_still = Core.get_configuration_manager().get('ant.take.cant_put_still')
+        context.metas.value.set(CANT_PUT_STILL, obj.get_id(), cant_put_still)
         obj.get_brain().get_part(BRAIN_PART_TAKE).done(obj, obj_carried, context)

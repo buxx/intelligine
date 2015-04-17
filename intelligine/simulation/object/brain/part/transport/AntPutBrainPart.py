@@ -47,7 +47,7 @@ class AntPutBrainPart(TakeBrainPart):
         # TODO: Pour le moment on ne regarde pas si ce sont tous des obj identique
         count_obj_here = len(context.metas.list.get(POSITIONS, position, allow_empty=True))
         # TODO: 5 est hardcode; de plus cette cntrainte (not brain) devrait dependre de l'objet, du contexte ...
-        if count_obj_here <= 5 and (context.position_is_penetrable(position) or position == (0, 0, 0)):  # TODO TEST !!!
+        if count_obj_here <= 5 and (context.position_is_penetrable(position)):  # TODO TEST !!!
             return True
         return False
 

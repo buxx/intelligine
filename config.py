@@ -57,5 +57,10 @@ config = {
               'color': (125, 125, 125)
             }
         }
+    },
+    'ant': {
+        'take': {
+            'cant_put_still': 5
+        }
     }
 }

@@ -31,7 +31,7 @@ class RocksConfiguration(Configuration):
                         rock.set_position((0, xi, yi))
                         rocks.append(rock)
 
-        #  TEST
+        #  TEST (en attendant d'avoir des algo pour deposer dans un depot)
         food1 = Food(collection, context)
         food1.set_position((0, 0, 0))
         food1.is_takable = lambda: False
