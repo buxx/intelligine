@@ -1,8 +1,9 @@
 TODO:
 
  * Put:
-   * Utiliser le systeme brain part
-   * On pose un Food en hardcode (cf. AntMoveBrainPart): Mettre au propre la logique qui dit que l'objet peut etre pose (meme type si larve; zone de depot si Food, etc)
+   * Actuellement on a un Food pos 0, 0, 0 pour test. On doit avoir une zone de depot.
+     Dans la zone de depot la food ne doit pas etre prise
+    * Les egg doivent fonctionner avec les algo de Food a cote !
  * Configurer (sandbox) en fonction d'un argv
 
  * Mechanisme qui donne les pheromones around ?
