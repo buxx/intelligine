@@ -37,7 +37,7 @@ git clone https://github.com/buxx/intelligine.git ant/intelligine
 Open Cmd and execute commands 
 ````
 cd ant\intelligine\modules
-mkdir synergine
+rmdir synergine
 rmdir xyzworld
 rmdir xyworld
 mklink /j synergine ..\..\synergine\synergine
