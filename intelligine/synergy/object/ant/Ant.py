@@ -1,5 +1,4 @@
-from intelligine.core.exceptions import BestPheromoneHere
-from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
+from intelligine.core.exceptions import PheromoneException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
                             COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
@@ -78,10 +77,11 @@ class Ant(Bug):
 
     def initialize(self):
         super().initialize()
-        try:
-            self.get_movement_pheromone_gland().appose()
-        except BestPheromoneHere as best_pheromone_here:
-            pass
+        if self.get_movement_pheromone_gland().is_enabled():
+            try:
+                self.get_movement_pheromone_gland().appose()
+            except PheromoneException:
+                pass
 
     def get_colony(self):
         return self.get_collection()

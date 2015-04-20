@@ -2,9 +2,9 @@ from intelligine.core.Context import Context
 from intelligine.synergy.Simulation import Simulation
 from intelligine.display.Pygame import Pygame
 from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
-#from intelligine.sandbox.colored.colors_colonys import collections
+from intelligine.sandbox.colored.colors_colonys import collections
 # TODO: influencer avec argument python
-from intelligine.sandbox.exploration.collections import collections
+#from intelligine.sandbox.exploration.collections import collections
 
 """
  TODO:

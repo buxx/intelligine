@@ -1,11 +1,11 @@
 from intelligine.core.exceptions import CantFindWhereToPut
-from intelligine.simulation.object.brain.part.transport.TakeBrainPart import TakeBrainPart
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE, TYPE_RESOURCE_TRANSFORMABLE, TYPE, CARRIED, \
-    COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
+from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_TRANSFORMABLE, CARRIED
+from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
+from intelligine.synergy.object.Food import Food
 from xyzworld.cst import POSITION, POSITIONS
 
 
-class AntPutBrainPart(TakeBrainPart):
+class AntPutBrainPart(TransportBrainPart):
 
     # TODO: methode __nit_ pour la classe ?
     _mode_matches = {
@@ -52,6 +52,9 @@ class AntPutBrainPart(TakeBrainPart):
         return False
 
     def done(self, obj, puted_object, context):
-        # TODO: Depose au -1 pour des raisons de test. Plus tard ce sera des tas comme un autre !
-        puted_object.set_position((-1, 0, 0))
-        obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
+        # TODO: Il faut refact/logique qqpart pour ca !! Genre Brain.done(PUT, ??)
+        if isinstance(puted_object, Food):
+            obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
+            # TODO: TEST Depose au -1 pour des raisons de test. Plus tard ce sera des tas comme un autre !
+            puted_object.set_position((-1, 0, 0))
+

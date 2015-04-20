@@ -1,7 +1,7 @@
 from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
-    BRAIN_PART_TAKE, BRAIN_PART_PUT
+    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE
 from intelligine.cst import PHEROMONE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
@@ -45,15 +45,24 @@ class AntBrain(Brain):
             pheromone_direction_type = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_GOHOME:
             pheromone_direction_type = PHEROMON_DIR_EXPLO
+        elif mode == MOVE_MODE_NURSE:
+            pheromone_direction_type = None
         else:
             raise NotImplementedError()
-        self._host.get_movement_pheromone_gland().set_pheromone_type(pheromone_direction_type)
+
+        if pheromone_direction_type:
+            self._host.get_movement_pheromone_gland().set_pheromone_type(pheromone_direction_type)
+            self._host.get_movement_pheromone_gland().enable()
+        else:
+            self._host.get_movement_pheromone_gland().disable()
 
     def _update_pheromone_searching(self, mode):
         if mode == MOVE_MODE_EXPLO:
             pheromone_searching = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_GOHOME:
             pheromone_searching = PHEROMON_DIR_HOME
+        elif mode == MOVE_MODE_NURSE:
+            pheromone_searching = PHEROMON_DIR_NONE
         else:
             raise NotImplementedError()
         self._pheromone_searching = pheromone_searching

@@ -49,5 +49,6 @@ class AntMoveBrainPart(MoveBrainPart):
 
     @staticmethod
     def _appose_pheromone(obj):
-        obj.get_movement_pheromone_gland().appose()
+        if obj.get_movement_pheromone_gland().is_enabled():
+            obj.get_movement_pheromone_gland().appose()
 
