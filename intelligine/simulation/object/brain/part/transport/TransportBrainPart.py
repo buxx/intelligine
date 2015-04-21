@@ -16,9 +16,6 @@ class TransportBrainPart(BrainPart):
 
     @classmethod
     def _objects_have_same_type(cls, context, object_carried_id, object_to_put_id):
-        # BUG: On considere ici que c une liste de type pour obj. J'ai fait l'inverse.
-        # Une listde de objid pour un type.
-        # TODO: Il faut inverser !
         object_carried_types = context.metas.list.get(TYPE, object_carried_id)
         for object_carried_type in object_carried_types:
             if context.metas.list.have(TYPE, object_to_put_id, object_carried_type):

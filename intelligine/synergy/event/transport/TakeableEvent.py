@@ -35,8 +35,7 @@ class TakeableEvent(NearEvent):
     def _can_carry(object_id, context):
         return not context.metas.value.get(CANT_CARRY_STILL, object_id, allow_empty=True)
 
-    @staticmethod
-    def _object_can_take(object_id, context, object_to_take_id):
-        object_brain_schema = context.metas.value.get(BRAIN_SCHEMA, object_id)
-        object_take_brain_part = object_brain_schema[BRAIN_PART_TAKE]
+    @classmethod
+    def _object_can_take(cls, object_id, context, object_to_take_id):
+        object_take_brain_part = cls._get_brain_part(context, object_id, BRAIN_PART_TAKE)
         return object_take_brain_part.can_take(context, object_id, object_to_take_id)

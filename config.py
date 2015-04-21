@@ -6,20 +6,6 @@ from intelligine.display.pygame.visualisation import visualisation as pygame_vis
 # TODO: influencer avec argument python
 from intelligine.sandbox.exploration.collections import collections
 
-"""
- TODO:
- * AttackAction :: comment choisir entre les actions ?
-
- * pheromones:
-   cf. doc papier
-   + Pour le "pt de ressource": Poser un objet qui, lorsque on applique la position:
-     L'objet doit pouvoir occuper plusieurs positions (gros objet)
-     Il a donc * une position de reference
-               * une liste de positions occupe
-               * dans les metas cette liste de position contient la reference de l'objet
-               *
-
-"""
 
 config = {
     'app': {

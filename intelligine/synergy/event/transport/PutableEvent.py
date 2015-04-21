@@ -30,7 +30,7 @@ class PutableEvent(NearEvent):
             raise NotConcernedEvent()
 
         object_near_id = parameters[self._near_name][0]
-        brain_part = self._get_brain_part(object_id, context)
+        brain_part = self._get_brain_part(context, object_id, BRAIN_PART_PUT)
 
         if not brain_part.can_put(context, object_id, object_near_id):
             raise NotConcernedEvent()
@@ -48,14 +48,7 @@ class PutableEvent(NearEvent):
     def _can_put(object_id, context):
         return not context.metas.value.get(CANT_PUT_STILL, object_id, allow_empty=True)
 
-    @staticmethod
-    def _get_brain_part(object_id, context):
-        # TODO: refatc au dessus ?
-        object_brain_schema = context.metas.value.get(BRAIN_SCHEMA, object_id)
-        return object_brain_schema[BRAIN_PART_PUT]
-
-    @staticmethod
-    def _object_can_put(object_id, context, object_to_put_id):
-        object_brain_schema = context.metas.value.get(BRAIN_SCHEMA, object_id)
-        object_take_brain_part = object_brain_schema[BRAIN_PART_PUT]
+    @classmethod
+    def _object_can_put(cls, object_id, context, object_to_put_id):
+        object_take_brain_part = cls._get_brain_part(context, object_id, BRAIN_PART_PUT)
         return object_take_brain_part.can_put(context, object_id, object_to_put_id)

@@ -2,7 +2,7 @@ from intelligine.core.exceptions import NearNothingFound
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
-from intelligine.cst import ATTACKABLE, COLONY, COL_FIGHTER
+from intelligine.cst import ATTACKABLE, COLONY, COL_FIGHTER, BRAIN_PART_ATTACK
 
 
 class NearAttackableEvent(NearEvent):
@@ -22,6 +22,10 @@ class NearAttackableEvent(NearEvent):
         try:
             self.map(context, parameters, stop_at_first=True, filter=filter)
         except NearNothingFound:
+            raise NotConcernedEvent()
+
+        brain_part = self._get_brain_part(context, object_id, BRAIN_PART_ATTACK)
+        if not brain_part.can_attack(context, object_id, parameters[self._near_name][0]):
             raise NotConcernedEvent()
 
         return parameters

@@ -8,6 +8,8 @@ TODO:
 
  * Mechanisme qui donne les pheromones around ?
  * Appliquer la disparition des pheromones
+ * Les move mode sont arbitraire. On sais (cf. livre Ameisen) qu'elles se spécialisent avec l'expérience de reussite/echec. Voir coment implémenter ça !
+ * Display: la maj de ce qui est envoye aux terminaux: penser aux donnees comme les pheromones
 
 Future:
  * Chambres
