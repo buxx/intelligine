@@ -4,13 +4,18 @@ from intelligine.cst import BRAIN_SCHEMA
 
 class Brain():
 
-    _brain_part_class = {}
+    _brain_parts = {}
 
     def __init__(self, context, host):
         self._context = context
         self._host = host
         self._schema = {}
         self._parts = {}
+        self._init_parts()
+
+    def _init_parts(self):
+        for brain_part_name in self._brain_parts:
+            self._set_brain_part(brain_part_name, self._brain_parts[brain_part_name](self))
 
     def _set_brain_part(self, name, brain_part, replace=False):
         if name in self._parts and not replace:

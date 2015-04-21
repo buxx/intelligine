@@ -6,7 +6,7 @@ from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE, TYPE_RESOURCE_TRANSFORMA
 
 class AntTakeBrainPart(TakeBrainPart):
 
-    # TODO: methode __nit_ pour la classe ? vt mieux surcharger !
+    # TODO: methode __init_ pour la classe ? Pour surcharger ici.
     _mode_matches = {
         MOVE_MODE_EXPLO: [TYPE_RESOURCE_TRANSFORMABLE],
         MOVE_MODE_NURSE: [TYPE_NURSERY]
