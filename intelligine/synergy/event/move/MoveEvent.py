@@ -1,7 +1,7 @@
 from intelligine.core.exceptions import UnableToFoundMovement
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
 from synergine.core.exceptions import NotConcernedEvent
-from synergine.synergy.event.Event import Event
+from intelligine.synergy.event.Event import Event
 from synergine.core.simulation.mechanism.Mechanism import Mechanism
 from intelligine.cst import COL_WALKER, BRAIN_SCHEMA, BRAIN_PART_MOVE
 from xyzworld.cst import POSITION

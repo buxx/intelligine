@@ -1,5 +1,5 @@
-from intelligine.core.exceptions import NearFound, NearNothingFound
-from synergine.synergy.event.Event import Event
+from intelligine.core.exceptions import NearNothingFound
+from intelligine.synergy.event.Event import Event
 from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
 
 
