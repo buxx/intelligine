@@ -63,12 +63,6 @@ class Ant(Bug):
             for obj_carried in self._carried:
                 obj_carried.set_position(position)
 
-    # TODO: N'est plus utiliser ! delete it !
-    def get_last_pheromone_point(self, pheromone_name):
-        if pheromone_name in self._last_pheromones_points:
-            return self._last_pheromones_points[pheromone_name]
-        return self._start_position
-
     def initialize(self):
         super().initialize()
         if self.get_movement_pheromone_gland().is_enabled():
