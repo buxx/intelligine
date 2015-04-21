@@ -12,23 +12,15 @@ class DirectionPheromone():
         context.pheromones().increment_with_pheromone(point, pheromone)
         context.metas.list.add(PHEROMON_POSITIONS, PHEROMON_POSITIONS, point, assert_not_in=False)
 
-    @staticmethod
-    def get_direction_for_point(context, point, pheromone_type):
+    @classmethod
+    def get_direction_for_point(cls, context, point, pheromone_type):
         flavour = context.pheromones().get_flavour(point)
         pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
 
         distance = pheromone.get_distance()
-        around_points = context.get_around_points_of(point)
-        # TODO: Cet algo around a mettre ailleurs
-        around_pheromones_points = []
-        for around_point in around_points:
-            flavour = context.pheromones().get_flavour(around_point)
-            try:
-                around_pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
-                if around_pheromone.get_distance() < distance:
-                    around_pheromones_points.append((around_point, around_pheromone))
-            except NoPheromone:
-                pass  # No pheromone, ok continue to sniff around
+        around_pheromone_filter = lambda around_pheromone: around_pheromone.get_distance() < distance
+        around_pheromones_points = cls._get_around_pheromones(context, point, pheromone_type,
+                                                              pheromone_filter=around_pheromone_filter)
 
         if not around_pheromones_points:
             raise NoPheromone()
@@ -52,6 +44,22 @@ class DirectionPheromone():
         direction = get_direction_for_degrees(direction_degrees)
 
         return direction
+
+    @staticmethod
+    def _get_around_pheromones(context, reference_point, pheromone_type,
+                               pheromone_filter=lambda around_pheromone: True):
+        around_points = context.get_around_points_of(reference_point)
+        around_pheromones_points = []
+        for around_point in around_points:
+            flavour = context.pheromones().get_flavour(around_point)
+            try:
+                around_pheromone = flavour.get_pheromone(category=PHEROMON_DIRECTION, type=pheromone_type)
+                if pheromone_filter(around_pheromone):
+                    around_pheromones_points.append((around_point, around_pheromone))
+            except NoPheromone:
+                pass  # No pheromone, ok continue to sniff around
+
+        return around_pheromones_points
 
     @staticmethod
     def get_best_pheromone_direction_in(context, reference_point, points, pheromone_type):
