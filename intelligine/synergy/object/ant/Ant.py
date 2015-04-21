@@ -17,7 +17,7 @@ class Ant(Bug):
         context.metas.collections.add_list(self.get_id(), [COL_TRANSPORTER,
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
-        self._carried = []
+        self._carried = None
         # TODO: Faire un body_part schema pour ces trucs la
         self._movement_pheromone_gland = MovementPheromoneGland(self, self._context)
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
@@ -31,37 +31,33 @@ class Ant(Bug):
     def put_carry(self, obj, position=None):
         if position is None:
             position = self._get_position()
-        self._carried.remove(obj)
+        self._carried = None
         obj.set_position(position)
         self._context.metas.states.remove(self.get_id(), CARRYING)
 
     def get_carried(self):
-        # TODO: cas ou plusieurs ?
-        return self._carried[0]
+        return self._carried
 
     def carry(self, obj):
-        self._carried.append(obj)
+        self._carried = obj
         self._context.metas.states.add(self.get_id(), CARRYING)
-        #  TODO: On gere une liste de carried (mais pas juste la dessous). Ne gerer qu'un objet carried ?
         self._context.metas.value.set(CARRIED, self.get_id(), obj.get_id())
-        # TODO: pour le moment hardcode
+        # TODO: pour le moment hardcode, a gerer dans AntTakeBrainPart (callback en fct de ce qui est depose)
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
             self.get_movement_pheromone_gland().appose()
 
     def is_carrying(self):
-        if len(self._carried):
+        if self._carried:
             return True
         return False
 
-    # TODO: Est-ce ici que doit etre ce code ?
     def set_position(self, position):
         if self._position is not None and position != self._position:
             self._brain.host_moved()
         super().set_position(position)
         if self.is_carrying():
-            for obj_carried in self._carried:
-                obj_carried.set_position(position)
+            self._carried.set_position(position)
 
     def initialize(self):
         super().initialize()
