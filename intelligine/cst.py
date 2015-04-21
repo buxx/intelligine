@@ -44,3 +44,6 @@ BRAIN_PART_MOVE = IncrementedNamedInt.get('intelligine.brain.part.move')
 BRAIN_PART_TAKE = IncrementedNamedInt.get('intelligine.brain.part.take')
 BRAIN_PART_PUT = IncrementedNamedInt.get('intelligine.brain.part.put')
 BRAIN_PART_ATTACK = IncrementedNamedInt.get('intelligine.brain.part.attack')
+
+BODY_SCHEMA = IncrementedNamedInt.get('intelligine.body_schema')
+BODY_PART_PHEROMONE_GLAND = IncrementedNamedInt.get('intelligine.body.part.pheromone_gland')

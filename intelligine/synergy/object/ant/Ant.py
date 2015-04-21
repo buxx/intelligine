@@ -1,15 +1,17 @@
 from intelligine.core.exceptions import PheromoneException
 from intelligine.synergy.object.Bug import Bug
-from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
-                            COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
-                            COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, \
-                            PHEROMON_DIR_EXPLO, CARRIED
+from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
+    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, CARRIED, BODY_PART_PHEROMONE_GLAND
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
 
 
 class Ant(Bug):
+
+    _body_parts = {
+        BODY_PART_PHEROMONE_GLAND: MovementPheromoneGland
+    }
 
     def __init__(self, collection, context):
         super().__init__(collection, context)
@@ -18,15 +20,13 @@ class Ant(Bug):
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
         self._carried = None
-        # TODO: Faire un body_part schema pour ces trucs la
-        self._movement_pheromone_gland = MovementPheromoneGland(self, self._context)
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
 
     def _get_brain_instance(self):
         return AntBrain(self._context, self)
 
     def get_movement_pheromone_gland(self):
-        return self._movement_pheromone_gland
+        return self.get_body_part(BODY_PART_PHEROMONE_GLAND)
 
     def put_carry(self, obj, position=None):
         if position is None:

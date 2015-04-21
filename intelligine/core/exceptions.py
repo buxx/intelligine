@@ -54,6 +54,14 @@ class BrainPartAlreadyExist(BrainException):
     pass
 
 
+class BodyException(Exception):
+    pass
+
+
+class BodyPartAlreadyExist(BodyException):
+    pass
+
+
 class DirectionException(Exception):
     pass
 
