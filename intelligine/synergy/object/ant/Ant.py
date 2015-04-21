@@ -3,7 +3,7 @@ from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, \
                             COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
                             COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, \
-                            PHEROMON_DIR_EXPLO, LAST_PHERMONES_POINTS, CARRIED
+                            PHEROMON_DIR_EXPLO, CARRIED
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -18,7 +18,6 @@ class Ant(Bug):
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
         self._carried = []
-        self._last_pheromones_points = {}
         # TODO: Faire un body_part schema pour ces trucs la
         self._movement_pheromone_gland = MovementPheromoneGland(self, self._context)
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
@@ -48,7 +47,6 @@ class Ant(Bug):
         # TODO: pour le moment hardcode
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
-            self.set_last_pheromone_point(PHEROMON_DIR_EXPLO, obj.get_position())
             self.get_movement_pheromone_gland().appose()
 
     def is_carrying(self):
@@ -70,10 +68,6 @@ class Ant(Bug):
         if pheromone_name in self._last_pheromones_points:
             return self._last_pheromones_points[pheromone_name]
         return self._start_position
-
-    def set_last_pheromone_point(self, pheromone_name, position):
-        self._last_pheromones_points[pheromone_name] = position
-        self._context.metas.value.set(LAST_PHERMONES_POINTS, self.get_id(), self._last_pheromones_points)
 
     def initialize(self):
         super().initialize()

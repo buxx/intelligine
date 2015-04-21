@@ -21,6 +21,4 @@ class AntTakeBrainPart(TakeBrainPart):
         # TODO: Ranger ca ? Truc plus dynamique/configurable ?
         if isinstance(take_object, Resource):
             obj.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
-            # TODO: set_last_pheromone_point ca devrait pas etre dans get_movement_pheromone_gland().appose() ?
-            obj.set_last_pheromone_point(PHEROMON_DIR_EXPLO, obj.get_position())
             obj.get_movement_pheromone_gland().appose()

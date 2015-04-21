@@ -25,8 +25,6 @@ TYPE = IncrementedNamedInt.get('intelligine.object.type')
 TYPE_RESOURCE_TRANSFORMABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
 TYPE_NURSERY = IncrementedNamedInt.get('intelligine.object.type.nursery')
 
-LAST_PHERMONES_POINTS = IncrementedNamedInt.get('intelligine.last_pheromones_points')
-
 PHEROMON_POSITIONS = IncrementedNamedInt.get('intelligine.phero.positions')
 PHEROMON_INFOS = IncrementedNamedInt.get('intelligine.phero.infos')
 PHEROMON_DIRECTION = IncrementedNamedInt.get('intelligine.phero.direction')
