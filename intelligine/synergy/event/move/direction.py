@@ -123,7 +123,7 @@ directions_degrees = {
 
 def get_direction_for_degrees(degrees):
     if degrees < 0:
-        degrees = 360 - degrees - degrees - degrees  # TODO: math absolute !!!
+        degrees = 360 - abs(degrees)
     for plage in directions_degrees:
         if plage[0] <= degrees <= plage[1]:
             return directions_degrees[plage]
