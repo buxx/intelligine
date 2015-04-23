@@ -7,6 +7,7 @@ class Transportable(XyzSynergyObject):
     def __init__(self, collection, context):
         super().__init__(collection, context)
         self._carried_by = None
+        context.metas.states.add(self.get_id(), TRANSPORTABLE)
 
     def set_carried_by(self, obj):
         if obj is not None:
