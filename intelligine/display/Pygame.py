@@ -1,9 +1,8 @@
 from intelligine.core.exceptions import NoPheromone
 from xyzworld.display.Pygame import Pygame as XyzPygame
 import pygame
-from intelligine.cst import PHEROMON_INFOS, PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
-from intelligine.synergy.object.ant.PheromonExploration import PheromonExploration
-from intelligine.synergy.object.ant.PheromonHome import PheromonHome
+from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
+from intelligine.display.pygame.visualisation import SURFACE_PHEROMONE_EXPLORATION, SURFACE_PHEROMONE_HOME
 
 
 class Pygame(XyzPygame):
@@ -18,23 +17,22 @@ class Pygame(XyzPygame):
             self._display_pheromones(context.metas.list.get(PHEROMON_POSITIONS, PHEROMON_POSITIONS, allow_empty=True), context)
 
     def _display_pheromones(self, pheromones_positions, context):
-        # TODO: Code de test bordelique !
+        pheromone_exploration_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_EXPLORATION)
+        pheromone_home_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_HOME)
+
         for point in pheromones_positions:
-            flavour = context.pheromones().get_flavour(point)
+            point_flavour = context.pheromones().get_flavour(point)
             try:
-                flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_HOME)
-                pheromon = PheromonHome(object(), context)
-                pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
-                self._draw_objects_with_decal(point, [pheromon])
+                point_flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_HOME)
+                self.draw_surface(point, pheromone_home_surface)
             except NoPheromone:
-                pass
+                pass # No pheromone here
+
             try:
-                flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_EXPLO)
-                pheromon = PheromonExploration(object(), context)
-                pheromon.set_direction(11) # TODO: plus de direction avec ces nlles pheromones
-                self._draw_objects_with_decal(point, [pheromon])
+                point_flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_EXPLO)
+                self.draw_surface(point, pheromone_exploration_surface)
             except NoPheromone:
-                pass
+                pass # No pheromone here
 
     def _key_pressed(self, key):
         if key == pygame.K_p:

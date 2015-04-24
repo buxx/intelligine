@@ -12,6 +12,9 @@ from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
 from xyzworld.cst import PREVIOUS_DIRECTION
 
+SURFACE_PHEROMONE_HOME = 'pheromone_home'
+SURFACE_PHEROMONE_EXPLORATION = 'pheromone_exploration'
+
 # TODO: Analyser les procedes ici pour proposer des outils dans le framework
 
 ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
@@ -32,26 +35,13 @@ eggc3 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/eg
 eggc4 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c4.png')
 eggc5 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c5.png')
 eggc7 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c7.png')
-
-
-from intelligine.synergy.object.ant.PheromonExploration import PheromonExploration
-from intelligine.synergy.object.ant.PheromonHome import PheromonHome
 phee = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/phee.png')
 pheh = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/pheh.png')
-dir_phee = DirectionnedImage(phee)
-dir_pheh = DirectionnedImage(pheh)
-
 
 directions_ant = DirectionnedImage(ant)
 directions_red_ant = DirectionnedImage(red_ant)
 directions_blue_ant = DirectionnedImage(blue_ant)
 directions_green_ant = DirectionnedImage(green_ant)
-
-def phee_direction(phee, context):
-    return dir_phee.get_for_direction(phee.get_direction())
-
-def pheh_direction(pheh, context):
-    return dir_pheh.get_for_direction(pheh.get_direction())
 
 def bug_direction(bug, context):
     if bug.get_life_points() <= 0:
@@ -111,6 +101,16 @@ visualisation = {
     'callbacks': {
         'position': for_position
     },
+    'surfaces': {
+        SURFACE_PHEROMONE_EXPLORATION: {
+            'default': phee,
+            'callbacks': []
+        },
+        SURFACE_PHEROMONE_HOME: {
+            'default': pheh,
+            'callbacks': []
+        },
+    },
     'objects': {
         RedAnt: {
             'default': red_ant,
@@ -143,14 +143,6 @@ visualisation = {
         },
         Hole: {
             'default': hole
-        },
-        PheromonExploration: {
-            'default': phee,
-            'callbacks': [phee_direction]
-        },
-        PheromonHome: {
-            'default': pheh,
-            'callbacks': [pheh_direction]
-        },
+        }
     }
 }
