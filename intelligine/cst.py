@@ -24,6 +24,7 @@ MOVE_MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.mode.nurse')
 TYPE = IncrementedNamedInt.get('intelligine.object.type')
 TYPE_RESOURCE_TRANSFORMABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
 TYPE_NURSERY = IncrementedNamedInt.get('intelligine.object.type.nursery')
+TYPE_ANT = IncrementedNamedInt.get('intelligine.object.type.ant')
 
 PHEROMON_POSITIONS = IncrementedNamedInt.get('intelligine.phero.positions')
 PHEROMON_INFOS = IncrementedNamedInt.get('intelligine.phero.infos')

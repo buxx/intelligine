@@ -1,7 +1,7 @@
 from intelligine.core.exceptions import PheromoneException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
-    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, CARRIED, BODY_PART_PHEROMONE_GLAND
+    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, CARRIED, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -21,6 +21,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = None
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
+        context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
     def _get_brain_instance(self):
         return AntBrain(self._context, self)
