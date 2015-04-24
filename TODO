@@ -14,7 +14,3 @@ TODO:
 Future:
  * Chambres
  * 3d (ouch)
-
-Warning:
- * Lorsque une f trp un objet, le PutableEvent observe chaque tours. C parce que la fourmis rentre dans la COL
- (carrying). Mais le mechanisme n'a rien trouve (vide dans parameters): on peux economiser les observe dans ce cas la.
