@@ -2,10 +2,20 @@ from intelligine.core.Context import Context
 from intelligine.synergy.Simulation import Simulation
 from intelligine.display.Pygame import Pygame
 from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
-#from intelligine.sandbox.colored.colors_colonys import collections
-# TODO: influencer avec argument python
-from intelligine.sandbox.exploration.collections import collections
+import argparse
 
+parser = argparse.ArgumentParser(description='Select sandbox.')
+parser.add_argument('sandbox', metavar='sandbox', type=str, nargs=1,
+                    help='Name of sandbox: ' + ', '.join(['exploration', 'multi']))
+
+args = parser.parse_args()
+
+if 'multi' in args.sandbox:
+    from intelligine.sandbox.colored.colors_colonys import collections
+elif 'exploration' in args.sandbox:
+    from intelligine.sandbox.exploration.collections import collections
+else:
+    parser.parse_args(['-h'])
 
 config = {
     'app': {
