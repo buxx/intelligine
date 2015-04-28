@@ -14,7 +14,9 @@ class Pygame(XyzPygame):
     def receive(self, actions_done):
         super().receive(actions_done)
         if self._is_display_pheromones:
-            pheromones_positions = self._context.metas.list.get(PHEROMON_POSITIONS, PHEROMON_POSITIONS, allow_empty=True)
+            pheromones_positions = self._context.metas.list.get(PHEROMON_POSITIONS,
+                                                                PHEROMON_POSITIONS,
+                                                                allow_empty=True)
             self._display_pheromones(pheromones_positions, self._context)
 
     def _display_pheromones(self, pheromones_positions, context):
