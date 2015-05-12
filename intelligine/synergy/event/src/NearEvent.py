@@ -1,16 +1,13 @@
 from intelligine.core.exceptions import NearNothingFound
 from intelligine.synergy.event.Event import Event
-from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
+from xyzworld.mechanism.AroundMechanism import AroundMechanism
 
 
 class NearEvent(Event):
 
+    _mechanism = AroundMechanism
     _near_name = None
     _near_map = lambda self, near_object_id, context: False
-
-    def __init__(self, actions):
-        super().__init__(actions)
-        self._mechanism = ArroundMechanism
 
     # TODO: parameters en entre/sortie c pas bon ca
     def map(self, context, parameters, stop_at_first=False, filter=lambda near_object_id, context: True):

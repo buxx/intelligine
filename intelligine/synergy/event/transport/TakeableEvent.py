@@ -1,20 +1,17 @@
 from intelligine.core.exceptions import NearNothingFound
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.src.NearEvent import NearEvent
-from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
+from xyzworld.mechanism.AroundMechanism import AroundMechanism
 from intelligine.cst import TRANSPORTABLE, CANT_CARRY_STILL, COL_TRANSPORTER_NOT_CARRYING, BRAIN_SCHEMA, BRAIN_PART_TAKE
 
 
 class TakeableEvent(NearEvent):
 
+    _mechanism = AroundMechanism
     PARAM_TAKE = 'take'
-    concern = COL_TRANSPORTER_NOT_CARRYING
+    _concern = COL_TRANSPORTER_NOT_CARRYING
     _near_name = 'objects_ids_transportable'
     _near_map = lambda self, near_object_id, context: context.metas.states.have(near_object_id, TRANSPORTABLE)
-
-    def __init__(self, actions):
-        super().__init__(actions)
-        self._mechanism = ArroundMechanism
 
     def _prepare(self, object_id, context, parameters={}):
         if not self._can_carry(object_id, context):

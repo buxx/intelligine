@@ -2,7 +2,7 @@ from intelligine.core.exceptions import NearNothingFound, CantFindWhereToPut
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.cst import CANT_PUT_STILL, COL_TRANSPORTER_CARRYING, TRANSPORTABLE, BRAIN_SCHEMA, BRAIN_PART_PUT
-from xyzworld.mechanism.ArroundMechanism import ArroundMechanism
+from xyzworld.mechanism.AroundMechanism import AroundMechanism
 
 
 class PutableEvent(NearEvent):
@@ -12,13 +12,10 @@ class PutableEvent(NearEvent):
 
     PARAM_PUT = 'put'
     PARAM_PUT_TO = 'put_to'
-    concern = COL_TRANSPORTER_CARRYING
+    _mechanism = AroundMechanism
+    _concern = COL_TRANSPORTER_CARRYING
     _near_name = 'objects_ids_putable'
     _near_map = lambda self, near_object_id, context: context.metas.states.have(near_object_id, TRANSPORTABLE)
-
-    def __init__(self, actions):
-        super().__init__(actions)
-        self._mechanism = ArroundMechanism
 
     def _prepare(self, object_id, context, parameters={}):
         if not self._can_put(object_id, context):

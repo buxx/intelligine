@@ -12,11 +12,8 @@ class MoveEvent(Event):
     PARAM_POSITION = 'pos'
     PARAM_DIRECTION = 'dir'
 
-    concern = COL_WALKER
-
-    def __init__(self, actions):
-        super().__init__(actions)
-        self._mechanism = Mechanism
+    _mechanism = Mechanism
+    _concern = COL_WALKER
 
     def _prepare(self, object_id, context, parameters={}):
         try:

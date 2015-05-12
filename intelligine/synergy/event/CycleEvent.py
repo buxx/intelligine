@@ -4,7 +4,7 @@ from intelligine.cst import COL_TRANSPORTER
 
 class CycleEvent(Event):
 
-    concern = COL_TRANSPORTER
+    _concern = COL_TRANSPORTER
 
     def _prepare(self, object_id, context, parameters):
         return parameters
