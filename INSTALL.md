@@ -36,3 +36,19 @@ Open new Cmd:
 cd intelligine
 C:\Python34\python run.py multi
 ````
+
+Linux
+-------------------
+
+You need python3.4+ and git. Clone the project:
+````
+git clone https://github.com/buxx/intelligine.git ant/intelligine
+````
+Install requirements:
+````
+pip install -r requirements.txt
+````
+It's ready
+````
+python run.py multi
+````
