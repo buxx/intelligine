@@ -3,12 +3,6 @@ python:
   - "3.4"
 install:
   - "pip install -r tests_requirements.txt"
-before_install:
-  - git clone https://github.com/buxx/synergine.git
-  - rm modules/*
-  - ln -s ../synergine/modules/xyzworld modules/xyzworld
-  - ln -s ../synergine/modules/xzworld modules/xyworld
-  - ln -s ../synergine/synergine modules/synergine
 script:
   - coverage run tests.py --rcfile=.coveragerc -v && coverage report -m && python3.4 tests.py
 after_success:
