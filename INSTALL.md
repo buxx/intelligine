@@ -19,34 +19,20 @@ Execute command
 ````
 C:\Python34\python -m pip install "Downloads\pygame-1.9.2a0-cp34-none-win32.whl"
 ````
-Launch Git Bash program and execute command 
-````
-mkdir ant
-````
-
-Execute command 
-````
-git clone https://github.com/buxx/synergine.git ant/synergine
-````
-
-Execute command 
+Launch Git Bash program and execute command
 ````
 git clone https://github.com/buxx/intelligine.git ant/intelligine
 ````
 
 Open Cmd and execute commands 
 ````
-cd ant\intelligine\modules
-del synergine
-del xyzworld
-del xyworld
-mklink /j synergine ..\..\synergine\synergine
-mklink /j xyzworld ..\..\synergine\modules\xyzworld
-mklink /j xyworld ..\..\synergine\modules\xyworld
+cd intelligine
+git clone https://github.com/buxx/synergine.git
+git clone https://github.com/buxx/synergine_xyz.git
 ````
 
 Open new Cmd:
 ````
-cd ant\intelligine
-C:\Python34\python run.py
+cd intelligine
+C:\Python34\python run.py multi
 ````
