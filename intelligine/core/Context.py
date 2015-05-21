@@ -1,6 +1,6 @@
-from xyzworld.Context import Context as XyzContext
+from synergine_xyz.Context import Context as XyzContext
 from intelligine.cst import IMPENETRABLE
-from xyzworld.cst import POSITIONS
+from synergine_xyz.cst import POSITIONS
 from intelligine.synergy.stigmergy.PheromonesManager import PheromonesManager
 
 

@@ -1,5 +1,5 @@
 from synergine.synergy.Simulation import Simulation as BaseSimulation
-from xyzworld.cst import POSITION, POSITIONS
+from synergine_xyz.cst import POSITION, POSITIONS
 #from intelligine.synergy.event.attack.NearAttackableAction import NearAttackableAction
 from intelligine.synergy.event.transport.PutableAction import PutableAction
 from intelligine.synergy.event.transport.TakeableAction import TakeableAction

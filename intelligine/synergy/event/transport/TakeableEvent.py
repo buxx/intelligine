@@ -1,7 +1,7 @@
 from intelligine.core.exceptions import NearNothingFound
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.src.NearEvent import NearEvent
-from xyzworld.mechanism.AroundMechanism import AroundMechanism
+from synergine_xyz.mechanism.AroundMechanism import AroundMechanism
 from intelligine.cst import TRANSPORTABLE, CANT_CARRY_STILL, COL_TRANSPORTER_NOT_CARRYING, BRAIN_SCHEMA, BRAIN_PART_TAKE
 
 

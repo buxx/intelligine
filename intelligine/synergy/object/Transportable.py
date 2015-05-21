@@ -1,4 +1,4 @@
-from xyzworld.SynergyObject import SynergyObject as XyzSynergyObject
+from synergine_xyz.SynergyObject import SynergyObject as XyzSynergyObject
 from intelligine.cst import TRANSPORTABLE
 
 

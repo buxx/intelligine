@@ -2,7 +2,7 @@ from intelligine.core.exceptions import DirectionException
 from intelligine.simulation.object.brain.part.BrainPart import BrainPart
 from intelligine.synergy.event.move.direction import directions_same_level, directions_slighty
 from random import randint, choice, randrange
-from xyzworld.cst import BLOCKED_SINCE, PREVIOUS_DIRECTION
+from synergine_xyz.cst import BLOCKED_SINCE, PREVIOUS_DIRECTION
 
 
 class MoveBrainPart(BrainPart):

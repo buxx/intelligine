@@ -2,7 +2,7 @@ from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.move.MoveEvent import MoveEvent
 from synergine.synergy.event.exception.ActionAborted import ActionAborted
 from intelligine.cst import BRAIN_PART_MOVE
-from xyzworld.cst import BLOCKED_SINCE
+from synergine_xyz.cst import BLOCKED_SINCE
 
 
 class MoveAction(Action):

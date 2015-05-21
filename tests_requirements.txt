@@ -1,2 +1,2 @@
-python-coveralls==2.4.2
-coverage==3.7.1
+synergine>=0.0.1
+synergine_xyz>=0.0.1

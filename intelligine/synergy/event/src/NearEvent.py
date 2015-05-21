@@ -1,6 +1,6 @@
 from intelligine.core.exceptions import NearNothingFound
 from intelligine.synergy.event.Event import Event
-from xyzworld.mechanism.AroundMechanism import AroundMechanism
+from synergine_xyz.mechanism.AroundMechanism import AroundMechanism
 
 
 class NearEvent(Event):

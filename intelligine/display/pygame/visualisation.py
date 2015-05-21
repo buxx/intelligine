@@ -1,5 +1,5 @@
-from xyworld.display.object.pygame.PygameImage import PygameImage
-from xyworld.display.object.pygame.DirectionnedImage import DirectionnedImage
+from synergine_xyz.display.object.pygame.PygameImage import PygameImage
+from synergine_xyz.display.object.pygame.DirectionnedImage import DirectionnedImage
 from intelligine.synergy.object.Bug import Bug
 from intelligine.synergy.object.Food import Food
 from intelligine.synergy.object.Hole import Hole
@@ -10,7 +10,7 @@ from intelligine.sandbox.colored.GreenAnt import GreenAnt
 from intelligine.synergy.object.Rock import Rock
 from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
-from xyzworld.cst import PREVIOUS_DIRECTION
+from synergine_xyz.cst import PREVIOUS_DIRECTION
 
 SURFACE_PHEROMONE_HOME = 'pheromone_home'
 SURFACE_PHEROMONE_EXPLORATION = 'pheromone_exploration'

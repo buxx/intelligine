@@ -2,7 +2,7 @@ from intelligine.core.exceptions import CantFindWhereToPut
 from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_TRANSFORMABLE, CARRIED
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
 from intelligine.synergy.object.Food import Food
-from xyzworld.cst import POSITION, POSITIONS
+from synergine_xyz.cst import POSITION, POSITIONS
 
 
 class AntPutBrainPart(TransportBrainPart):

@@ -2,7 +2,7 @@ from intelligine.core.exceptions import NearNothingFound, CantFindWhereToPut
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.cst import CANT_PUT_STILL, COL_TRANSPORTER_CARRYING, TRANSPORTABLE, BRAIN_SCHEMA, BRAIN_PART_PUT
-from xyzworld.mechanism.AroundMechanism import AroundMechanism
+from synergine_xyz.mechanism.AroundMechanism import AroundMechanism
 
 
 class PutableEvent(NearEvent):

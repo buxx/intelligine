@@ -4,7 +4,7 @@ from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.Event import Event
 from synergine.core.simulation.mechanism.Mechanism import Mechanism
 from intelligine.cst import COL_WALKER, BRAIN_SCHEMA, BRAIN_PART_MOVE
-from xyzworld.cst import POSITION
+from synergine_xyz.cst import POSITION
 
 
 class MoveEvent(Event):

@@ -1,5 +1,5 @@
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
-from xyzworld.cst import POSITION
+from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoPheromone
 from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO, COL_TRANSPORTER_NOT_CARRYING, COL_TRANSPORTER_CARRYING
 from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone

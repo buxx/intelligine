@@ -1,7 +1,7 @@
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.synergy.object.ant.Ant import Ant
 from intelligine.cst import ALIVE, COLONY
-from xyzworld.cst import POSITION
+from synergine_xyz.cst import POSITION
 
 
 class ColonyConfiguration(Configuration):

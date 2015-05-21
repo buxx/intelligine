@@ -1,7 +1,7 @@
 from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_POSITIONS
 from intelligine.core.exceptions import NoPheromone
 from random import shuffle
-from xyzworld.geometry import get_degree_from_north
+from synergine_xyz.geometry import get_degree_from_north
 from intelligine.synergy.event.move.direction import get_direction_for_degrees
 
 

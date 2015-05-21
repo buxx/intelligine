@@ -1,5 +1,5 @@
 from intelligine.core.exceptions import NoPheromone
-from xyzworld.display.Pygame import Pygame as XyzPygame
+from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
 from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS
 from intelligine.display.pygame.visualisation import SURFACE_PHEROMONE_EXPLORATION, SURFACE_PHEROMONE_HOME
