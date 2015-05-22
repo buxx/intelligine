@@ -1,7 +1,8 @@
 from intelligine.simulation.object.brain.Brain import Brain
+from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
-    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE
+    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK
 from intelligine.cst import PHEROMONE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
@@ -14,7 +15,8 @@ class AntBrain(Brain):
     _brain_parts = {
         BRAIN_PART_MOVE: AntMoveBrainPart,
         BRAIN_PART_TAKE: AntTakeBrainPart,
-        BRAIN_PART_PUT: AntPutBrainPart
+        BRAIN_PART_PUT: AntPutBrainPart,
+        BRAIN_PART_ATTACK: AttackBrainPart
     }
 
     def __init__(self, context, host):

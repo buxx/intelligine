@@ -14,6 +14,7 @@ class NearAttackableEvent(NearEvent):
 
     def _prepare(self, object_id, context, parameters={}):
         obj_colony_id = context.metas.value.get(COLONY, object_id)
+        # TODO: Le critère pas la même colonie est du ressort du brain.
         filter = lambda near_object_id, context: obj_colony_id != context.metas.value.get(COLONY, near_object_id)
 
         try:
