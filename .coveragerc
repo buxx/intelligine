@@ -5,6 +5,7 @@ omit =
     run.py
     modules/*
     synergine/*
+    *site-packages/*
 [report]
 exclude_lines =
     raise NotImplementedError
