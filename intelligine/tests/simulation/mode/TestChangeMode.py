@@ -35,8 +35,8 @@ class TestChangeMode(Base):
             return SOUTH
         return NORTH
 
-    def _get_set_up_simulation(self):
-        return Simulation([self._get_colony(), self._get_foods()])
+    def _get_set_up_simulations(self):
+        return [Simulation([self._get_colony(), self._get_foods()])]
 
     def _get_colony(self):
         test_case = self
