@@ -21,4 +21,5 @@ class NearAttackableAction(Action):
             obj_attackable = synergy_manager.get_map().get_object(obj_id_attackable)
             obj_attackable.hurted(randint(0, 2))
             if obj_attackable.get_life_points() <= 0:
+                obj_attackable.die()
                 Signals.signal(ACTION_DIE).send(obj=obj_attackable, context=context)

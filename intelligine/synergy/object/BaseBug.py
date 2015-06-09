@@ -49,3 +49,9 @@ class BaseBug(Transportable):
 
     def get_brain(self):
         return self._brain
+
+    def die(self):
+        # TODO: Ca peut buger si pas , allow_not_in=True, pk ?
+        self._remove_state(ALIVE, allow_not_in=True)
+        self._remove_state(ATTACKABLE, allow_not_in=True)
+        self._remove_col(COL_ALIVE, allow_not_in=True)
