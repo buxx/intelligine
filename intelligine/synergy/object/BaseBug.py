@@ -12,6 +12,7 @@ class BaseBug(Transportable):
         super().__init__(collection, context)
         context.metas.states.add_list(self.get_id(), [ALIVE, ATTACKABLE])
         context.metas.collections.add(self.get_id(), COL_ALIVE)
+        context.metas.value.set(COLONY, self.get_id(), collection.get_id())
         self._life_points = 10
         self._movements_count = -1
         self._brain = self._get_brain_instance()

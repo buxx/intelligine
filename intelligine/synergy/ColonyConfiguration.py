@@ -1,6 +1,5 @@
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.synergy.object.ant.Ant import Ant
-from intelligine.cst import ALIVE, COLONY
 from synergine_xyz.cst import POSITION
 
 
@@ -20,7 +19,6 @@ class ColonyConfiguration(Configuration):
       ants = []
       for i in range(self._ant_count):
           ant = self._ant_class(collection, context)
-          context.metas.value.set(COLONY, ant.get_id(), collection.get_id())
           ant.set_position(self._start_position)
           ants.append(ant)
 
