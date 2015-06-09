@@ -1,19 +1,17 @@
 from intelligine.core.Context import Context
-from intelligine.synergy.Simulation import Simulation
 from intelligine.display.Pygame import Pygame
-from intelligine.display.pygame.visualisation import visualisation as pygame_visualisation
 import argparse
 
 parser = argparse.ArgumentParser(description='Select sandbox.')
 parser.add_argument('sandbox', metavar='sandbox', type=str, nargs=1,
-                    help='Name of sandbox: ' + ', '.join(['exploration', 'multi']))
+                    help='Name of sandbox: ' + ', '.join(['exploration', 'all']))
 
 args = parser.parse_args()
 
-if 'multi' in args.sandbox:
-    from intelligine.sandbox.colored.colors_colonys import collections
+if 'all' in args.sandbox:
+    from intelligine.sandbox.all.all import simulations, visualisation as pygame_visualisation
 elif 'exploration' in args.sandbox:
-    from intelligine.sandbox.exploration.collections import collections
+    from intelligine.sandbox.exploration.exploration import simulations, visualisation as pygame_visualisation
 else:
     parser.parse_args(['-h'])
 
@@ -31,7 +29,7 @@ config = {
             'cycles': -1
         }
     },
-    'simulations' : [Simulation(collections)],
+    'simulations': simulations,
     'connections': [Pygame],
     'terminal': {
       'pygame': {

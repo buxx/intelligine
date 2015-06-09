@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="isometric" width="200" height="100" tilewidth="20" tileheight="20">
+ <tileset firstgid="1" name="Rock" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/rock.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Rock"/>
+    <property name="file" value="intelligine.synergy.object.Rock"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="2" name="Food" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/food.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Food"/>
+    <property name="file" value="intelligine.synergy.object.Food"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3" name="Hole" tilewidth="20" tileheight="20">
+  <image source="../../display/pygame/image/hole.png" width="20" height="20"/>
+  <tile id="0">
+   <properties>
+    <property name="classname" value="Hole"/>
+    <property name="file" value="intelligine.synergy.object.Hole"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Calque 1" width="200" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztndtu4zAMBZPu///zolgY2wa+ySapw+MZQE8FL6U0SFIlzfv1er1ZLNbmgljuzpQ90QA/cjgz06+b8ZAPfuSwN9OvjzUaD3XgRw5bM/10Y8sR9kSDLT/+VDdiBn54wONHDvjhAX7kMOLHSDzUgh854IcH+JED9x8e4EcO+OHBqB+z7/m7vMcAPzy44kcnZvWLHx7gh2bdbnN2BT8063absyv4oVm325xdwQ/Nut3m7Ap+aNbtNmdX8EOzbrc5u4IfGvclV/qGfPBDs263ObuCH5p1u83ZFfzQrNttzq7gh2bdbnN2BT8063absyv4oVm325xdwY+cPPjhAX7k5MEPD/AjJw9+eIAfOXnwwwP8yMmDHx7gR20e1XqwDn7U5lGtB+vgR20e1XqwDn7U5lGtB+vgR20e1XqwjpIfUZ8t+syplEe1Hqwzy4/sz9/9rKOUR7UerDPTj6OfR9TCD7iDih9r/+s/+rnWHc483kUvmI+CH3vfh6F+VrJ6U/6dn4SiH50cwQ9vVP3o4gh+eNPFjyVG7dzghzeqfuzFKZ0d/PBG0Y8zsSrnBz+8UfDjarzCGcIPb7r6seSYfY7ww5vOfix5Zp4l/PCmux9Lrlnn6UzdK73hhwYOfiz5Zpwp/PDGxY8lZ/W5wg9vZvqR8X69akfww5tOjx+KjuCHN538GImrcgQ/vOnmx0hshSP44U1HP0bisx3BD2+6+jGSI9MR/PCmsx8jebIcwQ9vuvsxkivDEfzwxsGPkXzRjjzVD/X+onDxYyRnpCP44Y2THyN51e4QI2IqUe8vCjc/RlC6Q4yIqUS9vyie7Mc3KneIETGVqPcXxdP9+EbhDjEiphL1/qLAj3/MvkOMiKlEvb8o8OM/M+8QI2IqUe8vCvz4zaw7xIiYStT7i6Ly75yfdVWZcYcYEVOJen9R4Mc61XeIETGVqPcXBX5sEzUb/OgLfuwTMR/86At+HHN3RvjRF/w4x5054Udf8OM8V2eFH33BjzGuzAs/+oIf4+CHfn9R4Ec++NEX/MgHP/rynrieAn705WlndQb40Rf8yAc/+oIf+eBHX7b8OPtdy3AMfvRlzY+R7yKHY/CjL59+4EY8e2dpa87q50+9vyjwI5+9569bs1Y/f+r9RYEf+ew9f8UPbbb8gDjwoy9rfkAs+NEX7j/ywY++4Ec+R6/Pz8Yood5fFPgxh6PXeep7ot5fFPihifqeqPcXBX5oor4n6v1FgR+aqO+Jen9R4Icm6nui3l8U+KGJ+p6o9xfFzM/Xslgd1l+ybAWq
+  </data>
+ </layer>
+ <objectgroup name="Calque d'objets 1" width="200" height="100"/>
+</map>
