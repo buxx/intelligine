@@ -1,6 +1,6 @@
 from intelligine.core.exceptions import BodyPartAlreadyExist
 from intelligine.synergy.object.Transportable import Transportable
-from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE
+from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE, COLONY
 from intelligine.simulation.object.brain.Brain import Brain
 
 
