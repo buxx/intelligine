@@ -9,7 +9,8 @@ class AntTakeBrainPart(TakeBrainPart):
     # TODO: methode __init_ pour la classe ? Pour surcharger ici.
     _mode_matches = {
         MOVE_MODE_EXPLO: [TYPE_RESOURCE_TRANSFORMABLE],
-        MOVE_MODE_NURSE: [TYPE_NURSERY]
+        MOVE_MODE_NURSE: [TYPE_NURSERY],
+        MOVE_MODE_GOHOME: []
     }
 
     @classmethod
