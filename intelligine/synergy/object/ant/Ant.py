@@ -1,8 +1,8 @@
 from intelligine.core.exceptions import PheromoneException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
-    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, CARRIED, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
-    COL_TRANSPORTER_CARRYING
+    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
+    COL_TRANSPORTER_CARRYING, MOVE_MODE_NURSE
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -44,7 +44,10 @@ class Ant(Bug):
             position = self._get_position()
         self._carried = None
         obj.set_position(position)
+        obj.set_is_carried(False, self)
         self._context.metas.states.remove(self.get_id(), CARRYING)
+        self._add_col(COL_TRANSPORTER_NOT_CARRYING)
+        self._remove_col(COL_TRANSPORTER_CARRYING)
 
     def get_carried(self):
         return self._carried
@@ -52,7 +55,9 @@ class Ant(Bug):
     def carry(self, obj):
         self._carried = obj
         self._context.metas.states.add(self.get_id(), CARRYING)
-        self._context.metas.value.set(CARRIED, self.get_id(), obj.get_id())
+        self._add_col(COL_TRANSPORTER_CARRYING)
+        self._remove_col(COL_TRANSPORTER_NOT_CARRYING)
+        obj.set_is_carried(True, self)
         # TODO: pour le moment hardcode, a gerer dans AntTakeBrainPart (callback en fct de ce qui est depose)
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
