@@ -1,5 +1,5 @@
 from synergine_xyz.SynergyObject import SynergyObject as XyzSynergyObject
-from intelligine.cst import TRANSPORTABLE
+from intelligine.cst import TRANSPORTABLE, CARRIED
 
 
 class Transportable(XyzSynergyObject):
@@ -8,6 +8,7 @@ class Transportable(XyzSynergyObject):
         super().__init__(collection, context)
         self._carried_by = None
         context.metas.states.add(self.get_id(), TRANSPORTABLE)
+        self._is_carried = False
 
     def set_carried_by(self, obj):
         if obj is not None:
@@ -29,3 +30,10 @@ class Transportable(XyzSynergyObject):
 
     def is_takable(self):
         return not self.is_carried()
+
+    def set_is_carried(self, is_carried, by_obj):
+        self._is_carried = bool(is_carried)
+        if self._is_carried:
+            self._context.metas.value.set(CARRIED, subject=by_obj.get_id(), value=self.get_id())
+        else:
+            self._context.metas.value.unset(CARRIED, subject=by_obj.get_id())

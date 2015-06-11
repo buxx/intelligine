@@ -1,6 +1,6 @@
 from intelligine.core.exceptions import BodyPartAlreadyExist
 from intelligine.synergy.object.Transportable import Transportable
-from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE, COLONY, CARRIED
+from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE, COLONY
 from intelligine.simulation.object.brain.Brain import Brain
 
 
@@ -18,7 +18,6 @@ class BaseBug(Transportable):
         self._brain = self._get_brain_instance()
         self._parts = {}
         self._init_parts()
-        self._is_carried = False
 
     def die(self):
         self._remove_state(ALIVE)
@@ -55,10 +54,3 @@ class BaseBug(Transportable):
 
     def get_brain(self):
         return self._brain
-
-    def set_is_carried(self, is_carried, by_obj):
-        self._is_carried = bool(is_carried)
-        if self._is_carried:
-            self._context.metas.value.set(CARRIED, subject=by_obj.get_id(), value=self.get_id())
-        else:
-            self._context.metas.value.unset(CARRIED, subject=by_obj.get_id())
