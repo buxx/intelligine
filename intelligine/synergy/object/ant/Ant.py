@@ -23,6 +23,14 @@ class Ant(Bug):
         self._brain.switch_to_mode(MOVE_MODE_EXPLO)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
+    def die(self):
+        super().die()
+        self._remove_state(TRANSPORTER)
+        self._remove_state(ATTACKER)
+        self._remove_col(COL_TRANSPORTER)
+        self._remove_col(COL_TRANSPORTER_NOT_CARRYING)
+        self._remove_col(COL_FIGHTER)
+
     def _get_brain_instance(self):
         return AntBrain(self._context, self)
 
