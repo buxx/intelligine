@@ -11,6 +11,5 @@ class Bug(BaseBug):
 
     def die(self):
         super().die()
-        # TODO: Ca peut buger si pas , allow_not_in=True, pk ?
-        self._remove_state(WALKER, allow_not_in=True)
-        self._remove_col(COL_WALKER, allow_not_in=True)
+        self._remove_state(WALKER)
+        self._remove_col(COL_WALKER)

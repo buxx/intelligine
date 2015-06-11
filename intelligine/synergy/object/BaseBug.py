@@ -19,6 +19,11 @@ class BaseBug(Transportable):
         self._parts = {}
         self._init_parts()
 
+    def die(self):
+        self._remove_state(ALIVE)
+        self._remove_state(ATTACKABLE)
+        self._remove_col(COL_ALIVE)
+
     def _init_parts(self):
         for body_part_name in self._body_parts:
             self._set_body_part(body_part_name, self._body_parts[body_part_name](self, self._context))
@@ -49,9 +54,3 @@ class BaseBug(Transportable):
 
     def get_brain(self):
         return self._brain
-
-    def die(self):
-        # TODO: Ca peut buger si pas , allow_not_in=True, pk ?
-        self._remove_state(ALIVE, allow_not_in=True)
-        self._remove_state(ATTACKABLE, allow_not_in=True)
-        self._remove_col(COL_ALIVE, allow_not_in=True)
