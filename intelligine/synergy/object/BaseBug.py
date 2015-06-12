@@ -1,7 +1,9 @@
 from intelligine.core.exceptions import BodyPartAlreadyExist
 from intelligine.synergy.object.Transportable import Transportable
-from intelligine.cst import ALIVE, ATTACKABLE, COL_ALIVE, COLONY
+from intelligine.cst import COL_ALIVE, COLONY, ACTION_DIE
 from intelligine.simulation.object.brain.Brain import Brain
+from intelligine.cst import ALIVE, ATTACKABLE
+from synergine.core.Signals import Signals
 
 
 class BaseBug(Transportable):
@@ -14,12 +16,14 @@ class BaseBug(Transportable):
         context.metas.collections.add(self.get_id(), COL_ALIVE)
         context.metas.value.set(COLONY, self.get_id(), collection.get_id())
         self._life_points = 10
+        self._alive = True
         self._movements_count = -1
         self._brain = self._get_brain_instance()
         self._parts = {}
         self._init_parts()
 
     def die(self):
+        self._set_alive(False)
         self._remove_state(ALIVE)
         self._remove_state(ATTACKABLE)
         self._remove_col(COL_ALIVE)
@@ -38,6 +42,15 @@ class BaseBug(Transportable):
 
     def hurted(self, points):
         self._life_points -= points
+        if self.get_life_points() <= 0 and self.is_alive():
+            self.die()
+            Signals.signal(ACTION_DIE).send(obj=self, context=self._context)
+
+    def is_alive(self):
+        return self._alive
+
+    def _set_alive(self, alive):
+        self._alive = bool(alive)
 
     def get_life_points(self):
         return self._life_points
