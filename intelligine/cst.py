@@ -22,7 +22,7 @@ MOVE_MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.gohome
 MOVE_MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.mode.nurse')
 
 TYPE = IncrementedNamedInt.get('intelligine.object.type')
-TYPE_RESOURCE_TRANSFORMABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
+TYPE_RESOURCE_EXPLOITABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
 TYPE_NURSERY = IncrementedNamedInt.get('intelligine.object.type.nursery')
 TYPE_ANT = IncrementedNamedInt.get('intelligine.object.type.ant')
 
@@ -39,6 +39,7 @@ COL_FIGHTER = IncrementedNamedInt.get('intelligine.col.walker')
 COL_TRANSPORTER = IncrementedNamedInt.get('intelligine.col.transporter')
 COL_TRANSPORTER_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_carrying')
 COL_TRANSPORTER_NOT_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_not_carrying')
+COL_EATABLE = IncrementedNamedInt.get('intelligine.col.eatable')
 
 BRAIN_SCHEMA = IncrementedNamedInt.get('intelligine.brain_schema')
 BRAIN_PART_MOVE = IncrementedNamedInt.get('intelligine.brain.part.move')

@@ -1,6 +1,7 @@
 import pygame
 from intelligine.synergy.Colony import Colony
 from intelligine.synergy.Rocks import Rocks
+from intelligine.synergy.object.StockedFood import StockedFood
 from synergine.synergy.Simulation import Simulation
 from synergine_xyz.display.PygameImageRotate import PygameImageRotate
 from synergine_xyz.display.PygameVisualisation import PygameVisualisation
@@ -164,7 +165,8 @@ map_config = {
         'ant': Ant,
         'egg': Egg,
         'rock': Rock,
-        'food': Food
+        'food': Food,
+        'stocked_food': StockedFood
     }
 }
 image_rotate = PygameImageRotate()

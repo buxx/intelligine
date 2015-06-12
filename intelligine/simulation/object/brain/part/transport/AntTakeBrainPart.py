@@ -1,14 +1,14 @@
 from intelligine.simulation.object.brain.part.transport.TakeBrainPart import TakeBrainPart
 from intelligine.synergy.object.ressource.Ressource import Resource
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE, TYPE_RESOURCE_TRANSFORMABLE, \
-    TYPE, MOVE_MODE_GOHOME, PHEROMON_DIR_EXPLO, MOVE_MODE_NURSE, TYPE_NURSERY
+from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, \
+    MOVE_MODE_GOHOME, MOVE_MODE_NURSE, TYPE_NURSERY
 
 
 class AntTakeBrainPart(TakeBrainPart):
 
     # TODO: methode __init_ pour la classe ? Pour surcharger ici.
     _mode_matches = {
-        MOVE_MODE_EXPLO: [TYPE_RESOURCE_TRANSFORMABLE],
+        MOVE_MODE_EXPLO: [TYPE_RESOURCE_EXPLOITABLE],
         MOVE_MODE_NURSE: [TYPE_NURSERY],
         MOVE_MODE_GOHOME: []
     }

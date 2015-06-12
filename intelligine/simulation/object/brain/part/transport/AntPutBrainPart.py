@@ -1,5 +1,5 @@
 from intelligine.core.exceptions import CantFindWhereToPut
-from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_TRANSFORMABLE, CARRIED
+from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
 from intelligine.synergy.object.Food import Food
 from synergine_xyz.cst import POSITION, POSITIONS
@@ -9,7 +9,7 @@ class AntPutBrainPart(TransportBrainPart):
 
     # TODO: methode __nit_ pour la classe ?
     _mode_matches = {
-        MOVE_MODE_EXPLO: [TYPE_RESOURCE_TRANSFORMABLE],
+        MOVE_MODE_EXPLO: [TYPE_RESOURCE_EXPLOITABLE],
     }
 
     @classmethod
