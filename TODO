@@ -1,5 +1,4 @@
 * Fourmis (map.tmx) pas en mode nurse (-> algo de choix d'activité plus tard)
 * Rocks: Renommer en Environment
-* SMELL: Avant d'appliquer toutes les odeurs, il faut les enlever!
 * Pygame: smell, pheromons: rendre + generique
 * Smell: Calcul de la distance max
