@@ -7,6 +7,13 @@ class SmellAction(Action):
 
     _listen = SmellEvent
 
+    @classmethod
+    def cycle_pre_run(cls, context, synergy_manager):
+        smell_positions = context.metas.list.get(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
+        for smell_position in smell_positions:
+            context.metas.value.unset(POINT_SMELL, smell_position)
+        context.metas.list.unset(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
+
     def run(self, obj, context, synergy_manager):
 
         points_distances = self._parameters['points_distances']
