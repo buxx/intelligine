@@ -17,6 +17,9 @@ from synergine_xyz.tmx.TileMapConnector import TileMapConnector
 SURFACE_PHEROMONE_HOME = 'pheromone_home'
 SURFACE_PHEROMONE_EXPLORATION = 'pheromone_exploration'
 
+SURFACE_SMELL_EGG = 'smell_egg'
+SURFACE_SMELL_FOOD = 'smell_food'
+
 # TODO: Analyser les procedes ici pour proposer des outils dans le framework
 
 # ant = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/ant.png')
@@ -39,6 +42,8 @@ eggc5 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/eg
 eggc7 = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/egg_c7.png')
 phee = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/phee.png')
 pheh = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/pheh.png')
+
+smell = PygameImage.from_filepath(getcwd()+'/intelligine/display/pygame/image/smell.png')
 #
 # directions_ant = DirectionnedImage(ant)
 # directions_red_ant = DirectionnedImage(red_ant)
@@ -224,6 +229,14 @@ def get_standard_extract_from_map(map_file_path, map_config):
             },
             SURFACE_PHEROMONE_HOME: {
                 'default': pheh,
+                'callbacks': []
+            },
+            SURFACE_SMELL_EGG: {
+                'default': smell,
+                'callbacks': []
+            },
+            SURFACE_SMELL_FOOD: {
+                'default': smell,
                 'callbacks': []
             },
         }

@@ -1,8 +1,8 @@
-from synergine_xyz.SynergyObject import SynergyObject as XyzSynergyObject
 from intelligine.cst import TRANSPORTABLE, CARRIED
+from intelligine.synergy.object.SynergyObject import SynergyObject
 
 
-class Transportable(XyzSynergyObject):
+class Transportable(SynergyObject):
 
     def __init__(self, collection, context):
         super().__init__(collection, context)
