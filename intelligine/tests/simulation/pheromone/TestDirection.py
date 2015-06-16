@@ -55,7 +55,7 @@ class TestDirection(Base):
         :return:
         """
         self._set_up_pheromones(pheromones, re_init=re_init)
-        around_points = self._context.get_around_points_of(reference_point)
+        around_points = self._context.get_around_points_of_point(reference_point)
         direction_tested = DirectionPheromone.get_best_pheromone_direction_in(self._context,
                                                                               reference_point,
                                                                               around_points,

@@ -48,7 +48,7 @@ class DirectionPheromone():
     @staticmethod
     def _get_around_pheromones(context, reference_point, pheromone_type,
                                pheromone_filter=lambda around_pheromone: True):
-        around_points = context.get_around_points_of(reference_point)
+        around_points = context.get_around_points_of_point(reference_point)
         around_pheromones_points = []
         for around_point in around_points:
             flavour = context.pheromones().get_flavour(around_point)

@@ -33,7 +33,7 @@ class AntMoveBrainPart(MoveBrainPart):
 
     @staticmethod
     def _get_direction_of_pheromone(context, point, pheromone_type):
-        search_pheromone_in_points = context.get_around_points_of(point, distance=1)
+        search_pheromone_in_points = context.get_around_points_of_point(point)
         try:
             best_pheromone_direction = DirectionPheromone.get_best_pheromone_direction_in(context,
                                                                                           point,
