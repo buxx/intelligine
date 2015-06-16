@@ -13,11 +13,6 @@ class SmellEvent(Event):
     _concern = COL_SMELL
     _each_cycle = 100
     _first_cycle_force = True
-    _smell = {
-        StockedFood: SMELL_FOOD,
-        Egg: SMELL_EGG
-    }
-    """ Match between synergy class and smell type """
 
     def _prepare(self, object_id, context, parameters={}):
         if not parameters['points_distances']:
