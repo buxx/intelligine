@@ -1,9 +1,6 @@
 from intelligine.cst import COL_SMELL
 from intelligine.mechanism.TraversableDistanceFromMechanism import TraversableDistanceFromMechanism
 from intelligine.synergy.event.Event import Event
-from intelligine.cst import SMELL_FOOD, SMELL_EGG
-from intelligine.synergy.object.StockedFood import StockedFood
-from intelligine.synergy.object.ant.Egg import Egg
 from synergine.core.exceptions import NotConcernedEvent
 
 
