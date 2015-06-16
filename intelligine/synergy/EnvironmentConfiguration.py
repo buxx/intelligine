@@ -2,7 +2,7 @@ from synergine.synergy.collection.Configuration import Configuration
 from intelligine.synergy.object.Rock import Rock
 
 
-class RocksConfiguration(Configuration):
+class EnvironmentConfiguration(Configuration):
 
     def get_start_objects(self, collection, context):
 

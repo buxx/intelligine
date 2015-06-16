@@ -2,7 +2,7 @@ from intelligine.synergy.event.smell.SmellAction import SmellAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
 
 
-class Rocks(SynergyCollection):
+class Environment(SynergyCollection):
     """
     TODO: Rename in Environment
     """
