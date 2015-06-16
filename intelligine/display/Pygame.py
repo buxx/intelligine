@@ -59,5 +59,15 @@ class Pygame(XyzPygame):
                 self.draw_surface(point, smell_food_surface)
 
     def _key_pressed(self, key):
-        self._is_display_pheromones = key == pygame.K_p
-        self._is_display_smells = key == pygame.K_s
+
+        if key == pygame.K_p:
+            if self._is_display_pheromones:
+                self._is_display_pheromones = False
+            else:
+                self._is_display_pheromones = True
+
+        if key == pygame.K_s:
+            if self._is_display_smells:
+                self._is_display_smells = False
+            else:
+                self._is_display_smells = True
