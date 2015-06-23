@@ -13,27 +13,27 @@ class UnableToFoundMovement(MovementException):
     pass
 
 
-class PheromoneException(Exception):
+class MoleculeException(Exception):
     pass
 
 
-class NoPheromone(PheromoneException):
+class NoMolecule(MoleculeException):
     pass
 
 
-class NoPheromoneMove(PheromoneException, MovementException):
+class NoMoleculeMove(MoleculeException, MovementException):
     pass
 
 
-class NoTypeInPheromone(NoPheromone):
+class NoTypeInMolecule(NoMolecule):
     pass
 
 
-class NoCategoryInPheromone(NoPheromone):
+class NoCategoryInMolecule(NoMolecule):
     pass
 
 
-class BestPheromoneHere(PheromoneException):
+class BestMoleculeHere(MoleculeException):
 
     def __init__(self, best_distance,  *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -42,7 +42,7 @@ class BestPheromoneHere(PheromoneException):
     def get_best_distance(self):
         return self._best_distance
 
-class PheromoneGlandDisabled(PheromoneException):
+class MoleculeGlandDisabled(MoleculeException):
     pass
 
 

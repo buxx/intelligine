@@ -1,17 +1,17 @@
-from intelligine.core.exceptions import PheromoneException
+from intelligine.core.exceptions import MoleculeException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
     COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
     COL_TRANSPORTER_CARRYING, MOVE_MODE_NURSE, MOVE_MODE_HOME
 from intelligine.synergy.object.Food import Food
-from intelligine.simulation.object.pheromone.MovementPheromoneGland import MovementPheromoneGland
+from intelligine.simulation.object.molecule.MovementMoleculeGland import MovementMoleculeGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
 
 
 class Ant(Bug):
 
     _body_parts = {
-        BODY_PART_PHEROMONE_GLAND: MovementPheromoneGland
+        BODY_PART_PHEROMONE_GLAND: MovementMoleculeGland
     }
 
     def __init__(self, collection, context):
@@ -36,7 +36,7 @@ class Ant(Bug):
     def _get_brain_instance(self):
         return AntBrain(self._context, self)
 
-    def get_movement_pheromone_gland(self):
+    def get_movement_molecule_gland(self):
         return self.get_body_part(BODY_PART_PHEROMONE_GLAND)
 
     def put_carry(self, obj, position=None):
@@ -61,7 +61,7 @@ class Ant(Bug):
         # TODO: pour le moment hardcode, a gerer dans AntTakeBrainPart (callback en fct de ce qui est depose)
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
-            self.get_movement_pheromone_gland().appose()
+            self.get_movement_molecule_gland().appose()
 
     def is_carrying(self):
         if self._carried:
@@ -77,10 +77,10 @@ class Ant(Bug):
 
     def initialize(self):
         super().initialize()
-        if self.get_movement_pheromone_gland().is_enabled():
+        if self.get_movement_molecule_gland().is_enabled():
             try:
-                self.get_movement_pheromone_gland().appose()
-            except PheromoneException:
+                self.get_movement_molecule_gland().appose()
+            except MoleculeException:
                 pass
 
     def get_colony(self):

@@ -14,8 +14,8 @@ from os import getcwd
 from synergine_xyz.cst import PREVIOUS_DIRECTION
 from synergine_xyz.tmx.TileMapConnector import TileMapConnector
 
-SURFACE_PHEROMONE_HOME = 'pheromone_home'
-SURFACE_PHEROMONE_EXPLORATION = 'pheromone_exploration'
+SURFACE_PHEROMONE_HOME = 'molecule_home'
+SURFACE_PHEROMONE_EXPLORATION = 'molecule_exploration'
 
 SURFACE_SMELL_EGG = 'smell_egg'
 SURFACE_SMELL_FOOD = 'smell_food'

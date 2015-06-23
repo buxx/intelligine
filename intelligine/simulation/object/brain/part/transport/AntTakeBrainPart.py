@@ -22,4 +22,4 @@ class AntTakeBrainPart(TakeBrainPart):
         # TODO: Ranger ca ? Truc plus dynamique/configurable ?
         if isinstance(take_object, Resource):
             obj.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
-            obj.get_movement_pheromone_gland().appose()
+            obj.get_movement_molecule_gland().appose()

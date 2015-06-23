@@ -5,12 +5,12 @@ from sys import path as ppath
 ppath.insert(1,getcwd()+'/modules') # TODO: win32 compatibilite (python path)
 
 """
-python3.4 -m unittest /home/bux/Projets/socialintengine/intelligine/tests/simulation/mode/TestChangeMode.py && python3.4 -m unittest intelligine/tests/simulation/pheromone/TestDirection.py
+python3.4 -m unittest /home/bux/Projets/socialintengine/intelligine/tests/simulation/mode/TestChangeMode.py && python3.4 -m unittest intelligine/tests/simulation/molecule/TestDirection.py
 """
 
 test_modules = [
     'intelligine.tests.simulation.mode.TestChangeMode.TestChangeMode',
-    'intelligine.tests.simulation.pheromone.TestDirection.TestDirection',
+    'intelligine.tests.simulation.molecule.TestDirection.TestDirection',
 ]
 
 suite = unittest.TestSuite()

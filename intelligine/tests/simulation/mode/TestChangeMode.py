@@ -1,6 +1,6 @@
 from os import getcwd
 from sys import path as ppath
-from intelligine.core.exceptions import NoPheromone
+from intelligine.core.exceptions import NoMolecule
 
 ppath.insert(1,getcwd()+'/modules')
 
@@ -16,7 +16,7 @@ from intelligine.tests.src.event.MoveAction import MoveAction as TestMoveAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.core.Context import Context
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE
+from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE, MOVE_MODE_HOME
 from intelligine.cst import PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO
 
 
@@ -101,7 +101,7 @@ class TestChangeMode(Base):
     def test_from_exploration_to_go_home(self):
         self._run_and_get_core(0)
         self.assertEquals((0, 0, 0), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MOVE_MODE_HOME, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         self._run_and_get_core(1)
@@ -115,11 +115,11 @@ class TestChangeMode(Base):
         self.assertTrue(self.ant.is_carrying())
         self.assertIsNotNone(self.ant.get_carried())
         self.assertEquals(self.food.__class__, self.ant.get_carried().__class__)
-        pheromone = self.ant.get_movement_pheromone_gland().get_pheromone()
-        # Now it appose exploration pheromone
-        self.assertEquals((PHEROMON_DIR_EXPLO, 0), (pheromone.get_type(), pheromone.get_distance()))
+        molecule = self.ant.get_movement_molecule_gland().get_molecule()
+        # Now it appose exploration molecule
+        self.assertEquals((PHEROMON_DIR_EXPLO, 0), (molecule.get_type(), molecule.get_distance()))
         self.assertEquals(MOVE_MODE_GOHOME, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_pheromone_gland().get_pheromone_type())
+        self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_molecule_gland().get_molecule_type())
 
         self._run_and_get_core(3)
         self.assertEquals((0, 0, -1), self.ant.get_position())
@@ -130,4 +130,4 @@ class TestChangeMode(Base):
         # Ant has put his food piece
         self.assertFalse(self.ant.is_carrying())
         self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_HOME, self.ant.get_movement_pheromone_gland().get_pheromone_type())
+        self.assertEquals(PHEROMON_DIR_HOME, self.ant.get_movement_molecule_gland().get_molecule_type())

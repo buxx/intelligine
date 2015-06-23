@@ -1,10 +1,10 @@
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
 from intelligine.synergy.event.move.direction import directions_modifiers, get_direction_for_degrees
 from synergine_xyz.cst import POSITION
-from intelligine.core.exceptions import NoPheromone
+from intelligine.core.exceptions import NoMolecule
 from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO, \
     MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, EXPLORATION_VECTOR, POINTS_SMELL
-from intelligine.simulation.pheromone.DirectionPheromone import DirectionPheromone
+from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from synergine_xyz.geometry import get_degree_from_north
 
 
@@ -26,8 +26,8 @@ class AntMoveBrainPart(MoveBrainPart):
         move_mode = context.metas.value.get(MOVE_MODE, object_id)
         if move_mode == MOVE_MODE_EXPLO:
             try:
-                return cls._get_direction_with_pheromones(context, object_id)
-            except NoPheromone:
+                return cls._get_direction_with_molecules(context, object_id)
+            except NoMolecule:
                 return super().get_direction(context, object_id)
         elif move_mode == MOVE_MODE_GOHOME:
             return cls._get_direction_with_exploration_vector(context, object_id)
@@ -35,32 +35,32 @@ class AntMoveBrainPart(MoveBrainPart):
         return super().get_direction(context, object_id)
 
     @classmethod
-    def _get_direction_with_pheromones(cls, context, object_id):
+    def _get_direction_with_molecules(cls, context, object_id):
         object_point = context.metas.value.get(POSITION, object_id)
-        pheromone_type = context.metas.value.get(PHEROMONE_SEARCHING, object_id)
+        molecule_type = context.metas.value.get(PHEROMONE_SEARCHING, object_id)
         try:
-            direction = cls._get_pheromone_direction_for_point(context, object_point, pheromone_type)
-        except NoPheromone:
+            direction = cls._get_molecule_direction_for_point(context, object_point, molecule_type)
+        except NoMolecule:
             try:
-                direction = cls._get_direction_of_pheromone(context, object_point, pheromone_type)
-            except NoPheromone:
+                direction = cls._get_direction_of_molecule(context, object_point, molecule_type)
+            except NoMolecule:
                 raise
         return direction
 
     @staticmethod
-    def _get_pheromone_direction_for_point(context, point, pheromone_type):
-        return DirectionPheromone.get_direction_for_point(context, point, pheromone_type)
+    def _get_molecule_direction_for_point(context, point, molecule_type):
+        return DirectionMolecule.get_direction_for_point(context, point, molecule_type)
 
     @staticmethod
-    def _get_direction_of_pheromone(context, point, pheromone_type):
-        search_pheromone_in_points = context.get_around_points_of_point(point)
+    def _get_direction_of_molecule(context, point, molecule_type):
+        search_molecule_in_points = context.get_around_points_of_point(point)
         try:
-            best_pheromone_direction = DirectionPheromone.get_best_pheromone_direction_in(context,
+            best_molecule_direction = DirectionMolecule.get_best_molecule_direction_in(context,
                                                                                           point,
-                                                                                          search_pheromone_in_points,
-                                                                                          pheromone_type)
-            return best_pheromone_direction
-        except NoPheromone as err:
+                                                                                          search_molecule_in_points,
+                                                                                          molecule_type)
+            return best_molecule_direction
+        except NoMolecule as err:
             raise err
 
     @staticmethod
@@ -79,14 +79,14 @@ class AntMoveBrainPart(MoveBrainPart):
     # TODO: obj pas necessaire, il est dans _host
     def done(self, obj, context):
         super().done(obj, context)
-        self._appose_pheromone(obj)
+        self._appose_molecule(obj)
         self._check_context(obj, context)
         self._apply_context(obj, context)
 
     @staticmethod
-    def _appose_pheromone(obj):
-        if obj.get_movement_pheromone_gland().is_enabled():
-            obj.get_movement_pheromone_gland().appose()
+    def _appose_molecule(obj):
+        if obj.get_movement_molecule_gland().is_enabled():
+            obj.get_movement_molecule_gland().appose()
 
     def _check_context(self, obj, context):
         """

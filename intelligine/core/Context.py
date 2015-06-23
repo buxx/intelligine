@@ -1,17 +1,17 @@
 from synergine_xyz.Context import Context as XyzContext
 from intelligine.cst import IMPENETRABLE
 from synergine_xyz.cst import POSITIONS
-from intelligine.synergy.stigmergy.PheromonesManager import PheromonesManager
+from intelligine.synergy.stigmergy.MoleculesManager import MoleculesManager
 
 
 class Context(XyzContext):
 
     def __init__(self):
         super().__init__()
-        self._pheromones = PheromonesManager(self)
+        self._molecules = MoleculesManager(self)
 
-    def pheromones(self):
-        return self._pheromones
+    def molecules(self):
+        return self._molecules
 
     def position_is_penetrable(self, position):
         """

@@ -1,4 +1,4 @@
-from intelligine.core.exceptions import NoPheromone
+from intelligine.core.exceptions import NoMolecule
 from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
 from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, PHEROMON_POSITIONS, POINTS_SMELL, \
@@ -11,17 +11,17 @@ class Pygame(XyzPygame):
 
     def __init__(self, config, context, synergy_manager):
         super().__init__(config, context, synergy_manager)
-        self._is_display_pheromones = False
+        self._is_display_molecules = False
         self._is_display_smells = False
 
     def receive(self, actions_done):
         super().receive(actions_done)
 
-        if self._is_display_pheromones:
-            pheromones_positions = self._context.metas.list.get(PHEROMON_POSITIONS,
+        if self._is_display_molecules:
+            molecules_positions = self._context.metas.list.get(PHEROMON_POSITIONS,
                                                                 PHEROMON_POSITIONS,
                                                                 allow_empty=True)
-            self._display_pheromones(pheromones_positions, self._context)
+            self._display_molecules(molecules_positions, self._context)
 
         if self._is_display_smells:
             smell_positions = self._context.metas.list.get(POINTS_SMELL,
@@ -29,23 +29,23 @@ class Pygame(XyzPygame):
                                                            allow_empty=True)
             self._display_smells(smell_positions, self._context)
 
-    def _display_pheromones(self, pheromones_positions, context):
-        pheromone_exploration_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_EXPLORATION)
-        pheromone_home_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_HOME)
+    def _display_molecules(self, molecules_positions, context):
+        molecule_exploration_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_EXPLORATION)
+        molecule_home_surface = self._object_visualizer.get_surface(SURFACE_PHEROMONE_HOME)
 
-        for point in pheromones_positions:
-            point_flavour = context.pheromones().get_flavour(point)
+        for point in molecules_positions:
+            point_flavour = context.molecules().get_flavour(point)
             try:
-                point_flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_HOME)
-                self.draw_surface(point, pheromone_home_surface)
-            except NoPheromone:
-                pass # No pheromone here
+                point_flavour.get_molecule(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_HOME)
+                self.draw_surface(point, molecule_home_surface)
+            except NoMolecule:
+                pass # No molecule here
 
             try:
-                point_flavour.get_pheromone(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_EXPLO)
-                self.draw_surface(point, pheromone_exploration_surface)
-            except NoPheromone:
-                pass # No pheromone here
+                point_flavour.get_molecule(category=PHEROMON_DIRECTION, type=PHEROMON_DIR_EXPLO)
+                self.draw_surface(point, molecule_exploration_surface)
+            except NoMolecule:
+                pass # No molecule here
 
     def _display_smells(self, smell_positions, context):
         smell_egg_surface = self._object_visualizer.get_surface(SURFACE_SMELL_EGG)
@@ -61,10 +61,10 @@ class Pygame(XyzPygame):
     def _key_pressed(self, key):
 
         if key == pygame.K_p:
-            if self._is_display_pheromones:
-                self._is_display_pheromones = False
+            if self._is_display_molecules:
+                self._is_display_molecules = False
             else:
-                self._is_display_pheromones = True
+                self._is_display_molecules = True
 
         if key == pygame.K_s:
             if self._is_display_smells:

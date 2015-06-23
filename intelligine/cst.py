@@ -13,7 +13,7 @@ CARRIED = IncrementedNamedInt.get('intelligine.carried')
 CANT_CARRY_STILL = IncrementedNamedInt.get('intelligine.cantcarry.still')
 CANT_PUT_STILL = IncrementedNamedInt.get('intelligine.cantput.still')
 ACTION_DIE = IncrementedNamedInt.get('intelligine.basebug.action.die')
-PHEROMONE_SEARCHING = IncrementedNamedInt.get('intelligine.pheromone_searching')
+PHEROMONE_SEARCHING = IncrementedNamedInt.get('intelligine.molecule_searching')
 
 # TODO: Renommer "move_mode" en "mode"
 MOVE_MODE = IncrementedNamedInt.get('intelligine.basebug.move.mode')
@@ -58,4 +58,4 @@ BRAIN_PART_PUT = IncrementedNamedInt.get('intelligine.brain.part.put')
 BRAIN_PART_ATTACK = IncrementedNamedInt.get('intelligine.brain.part.attack')
 
 BODY_SCHEMA = IncrementedNamedInt.get('intelligine.body_schema')
-BODY_PART_PHEROMONE_GLAND = IncrementedNamedInt.get('intelligine.body.part.pheromone_gland')
+BODY_PART_PHEROMONE_GLAND = IncrementedNamedInt.get('intelligine.body.part.molecule_gland')

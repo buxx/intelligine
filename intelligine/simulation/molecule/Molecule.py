@@ -1,4 +1,4 @@
-class Pheromone():
+class Molecule():
 
     def __init__(self, category, type, distance=None, intensity=0):
         self._category = category

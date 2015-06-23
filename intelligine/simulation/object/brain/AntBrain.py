@@ -23,47 +23,47 @@ class AntBrain(Brain):
         super().__init__(context, host)
         self._movement_mode = MOVE_MODE_HOME
         self._distance_from_objective = 0  # TODO rename: distance_since_objective
-        self._pheromone_searching = PHEROMON_DIR_EXPLO
+        self._molecule_searching = PHEROMON_DIR_EXPLO
 
     def switch_to_mode(self, mode):
         # TODO: Mode explo: reinit exploration vector
         self._movement_mode = mode
-        self._update_pheromone_gland(mode)
+        self._update_molecule_gland(mode)
         self._context.metas.value.set(MOVE_MODE, self._host.get_id(), mode)
         self._distance_from_objective = 0
-        self._update_pheromone_searching(mode)
+        self._update_molecule_searching(mode)
 
-    def _update_pheromone_gland(self, mode):
+    def _update_molecule_gland(self, mode):
         if mode == MOVE_MODE_EXPLO:
-            pheromone_direction_type = PHEROMON_DIR_HOME
+            molecule_direction_type = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_GOHOME:
-            pheromone_direction_type = PHEROMON_DIR_EXPLO
+            molecule_direction_type = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_NURSE:
-            pheromone_direction_type = None
+            molecule_direction_type = None
         elif mode == MOVE_MODE_HOME:
-            pheromone_direction_type = None
+            molecule_direction_type = None
         else:
             raise NotImplementedError()
 
-        if pheromone_direction_type:
-            self._host.get_movement_pheromone_gland().set_pheromone_type(pheromone_direction_type)
-            self._host.get_movement_pheromone_gland().enable()
+        if molecule_direction_type:
+            self._host.get_movement_molecule_gland().set_molecule_type(molecule_direction_type)
+            self._host.get_movement_molecule_gland().enable()
         else:
-            self._host.get_movement_pheromone_gland().disable()
+            self._host.get_movement_molecule_gland().disable()
 
-    def _update_pheromone_searching(self, mode):
+    def _update_molecule_searching(self, mode):
         if mode == MOVE_MODE_EXPLO:
-            pheromone_searching = PHEROMON_DIR_EXPLO
+            molecule_searching = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_GOHOME:
-            pheromone_searching = PHEROMON_DIR_HOME
+            molecule_searching = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_NURSE:
-            pheromone_searching = PHEROMON_DIR_NONE
+            molecule_searching = PHEROMON_DIR_NONE
         elif mode == MOVE_MODE_HOME:
             return
         else:
             raise NotImplementedError()
-        self._pheromone_searching = pheromone_searching
-        self._context.metas.value.set(PHEROMONE_SEARCHING, self._host.get_id(), pheromone_searching)
+        self._molecule_searching = molecule_searching
+        self._context.metas.value.set(PHEROMONE_SEARCHING, self._host.get_id(), molecule_searching)
 
     def get_movement_mode(self):
         return self._movement_mode
