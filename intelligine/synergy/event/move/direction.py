@@ -117,6 +117,7 @@ directions_degrees = {
     (202.5, 247.5): 16,
     (247.5, 292.5): 13,
     (292.5, 337.5): 10,
+    (337.5, 360): 11,
     (337.5, 0): 11
 }
 
@@ -127,7 +128,7 @@ def get_direction_for_degrees(degrees):
     for plage in directions_degrees:
         if plage[0] <= degrees <= plage[1]:
             return directions_degrees[plage]
-    raise Exception("Unknow plage for degree \"" + degrees + '"')
+    raise Exception("Unknow plage for degree \"" + str(degrees) + '"')
 
 
 """

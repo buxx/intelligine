@@ -1,3 +1,5 @@
 * Fourmis (map.tmx) pas en mode nurse (-> algo de choix d'activité plus tard)
 * Pygame: smell, pheromons: rendre + generique
 * Smell: Calcul de la distance max
+* Ant: MOVE_MODE_HOME && rien à faire (pas de truc à stocker, switch to mode EXPLO)
+* Plus de pheromone deposer a l'explo !

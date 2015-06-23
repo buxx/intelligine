@@ -7,6 +7,6 @@ class MovementPheromoneGland(PheromoneGland):
 
     def get_pheromone(self):
         """
-        :return: pheromone_type, distance_from_objective
+        :return: Pheromone
         """
         return Pheromone(PHEROMON_DIRECTION, self._pheromone_type, self._host.get_brain().get_distance_from_objective(), 1)

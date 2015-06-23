@@ -2,7 +2,7 @@ from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
-    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK
+    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME
 from intelligine.cst import PHEROMONE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
@@ -21,11 +21,12 @@ class AntBrain(Brain):
 
     def __init__(self, context, host):
         super().__init__(context, host)
-        self._movement_mode = MOVE_MODE_EXPLO
+        self._movement_mode = MOVE_MODE_HOME
         self._distance_from_objective = 0  # TODO rename: distance_since_objective
         self._pheromone_searching = PHEROMON_DIR_EXPLO
 
     def switch_to_mode(self, mode):
+        # TODO: Mode explo: reinit exploration vector
         self._movement_mode = mode
         self._update_pheromone_gland(mode)
         self._context.metas.value.set(MOVE_MODE, self._host.get_id(), mode)
@@ -38,6 +39,8 @@ class AntBrain(Brain):
         elif mode == MOVE_MODE_GOHOME:
             pheromone_direction_type = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_NURSE:
+            pheromone_direction_type = None
+        elif mode == MOVE_MODE_HOME:
             pheromone_direction_type = None
         else:
             raise NotImplementedError()
@@ -55,6 +58,8 @@ class AntBrain(Brain):
             pheromone_searching = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_NURSE:
             pheromone_searching = PHEROMON_DIR_NONE
+        elif mode == MOVE_MODE_HOME:
+            return
         else:
             raise NotImplementedError()
         self._pheromone_searching = pheromone_searching

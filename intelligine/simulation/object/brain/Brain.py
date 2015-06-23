@@ -33,3 +33,9 @@ class Brain():
         # TODO: N'est-ce pas un schema appartenant a la classe ? Ne suffirai t-il pas de stocker ce schema par classe
         # plutôt que par objet ?
         self._context.metas.value.set(BRAIN_SCHEMA, self._host.get_id(), self._schema)
+
+    def get_context(self):
+        return self._context
+
+    def get_host(self):
+        return self._host
