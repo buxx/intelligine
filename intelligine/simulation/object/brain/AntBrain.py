@@ -2,11 +2,13 @@ from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
-    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME
-from intelligine.cst import PHEROMONE_SEARCHING
+    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME, SMELL_FOOD
+from intelligine.cst import MOLECULE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
 from intelligine.simulation.object.brain.part.transport.AntTakeBrainPart import AntTakeBrainPart
+from intelligine.synergy.object.Food import Food
+from synergine.core.exceptions import NotFound
 
 
 class AntBrain(Brain):
@@ -18,6 +20,11 @@ class AntBrain(Brain):
         BRAIN_PART_PUT: AntPutBrainPart,
         BRAIN_PART_ATTACK: AttackBrainPart
     }
+
+    _taken_smell_matches = {
+        Food: SMELL_FOOD
+    }
+    """ Correspondance entre ce qui est ramassé et où ce doit être stocké """
 
     def __init__(self, context, host):
         super().__init__(context, host)
@@ -55,15 +62,17 @@ class AntBrain(Brain):
         if mode == MOVE_MODE_EXPLO:
             molecule_searching = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_GOHOME:
+            # TODO: Plus rien ici (path integration)
             molecule_searching = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_NURSE:
             molecule_searching = PHEROMON_DIR_NONE
         elif mode == MOVE_MODE_HOME:
-            return
+            molecule_searching = self.get_part(BRAIN_PART_TAKE).get_smell_target()
         else:
             raise NotImplementedError()
+
         self._molecule_searching = molecule_searching
-        self._context.metas.value.set(PHEROMONE_SEARCHING, self._host.get_id(), molecule_searching)
+        self._context.metas.value.set(MOLECULE_SEARCHING, self._host.get_id(), molecule_searching)
 
     def get_movement_mode(self):
         return self._movement_mode
@@ -76,3 +85,9 @@ class AntBrain(Brain):
 
     def get_distance_from_objective(self):
         return self._distance_from_objective
+
+    def get_smell_for_object_taken(self, obj):
+        for take_class in self._taken_smell_matches:
+            if isinstance(obj, take_class):
+                return self._taken_smell_matches[take_class]
+        raise NotFound()

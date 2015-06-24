@@ -1,5 +1,5 @@
 from intelligine.core.exceptions import BestMoleculeHere, NoMolecule
-from intelligine.cst import PHEROMON_INFOS
+from intelligine.cst import MOLECULES_INFOS
 from intelligine.simulation.molecule.MoleculeFlavour import MoleculeFlavour
 from intelligine.simulation.molecule.Molecule import Molecule
 
@@ -10,14 +10,14 @@ class MoleculesManager():
         self._context = context
 
     def get_flavour(self, position):
-        point_molecules = self._context.metas.value.get(PHEROMON_INFOS,
-                                                         position,
-                                                         allow_empty=True,
-                                                         empty_value={})
+        point_molecules = self._context.metas.value.get(MOLECULES_INFOS,
+                                                        position,
+                                                        allow_empty=True,
+                                                        empty_value={})
         return MoleculeFlavour.new_from_raw_data(point_molecules)
 
     def set_flavour(self, position, flavour):
-        self._context.metas.value.set(PHEROMON_INFOS, position, flavour.get_raw_data())
+        self._context.metas.value.set(MOLECULES_INFOS, position, flavour.get_raw_data())
 
     def get_molecule(self, position, category, type, allow_empty=False):
         flavour = self.get_flavour(position)
@@ -34,8 +34,8 @@ class MoleculesManager():
             position_molecule = flavour.get_molecule(apposed_molecule.get_category(), apposed_molecule.get_type())
         except NoMolecule:
             position_molecule = Molecule(apposed_molecule.get_category(),
-                                           apposed_molecule.get_type(),
-                                           distance=apposed_molecule.get_distance())
+                                         apposed_molecule.get_type(),
+                                         distance=apposed_molecule.get_distance())
 
         position_molecule.increment_intensity(apposed_molecule.get_intensity())
 

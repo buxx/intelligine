@@ -1,6 +1,7 @@
 from intelligine.core.exceptions import BestMoleculeHere, MoleculeGlandDisabled
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
+
 class MoleculeGland():
 
     def __init__(self, host, context):
@@ -26,8 +27,8 @@ class MoleculeGland():
 
         try:
             DirectionMolecule.appose(self._context,
-                                      self._host.get_position(),
-                                      self.get_molecule())
+                                     self._host.get_position(),
+                                     self.get_molecule())
         except BestMoleculeHere as best_molecule_here:
             self._host.get_brain().set_distance_from_objective(best_molecule_here.get_best_distance())
 

@@ -21,7 +21,7 @@ class Ant(Bug):
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
         self._carried = None
-        self._brain.switch_to_mode(MOVE_MODE_HOME)
+        self._brain.switch_to_mode(MOVE_MODE_EXPLO)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
     def die(self):

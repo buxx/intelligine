@@ -3,6 +3,7 @@ from sys import path as ppath
 from intelligine.core.exceptions import NoMolecule
 from intelligine.simulation.molecule.Molecule import Molecule
 from intelligine.simulation.molecule.MoleculeFlavour import MoleculeFlavour
+from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
 ppath.insert(1,getcwd()+'/modules')
 

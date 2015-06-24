@@ -1,9 +1,11 @@
+from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
 from intelligine.synergy.event.move.direction import directions_modifiers, get_direction_for_degrees
 from synergine_xyz.cst import POSITION
-from intelligine.core.exceptions import NoMolecule
-from intelligine.cst import PHEROMONE_SEARCHING, MOVE_MODE_EXPLO, \
-    MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, EXPLORATION_VECTOR, POINTS_SMELL
+from intelligine.core.exceptions import NoMolecule, NoTypeInMolecule
+from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, \
+    MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, EXPLORATION_VECTOR, POINTS_SMELL, MOLECULES, MOLECULES_DIRECTION, \
+    SMELL_FOOD, SMELL_EGG
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from synergine_xyz.geometry import get_degree_from_north
 
@@ -24,20 +26,20 @@ class AntMoveBrainPart(MoveBrainPart):
     @classmethod
     def get_direction(cls, context, object_id):
         move_mode = context.metas.value.get(MOVE_MODE, object_id)
-        if move_mode == MOVE_MODE_EXPLO:
+        if move_mode == MOVE_MODE_GOHOME:
+            return cls._get_direction_with_exploration_vector(context, object_id)
+        else:
             try:
                 return cls._get_direction_with_molecules(context, object_id)
             except NoMolecule:
                 return super().get_direction(context, object_id)
-        elif move_mode == MOVE_MODE_GOHOME:
-            return cls._get_direction_with_exploration_vector(context, object_id)
 
         return super().get_direction(context, object_id)
 
     @classmethod
     def _get_direction_with_molecules(cls, context, object_id):
         object_point = context.metas.value.get(POSITION, object_id)
-        molecule_type = context.metas.value.get(PHEROMONE_SEARCHING, object_id)
+        molecule_type = context.metas.value.get(MOLECULE_SEARCHING, object_id)
         try:
             direction = cls._get_molecule_direction_for_point(context, object_point, molecule_type)
         except NoMolecule:
@@ -67,7 +69,7 @@ class AntMoveBrainPart(MoveBrainPart):
     def _get_direction_with_exploration_vector(context, object_id):
         current_position = context.metas.value.get(POSITION, object_id)
         exploration_vector = context.metas.value.get(EXPLORATION_VECTOR, object_id)
-        # TODO: inverser
+        # TODO: inverser (math)
         home_vector = (exploration_vector[0] - (exploration_vector[0]*2),
                        exploration_vector[1] - (exploration_vector[1]*2))
         home_position = (0, current_position[1]+home_vector[0], current_position[2]+home_vector[1])
@@ -100,20 +102,31 @@ class AntMoveBrainPart(MoveBrainPart):
         :param context:
         :return:
         """
-        if self._host_brain.get_movement_mode() == MOVE_MODE_EXPLO and self._on_home_smell(context, obj.get_id()):
-            self._host_brain.switch_to_mode(MOVE_MODE_HOME)
+        movement_mode = self._host_brain.get_movement_mode()
 
-        if self._host_brain.get_movement_mode() == MOVE_MODE_HOME and not self._on_home_smell(context, obj.get_id()):
-            # TODO: sitwh explo que si rien a faire (rien a poser par exemple)
+        if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(context, obj.get_id()):
+            self._host_brain.switch_to_mode(MOVE_MODE_HOME)
+            # TODO: on change les molecule recherché (Food => SmellFood, definis dans Take, en fct de ce qui est take)
+
+        elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(context, obj.get_id()):
             self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
             self._start_new_exploration()
+
+        # TODO: sitch explo si rien a faire (rien a poser par exemple) et HOME
+
+        # TODO: Poser sur StockedFood
 
     @classmethod
     def _on_home_smell(cls, context, object_id):
         current_position = context.metas.value.get(POSITION, object_id)
-        smell_points = context.metas.value.get(POINTS_SMELL, POINTS_SMELL, allow_empty=True, empty_value={})
-        if current_position in smell_points:
-            return True
+        flavour = context.molecules().get_flavour(current_position)
+        # TODO: Idem, liste de smell_type ...
+        for smell_type in (SMELL_FOOD, SMELL_EGG):
+            try:
+                molecule = flavour.get_molecule(category=MOLECULES_DIRECTION, type=smell_type)
+                return True
+            except NoTypeInMolecule:
+                pass  # C'est qu'elle y est pas ^^
         return False
 
     def _update_exploration_vector(self):
