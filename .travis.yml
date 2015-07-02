@@ -8,3 +8,4 @@ script:
   - coverage run tests.py --rcfile=.coveragerc -v && coverage report -m && python3.4 tests.py
 after_success:
   - coveralls
+
