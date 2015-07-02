@@ -3,14 +3,13 @@ from sys import path as ppath
 from intelligine.core.exceptions import NoMolecule
 from intelligine.simulation.molecule.Molecule import Molecule
 from intelligine.simulation.molecule.MoleculeFlavour import MoleculeFlavour
-from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
 ppath.insert(1,getcwd()+'/modules')
 
 from intelligine.tests.simulation.molecule.Base import Base
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.core.Context import Context
-from intelligine.cst import PHEROMON_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
+from intelligine.cst import MOLECULES_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
 from intelligine.synergy.event.move.direction import NORTH, NORTH_EST, EST, SOUTH_EST, SOUTH, SOUTH_WEST, WEST, \
     NORTH_WEST, CENTER
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal as _p
@@ -70,36 +69,36 @@ class TestDirection(Base):
         """
         test_data = {
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             NORTH: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             NORTH_EST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             EST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             SOUTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(SOUTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             SOUTH: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             },
             SOUTH_EST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}}
             }
         }
 
@@ -113,21 +112,21 @@ class TestDirection(Base):
         """
         test_data = {
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
             },
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
-                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                _p(SOUTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}}
             },
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
-                _p(SOUTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (8, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 1)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 1)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (12, 1)}},
+                _p(SOUTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_HOME: (8, 1)}}
             },
         }
 
@@ -141,15 +140,15 @@ class TestDirection(Base):
         """
         test_data = {
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}}
             },
             NORTH_WEST: {
-                _p(CENTER): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (5, 10)}}  # an other molecule type
+                _p(CENTER): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (10, 2)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (8, 1)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_HOME: (5, 10)}}  # an other molecule type
             }
         }
 
@@ -159,11 +158,11 @@ class TestDirection(Base):
     def test_direction_direct(self):
         test_data = {
             NORTH: {
-                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
+                _p(NORTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}}
             },
             NORTH: {
-                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}}  # An other molecule type
+                _p(NORTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 2)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}}  # An other molecule type
             }
         }
 
@@ -173,15 +172,15 @@ class TestDirection(Base):
     def test_direction_with_multiple_intensity(self):
         test_data = {
             NORTH: {
-                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+                _p(NORTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
             },
             NORTH: {
-                _p(NORTH): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
-                _p(WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}},  # An other molecule_type
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
-                _p(NORTH_WEST): {PHEROMON_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
+                _p(NORTH): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 5)}},
+                _p(WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_HOME: (9, 500)}},  # An other molecule_type
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}},
+                _p(NORTH_WEST): {MOLECULES_DIRECTION: {PHEROMON_DIR_EXPLO: (9, 4)}}
             }
         }
 
@@ -198,7 +197,7 @@ class TestDirection(Base):
         # Wrong molecule type
         try:  # WTF ?
             self.assertRaises(NoMolecule, self._test_direction_for_points({
-                _p(SOUTH_EST): {PHEROMON_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
+                _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_HOME: (9, 5)}}
             }, -1))
         except NoMolecule:
             self.assertTrue(True)
@@ -239,4 +238,4 @@ class TestDirection(Base):
             self.assertTrue(True)
 
     def _get_molecule(self, type, distance):
-        return Molecule(PHEROMON_DIRECTION, type, distance=distance)
+        return Molecule(MOLECULES_DIRECTION, type, distance=distance)

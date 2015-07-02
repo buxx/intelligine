@@ -1,6 +1,5 @@
 from os import getcwd
 from sys import path as ppath
-from intelligine.core.exceptions import NoMolecule
 
 ppath.insert(1,getcwd()+'/modules')
 
@@ -101,7 +100,7 @@ class TestChangeMode(Base):
     def test_from_exploration_to_go_home(self):
         self._run_and_get_core(0)
         self.assertEquals((0, 0, 0), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_HOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         self._run_and_get_core(1)
