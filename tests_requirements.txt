@@ -1,2 +1,2 @@
-synergine>=0.0.1
-synergine_xyz>=0.0.1
+git+http://github.com/buxx/synergine.git
+git+http://github.com/buxx/synergine_xyz.git
