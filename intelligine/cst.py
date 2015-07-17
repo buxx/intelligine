@@ -23,8 +23,15 @@ MOVE_MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.gohome
 MOVE_MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.mode.nurse')
 MOVE_MODE_HOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.home')
 
+MOVE_BYBASS = IncrementedNamedInt.get('intelligine.basebug.move.bypass')
+MOVE_BYBASS_DISTANCE = IncrementedNamedInt.get('intelligine.basebug.move.bypass.distance')
+MOVE_BYBASS_MEMORY = IncrementedNamedInt.get('intelligine.basebug.move.bypass.memory')
+MOVE_BYBASS_WALL = IncrementedNamedInt.get('intelligine.basebug.move.bypass.wall')
+MOVE_BYBASS_RE_WALKING = IncrementedNamedInt.get('intelligine.basebug.move.bypass.re_walking')
+
 TYPE = IncrementedNamedInt.get('intelligine.object.type')
 TYPE_RESOURCE_EXPLOITABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
+TYPE_RESOURCE_EATABLE = IncrementedNamedInt.get('intelligine.object.type.resource.eatable')
 TYPE_NURSERY = IncrementedNamedInt.get('intelligine.object.type.nursery')
 TYPE_ANT = IncrementedNamedInt.get('intelligine.object.type.ant')
 

@@ -1,13 +1,12 @@
-from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
+from intelligine.simulation.object.brain.part.move.AntStar.ByPass import ByPass
+from intelligine.simulation.object.brain.part.move.AntStar.Host import Host
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
-from intelligine.synergy.event.move.direction import directions_modifiers, get_direction_for_degrees
+from intelligine.synergy.event.move.direction import directions_modifiers
 from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoMolecule, NoTypeInMolecule
-from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, \
-    MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, EXPLORATION_VECTOR, POINTS_SMELL, MOLECULES, MOLECULES_DIRECTION, \
-    SMELL_FOOD, SMELL_EGG
+from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
+    EXPLORATION_VECTOR, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
-from synergine_xyz.geometry import get_degree_from_north
 
 
 class AntMoveBrainPart(MoveBrainPart):
@@ -58,25 +57,27 @@ class AntMoveBrainPart(MoveBrainPart):
         search_molecule_in_points = context.get_around_points_of_point(point)
         try:
             best_molecule_direction = DirectionMolecule.get_best_molecule_direction_in(context,
-                                                                                          point,
-                                                                                          search_molecule_in_points,
-                                                                                          molecule_type)
+                                                                                       point,
+                                                                                       search_molecule_in_points,
+                                                                                       molecule_type)
             return best_molecule_direction
         except NoMolecule as err:
             raise err
 
-    @staticmethod
-    def _get_direction_with_exploration_vector(context, object_id):
-        current_position = context.metas.value.get(POSITION, object_id)
-        exploration_vector = context.metas.value.get(EXPLORATION_VECTOR, object_id)
-        # TODO: inverser (math)
-        home_vector = (exploration_vector[0] - (exploration_vector[0]*2),
-                       exploration_vector[1] - (exploration_vector[1]*2))
-        home_position = (0, current_position[1]+home_vector[0], current_position[2]+home_vector[1])
-        degree_from_north = get_degree_from_north(current_position, home_position)
-        direction_for_home_vector = get_direction_for_degrees(degree_from_north)
+    @classmethod
+    def _get_direction_with_exploration_vector(cls, context, object_id):
+        ant_star = cls._get_by_pass_brain(context, object_id)
+        ant_star.advance()
+        ant_star.has_moved()
+        return ant_star.get_host().get_moved_to_direction()
 
-        return direction_for_home_vector
+    @classmethod
+    def _get_by_pass_brain(cls, context, object_id):
+        # We use an adaptation of AntStar
+        exploration_vector = context.metas.value.get(EXPLORATION_VECTOR, object_id)
+        home_vector = (-exploration_vector[0], -exploration_vector[1])
+        ant_host = Host(context, object_id)
+        return ByPass(ant_host, home_vector, context, object_id)
 
     # TODO: obj pas necessaire, il est dans _host
     def done(self, obj, context):
@@ -106,11 +107,16 @@ class AntMoveBrainPart(MoveBrainPart):
 
         if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(context, obj.get_id()):
             self._host_brain.switch_to_mode(MOVE_MODE_HOME)
+            ant_star = self._get_by_pass_brain(context, obj.get_id())
+            ant_star.erase()
             # TODO: on change les molecule recherché (Food => SmellFood, definis dans Take, en fct de ce qui est take)
 
         elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(context, obj.get_id()):
             self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
             self._start_new_exploration()
+
+        elif movement_mode == MOVE_MODE_EXPLO and self._on_home_smell(context, obj.get_id()):
+            self._start_new_exploration()  # TODO: rename en reinit_explo
 
         # TODO: sitch explo si rien a faire (rien a poser par exemple) et HOME
 
@@ -134,7 +140,6 @@ class AntMoveBrainPart(MoveBrainPart):
         just_move_vector = directions_modifiers[self._host_brain.get_host().get_previous_direction()]
         self._set_exploration_vector((self._exploration_vector[0] + just_move_vector[1],
                                       self._exploration_vector[1] + just_move_vector[2]))
-
 
     def _apply_context(self, obj, context):
         movement_mode = self._host_brain.get_movement_mode()

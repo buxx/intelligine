@@ -38,8 +38,14 @@ class Pygame(XyzPygame):
                 pass # No molecule here
 
             try:
-                point_flavour.get_molecule(category=MOLECULES_DIRECTION, type=PHEROMON_DIR_EXPLO)
+                molecule = point_flavour.get_molecule(category=MOLECULES_DIRECTION, type=PHEROMON_DIR_EXPLO)
                 self.draw_surface(point, molecule_exploration_surface)
+
+                adapted_point = self._get_real_pixel_position_of_position(point)
+                myfont = pygame.font.SysFont("monospace", 15)
+                label = myfont.render(str(molecule.get_distance()), 1, (128,255,128))
+                self._screen.blit(label, adapted_point)
+
             except NoMolecule:
                 pass # No molecule here
 
@@ -48,6 +54,7 @@ class Pygame(XyzPygame):
                 self.draw_surface(point, smell_food_surface)
 
                 adapted_point = self._get_real_pixel_position_of_position(point)
+                adapted_point = (adapted_point[0]+10, adapted_point[1]+10)
                 myfont = pygame.font.SysFont("monospace", 15)
                 label = myfont.render(str(molecule.get_distance()), 1, (255,255,0))
                 self._screen.blit(label, adapted_point)

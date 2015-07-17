@@ -37,7 +37,6 @@ class AntBrain(Brain):
         self._movement_mode = mode
         self._update_molecule_gland(mode)
         self._context.metas.value.set(MOVE_MODE, self._host.get_id(), mode)
-        self._distance_from_objective = 0
         self._update_molecule_searching(mode)
 
     def _update_molecule_gland(self, mode):
@@ -45,10 +44,11 @@ class AntBrain(Brain):
             molecule_direction_type = PHEROMON_DIR_HOME
         elif mode == MOVE_MODE_GOHOME:
             molecule_direction_type = PHEROMON_DIR_EXPLO
+            self._distance_from_objective = 0
         elif mode == MOVE_MODE_NURSE:
             molecule_direction_type = None
         elif mode == MOVE_MODE_HOME:
-            molecule_direction_type = None
+            molecule_direction_type = PHEROMON_DIR_EXPLO
         else:
             raise NotImplementedError()
 
