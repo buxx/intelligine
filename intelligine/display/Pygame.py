@@ -2,7 +2,8 @@ from intelligine.core.exceptions import NoMolecule
 from intelligine.synergy.object.ant.Ant import Ant
 from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
-from intelligine.cst import PHEROMON_DIR_EXPLO, MOLECULES, SMELL_EGG, SMELL_FOOD, MOLECULES_DIRECTION
+from intelligine.cst import PHEROMON_DIR_EXPLO, MOLECULES, SMELL_EGG, SMELL_FOOD, MOLECULES_DIRECTION, \
+    MOVE_BYBASS_MEMORY
 from intelligine.display.pygame.visualisation import SURFACE_PHEROMONE_EXPLORATION, SURFACE_PHEROMONE_HOME, \
     SURFACE_SMELL_EGG, SURFACE_SMELL_FOOD
 
@@ -78,6 +79,17 @@ class Pygame(XyzPygame):
             myfont = pygame.font.SysFont("monospace", 15)
             label = myfont.render(str(obj.get_id()), 1, (255,255,0))
             self._draw_callbacks.append(lambda: self._screen.blit(label, point))
+            label2 = myfont.render(',', 1, (0,0,0))
+
+            ant_mem = self._context.metas.value.get(MOVE_BYBASS_MEMORY, obj.get_id(), allow_empty=True,
+                                                             empty_value=[])
+
+            def print_mem(points):
+                for m in points:
+                    real_point = self._get_real_pixel_position_of_position((0, m[0], m[1]))
+                    self._screen.blit(label2, real_point)
+
+            self._draw_callbacks.append(lambda: print_mem(ant_mem) )
 
     def start_of_cycle(self):
         super().start_of_cycle()
