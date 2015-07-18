@@ -126,7 +126,6 @@ class TestChangeMode(Base):
 
         self._run_and_get_core(4)
         self.assertEquals((0, 0, 0), self.ant.get_position())
-        # Ant has put his food piece
-        self.assertFalse(self.ant.is_carrying())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_NONE, self.ant.get_movement_molecule_gland().get_molecule_type())
+        # Ant has NOT put his food piece
+        self.assertTrue(self.ant.is_carrying())
+        # TODO: Le "poser" depend maintenant de matiere où poser. Tests à ecrires.
