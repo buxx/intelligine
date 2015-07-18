@@ -1,4 +1,5 @@
 from intelligine.core.exceptions import NoMolecule
+from intelligine.synergy.object.ant.Ant import Ant
 from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
 from intelligine.cst import PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, MOLECULES, \
@@ -13,6 +14,7 @@ class Pygame(XyzPygame):
         super().__init__(config, context, synergy_manager)
         self._is_display_molecules = False
         self._is_display_smells = False
+        self._draw_callbacks = []
 
     def receive(self, actions_done):
         super().receive(actions_done)
@@ -75,3 +77,20 @@ class Pygame(XyzPygame):
                 self._is_display_molecules = False
             else:
                 self._is_display_molecules = True
+
+    def draw_object(self, obj, point):
+        super().draw_object(obj, point)
+        # TODO: DEBUG
+        if isinstance(obj, Ant):
+            myfont = pygame.font.SysFont("monospace", 15)
+            label = myfont.render(str(obj.get_id()), 1, (255,255,0))
+            self._draw_callbacks.append(lambda: self._screen.blit(label, point))
+
+    def start_of_cycle(self):
+        super().start_of_cycle()
+        self._draw_callbacks = []
+
+    def end_of_cycle(self):
+        for draw_callback in self._draw_callbacks:
+            draw_callback()
+        super().end_of_cycle()

@@ -1,7 +1,7 @@
 from intelligine.simulation.object.brain.part.move.AntStar.ByPass import ByPass
 from intelligine.simulation.object.brain.part.move.AntStar.Host import Host
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
-from intelligine.synergy.event.move.direction import directions_modifiers
+from intelligine.synergy.event.move.direction import directions_modifiers, get_position_with_direction_decal
 from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoMolecule, NoTypeInMolecule
 from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
@@ -147,4 +147,6 @@ class AntMoveBrainPart(MoveBrainPart):
             self._update_exploration_vector()
 
     def _start_new_exploration(self):
-        self._exploration_vector = (0, 0)
+        # On vient de rentrer dans le monde exterieur, le vecteur de départ pointe vers la case précedente
+        # qui est une case dans la forteresse.
+        self._exploration_vector = get_position_with_direction_decal(self.get_host().get_previous_direction())
