@@ -15,8 +15,8 @@ from intelligine.tests.src.event.MoveAction import MoveAction as TestMoveAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.core.Context import Context
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE, MOVE_MODE_HOME
-from intelligine.cst import PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO
+from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE, MOVE_MODE_HOME, PHEROMON_DIR_NONE
+from intelligine.cst import PHEROMON_DIR_EXPLO
 
 
 class TestChangeMode(Base):
@@ -129,4 +129,4 @@ class TestChangeMode(Base):
         # Ant has put his food piece
         self.assertFalse(self.ant.is_carrying())
         self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_HOME, self.ant.get_movement_molecule_gland().get_molecule_type())
+        self.assertEquals(PHEROMON_DIR_NONE, self.ant.get_movement_molecule_gland().get_molecule_type())

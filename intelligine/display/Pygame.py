@@ -2,8 +2,7 @@ from intelligine.core.exceptions import NoMolecule
 from intelligine.synergy.object.ant.Ant import Ant
 from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
-from intelligine.cst import PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, MOLECULES, \
-    SMELL_EGG, SMELL_FOOD, MOLECULES_DIRECTION
+from intelligine.cst import PHEROMON_DIR_EXPLO, MOLECULES, SMELL_EGG, SMELL_FOOD, MOLECULES_DIRECTION
 from intelligine.display.pygame.visualisation import SURFACE_PHEROMONE_EXPLORATION, SURFACE_PHEROMONE_HOME, \
     SURFACE_SMELL_EGG, SURFACE_SMELL_FOOD
 
@@ -33,12 +32,6 @@ class Pygame(XyzPygame):
 
         for point in molecules_positions:
             point_flavour = context.molecules().get_flavour(point)
-            try:
-                point_flavour.get_molecule(category=MOLECULES_DIRECTION, type=PHEROMON_DIR_HOME)
-                self.draw_surface(point, molecule_home_surface)
-            except NoMolecule:
-                pass # No molecule here
-
             try:
                 molecule = point_flavour.get_molecule(category=MOLECULES_DIRECTION, type=PHEROMON_DIR_EXPLO)
                 self.draw_surface(point, molecule_exploration_surface)

@@ -40,7 +40,6 @@ MOLECULES_INFOS = IncrementedNamedInt.get('intelligine.phero.infos')
 MOLECULES_DIRECTION = IncrementedNamedInt.get('intelligine.phero.direction')
 PHEROMON_DIR_NONE = IncrementedNamedInt.get('intelligine.phero.direction.none')
 PHEROMON_DIR_EXPLO = IncrementedNamedInt.get('intelligine.phero.direction.explo')
-PHEROMON_DIR_HOME = IncrementedNamedInt.get('intelligine.phero.direction.home')
 EXPLORATION_VECTOR = IncrementedNamedInt.get('intelligine.exploration_vector')
 
 #SMELL = IncrementedNamedInt.get('intelligine.smell')

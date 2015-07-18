@@ -9,7 +9,7 @@ ppath.insert(1,getcwd()+'/modules')
 from intelligine.tests.simulation.molecule.Base import Base
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.core.Context import Context
-from intelligine.cst import MOLECULES_DIRECTION, PHEROMON_DIR_EXPLO, PHEROMON_DIR_HOME
+from intelligine.cst import MOLECULES_DIRECTION, PHEROMON_DIR_EXPLO
 from intelligine.synergy.event.move.direction import NORTH, NORTH_EST, EST, SOUTH_EST, SOUTH, SOUTH_WEST, WEST, \
     NORTH_WEST, CENTER
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal as _p

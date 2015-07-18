@@ -131,7 +131,7 @@ class AntMoveBrainPart(MoveBrainPart):
             try:
                 molecule = flavour.get_molecule(category=MOLECULES_DIRECTION, type=smell_type)
                 return True
-            except NoTypeInMolecule:
+            except NoMolecule:
                 pass  # C'est qu'elle y est pas ^^
         return False
 

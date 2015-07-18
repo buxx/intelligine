@@ -1,7 +1,7 @@
 from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
-from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO, \
+from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_EXPLO, \
     BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME, SMELL_FOOD
 from intelligine.cst import MOLECULE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
@@ -41,7 +41,7 @@ class AntBrain(Brain):
 
     def _update_molecule_gland(self, mode):
         if mode == MOVE_MODE_EXPLO:
-            molecule_direction_type = PHEROMON_DIR_HOME
+            molecule_direction_type = None
         elif mode == MOVE_MODE_GOHOME:
             molecule_direction_type = PHEROMON_DIR_EXPLO
             self._distance_from_objective = 0
@@ -62,8 +62,7 @@ class AntBrain(Brain):
         if mode == MOVE_MODE_EXPLO:
             molecule_searching = PHEROMON_DIR_EXPLO
         elif mode == MOVE_MODE_GOHOME:
-            # TODO: Plus rien ici (path integration)
-            molecule_searching = PHEROMON_DIR_HOME
+            molecule_searching = PHEROMON_DIR_NONE
         elif mode == MOVE_MODE_NURSE:
             molecule_searching = PHEROMON_DIR_NONE
         elif mode == MOVE_MODE_HOME:
