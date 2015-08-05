@@ -26,7 +26,8 @@ config = {
         'fpsmax': 2555,
         'debug': {
             'mainprocess': True,
-            'cycles': -1
+            'cycles': -1,
+            'seed': 42
         }
     },
     'simulations': simulations,
