@@ -1,9 +1,3 @@
-from os import getcwd
-from sys import path as ppath
-
-ppath.insert(1,getcwd()+'/modules')
-
-
 from intelligine.synergy.object.Food import Food
 from intelligine.tests.simulation.mode.Base import Base
 from intelligine.synergy.Colony import Colony

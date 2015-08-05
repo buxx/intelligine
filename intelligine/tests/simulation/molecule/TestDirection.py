@@ -1,11 +1,6 @@
-from os import getcwd
-from sys import path as ppath
 from intelligine.core.exceptions import NoMolecule
 from intelligine.simulation.molecule.Molecule import Molecule
 from intelligine.simulation.molecule.MoleculeFlavour import MoleculeFlavour
-
-ppath.insert(1,getcwd()+'/modules')
-
 from intelligine.tests.simulation.molecule.Base import Base
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.core.Context import Context
