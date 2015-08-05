@@ -68,7 +68,6 @@ class AntMoveBrainPart(MoveBrainPart):
     def _get_direction_with_exploration_vector(cls, context, object_id):
         ant_star = cls._get_by_pass_brain(context, object_id)
         ant_star.advance()
-        ant_star.has_moved()
         return ant_star.get_host().get_moved_to_direction()
 
     @classmethod
