@@ -11,6 +11,7 @@ python3.4 -m unittest /home/bux/Projets/socialintengine/intelligine/tests/simula
 test_modules = [
     'intelligine.tests.simulation.mode.TestChangeMode.TestChangeMode',
     'intelligine.tests.simulation.molecule.TestDirection.TestDirection',
+    'intelligine.tests.simulation.bypass.TestByPass.TestByPass',
 ]
 
 suite = unittest.TestSuite()
