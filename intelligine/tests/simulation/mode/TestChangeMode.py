@@ -1,4 +1,3 @@
-from intelligine.display.Pygame import Pygame
 from intelligine.synergy.Environment import Environment
 from intelligine.synergy.object.Food import Food
 from intelligine.synergy.object.StockedFood import StockedFood
