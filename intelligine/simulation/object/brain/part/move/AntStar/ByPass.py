@@ -18,10 +18,17 @@ class ByPass(GlueWallAntBrain):
         super().__init__(host, home_vector)
         self._context = context
         self._object_id = object_id
-        self._memory_since_blocked = context.metas.value.get(MOVE_BYBASS_MEMORY, object_id, allow_empty=True,
+        self._memory_since_blocked = context.metas.value.get(MOVE_BYBASS_MEMORY,
+                                                             object_id,
+                                                             allow_empty=True,
                                                              empty_value=[])
-        self._by_passing = context.metas.value.get(MOVE_BYBASS, object_id, allow_empty=True, empty_value=False)
-        self._distance_when_blocked = context.metas.value.get(MOVE_BYBASS_DISTANCE, object_id, allow_empty=True,
+        self._by_passing = context.metas.value.get(MOVE_BYBASS,
+                                                   object_id,
+                                                   allow_empty=True,
+                                                   empty_value=False)
+        self._distance_when_blocked = context.metas.value.get(MOVE_BYBASS_DISTANCE,
+                                                              object_id,
+                                                              allow_empty=True,
                                                               empty_value=None)
         self._current_wall_square_position = context.metas.value.get(MOVE_BYBASS_WALL,
                                                                      object_id,
