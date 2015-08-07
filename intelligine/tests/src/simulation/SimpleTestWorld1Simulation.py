@@ -1,6 +1,7 @@
+from intelligine.display.map import get_map_connector
+from intelligine.display.pygame.config import map_config
 from synergine.test.TestSimulation import TestSimulation
 from os import getcwd
-from intelligine.display.pygame.visualisation import get_standard_extract_from_map, map_config
 
 
 class SimpleTestWorld1Simulation(TestSimulation):
@@ -8,11 +9,11 @@ class SimpleTestWorld1Simulation(TestSimulation):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        simulations, visualisation = get_standard_extract_from_map(
+        map_connector = get_map_connector(
             getcwd()+"/intelligine/tests/src/simulation/SimpleTestWorld1.tmx",
             map_config
         )
-        self._simulations = simulations
+        self._simulations = map_connector.create_simulations()
 
     def _get_set_up_simulations(self):
         return self._simulations

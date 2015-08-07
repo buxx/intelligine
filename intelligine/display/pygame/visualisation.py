@@ -1,18 +1,12 @@
 import pygame
-from intelligine.synergy.Colony import Colony
-from intelligine.synergy.Environment import Environment
-from intelligine.synergy.object.StockedFood import StockedFood
-from synergine.synergy.Simulation import Simulation
+from intelligine.display.map import get_map_connector
 from synergine_xyz.display.PygameImageRotate import PygameImageRotate
 from synergine_xyz.display.PygameVisualisation import PygameVisualisation
 from synergine_xyz.display.object.pygame.PygameImage import PygameImage
-from intelligine.synergy.object.Food import Food
 from intelligine.synergy.object.ant.Ant import Ant
-from intelligine.synergy.object.Rock import Rock
 from intelligine.synergy.object.ant.Egg import Egg
 from os import getcwd
 from synergine_xyz.cst import PREVIOUS_DIRECTION
-from synergine_xyz.tmx.TileMapConnector import TileMapConnector
 
 SURFACE_PHEROMONE_HOME = 'molecule_home'
 SURFACE_PHEROMONE_EXPLORATION = 'molecule_exploration'
@@ -158,22 +152,6 @@ def for_position(position, objects, context):
 # Behind, new
 #############################
 
-map_config = {
-    'simulation': {
-        'base': Simulation
-    },
-    'collection': {
-        'ant': Colony,
-        'env': Environment
-    },
-    'object': {
-        'ant': Ant,
-        'egg': Egg,
-        'rock': Rock,
-        'food': Food,
-        'stocked_food': StockedFood
-    }
-}
 image_rotate = PygameImageRotate()
 
 
@@ -203,7 +181,7 @@ def ant_direction_modifier(obj, context, visual):
 
 
 def get_standard_extract_from_map(map_file_path, map_config):
-    map_connector = TileMapConnector.from_file(map_file_path, dict(map_config))
+    map_connector = get_map_connector(map_file_path, map_config)
     visualisation = PygameVisualisation.get_default_visualisation()
 
     simulations = map_connector.create_simulations()
