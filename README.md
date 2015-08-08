@@ -18,3 +18,4 @@ Social intelligence (/Ant colony) simulation.
 ### Ressource exploration
 
 [![Intelligine: ressource exploration](https://raw.githubusercontent.com/buxx/intelligine/master/doc/images/intelligine_ressource_20150421_r.gif)](https://raw.githubusercontent.com/buxx/intelligine/master/doc/images/intelligine_ressource_20150421_r.gif) 
+[![Intelligine: ressource exploration with AntStar algo for bypass](https://raw.githubusercontent.com/buxx/intelligine/master/doc/images/explo_antstar_glue.gif)](https://raw.githubusercontent.com/buxx/intelligine/master/doc/images/explo_antstar_glue.gif)
