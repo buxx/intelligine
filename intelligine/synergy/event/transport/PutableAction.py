@@ -21,4 +21,4 @@ class PutableAction(Action):
         obj.put_carry(obj_transported, position_to_put)
         context.metas.value.set(CANT_CARRY_STILL, obj.get_id(), 5)
 
-        obj.get_brain().get_part(BRAIN_PART_PUT).done(obj, obj_transported, context)
+        obj.get_brain().get_part(BRAIN_PART_PUT).done(obj_transported)

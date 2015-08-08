@@ -61,11 +61,11 @@ class AntPutBrainPart(TransportBrainPart):
             return True
         return False
 
-    def done(self, obj, puted_object, context):
+    def done(self, puted_object):
         # TODO: Il faut refact/logique qqpart pour ca !! Genre Brain.done(PUT, ??)
         if isinstance(puted_object, Food):
             # TODO: Quel mode ? On vient de poser (ps forcement dans la colonie) cls._mode_swicth ?
-            obj.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
+            self._host.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
             # TODO: TEST Depose au -1 pour des raisons de test. Plus tard ce sera des tas comme un autre !
             puted_object.set_position((-1, 0, 0))
 

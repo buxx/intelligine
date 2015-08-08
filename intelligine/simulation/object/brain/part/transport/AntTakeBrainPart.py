@@ -27,10 +27,10 @@ class AntTakeBrainPart(TakeBrainPart):
         # Pour le moment si le type de l'objet fait partie des types admis pour le mode courant du porteur, c'est bon.
         return cls._match_with_mode(context, object_id, object_to_take_id)
 
-    def done(self, obj, take_object, context):
+    def done(self, take_object):
         # TODO: Ranger ca ? Truc plus dynamique/configurable ?
         # TODO: qqch plus generique ... (attention aux eggs)
         if isinstance(take_object, Resource):
             self._smell_target = self._host_brain.get_smell_for_object_taken(take_object)
-            obj.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
-            obj.get_movement_molecule_gland().appose()
+            self._host.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
+            self._host.get_movement_molecule_gland().appose()

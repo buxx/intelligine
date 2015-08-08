@@ -26,4 +26,4 @@ class TakeableAction(Action):
         obj.carry(obj_carried)
         cant_put_still = Core.get_configuration_manager().get('ant.take.cant_put_still')
         context.metas.value.set(CANT_PUT_STILL, obj.get_id(), cant_put_still)
-        obj.get_brain().get_part(BRAIN_PART_TAKE).done(obj, obj_carried, context)
+        obj.get_brain().get_part(BRAIN_PART_TAKE).done(obj_carried)

@@ -3,7 +3,7 @@ from intelligine.simulation.object.brain.part.move.AntStar.Host import Host
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
 from intelligine.synergy.event.move.direction import directions_modifiers, get_position_with_direction_decal
 from synergine_xyz.cst import POSITION
-from intelligine.core.exceptions import NoMolecule, NoTypeInMolecule
+from intelligine.core.exceptions import NoMolecule
 from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
     EXPLORATION_VECTOR, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
@@ -17,10 +17,9 @@ class AntMoveBrainPart(MoveBrainPart):
 
     def _set_exploration_vector(self, new_vector):
         self._exploration_vector = new_vector
-        # TODO: On devrais donner le context aux brain parts
-        self._host_brain.get_context().metas.value.set(EXPLORATION_VECTOR,
-                                                       self._host_brain.get_host().get_id(),
-                                                       new_vector)
+        self._context.metas.value.set(EXPLORATION_VECTOR,
+                                      self._host_brain.get_host().get_id(),
+                                      new_vector)
 
     @classmethod
     def get_direction(cls, context, object_id):
@@ -79,18 +78,17 @@ class AntMoveBrainPart(MoveBrainPart):
         return ByPass(ant_host, home_vector, context, object_id)
 
     # TODO: obj pas necessaire, il est dans _host
-    def done(self, obj, context):
-        super().done(obj, context)
-        self._appose_molecule(obj)
-        self._check_context(obj, context)
-        self._apply_context(obj, context)
+    def done(self):
+        super().done()
+        self._appose_molecule()
+        self._check_context()
+        self._apply_context()
 
-    @staticmethod
-    def _appose_molecule(obj):
-        if obj.get_movement_molecule_gland().is_enabled():
-            obj.get_movement_molecule_gland().appose()
+    def _appose_molecule(self):
+        if self._host.get_movement_molecule_gland().is_enabled():
+            self._host.get_movement_molecule_gland().appose()
 
-    def _check_context(self, obj, context):
+    def _check_context(self):
         """
 
         If was in exploration, and just found home smell;
@@ -104,17 +102,17 @@ class AntMoveBrainPart(MoveBrainPart):
         """
         movement_mode = self._host_brain.get_movement_mode()
 
-        if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(context, obj.get_id()):
+        if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(self._context, self._host.get_id()):
             self._host_brain.switch_to_mode(MOVE_MODE_HOME)
-            ant_star = self._get_by_pass_brain(context, obj.get_id())
+            ant_star = self._get_by_pass_brain(self._context, self._host.get_id())
             ant_star.erase()
             # TODO: on change les molecule recherché (Food => SmellFood, definis dans Take, en fct de ce qui est take)
 
-        elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(context, obj.get_id()):
+        elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(self._context, self._host.get_id()):
             self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
             self._start_new_exploration()
 
-        elif movement_mode == MOVE_MODE_EXPLO and self._on_home_smell(context, obj.get_id()):
+        elif movement_mode == MOVE_MODE_EXPLO and self._on_home_smell(self._context, self._host.get_id()):
             self._start_new_exploration()  # TODO: rename en reinit_explo
 
         # TODO: sitch explo si rien a faire (rien a poser par exemple) et HOME
@@ -140,7 +138,7 @@ class AntMoveBrainPart(MoveBrainPart):
         self._set_exploration_vector((self._exploration_vector[0] + just_move_vector[1],
                                       self._exploration_vector[1] + just_move_vector[2]))
 
-    def _apply_context(self, obj, context):
+    def _apply_context(self):
         movement_mode = self._host_brain.get_movement_mode()
         if movement_mode == MOVE_MODE_EXPLO or movement_mode == MOVE_MODE_GOHOME:
             self._update_exploration_vector()
