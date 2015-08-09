@@ -78,7 +78,6 @@ class AntMoveBrainPart(MoveBrainPart):
         ant_host = Host(context, object_id)
         return ByPass(ant_host, home_vector, context, object_id)
 
-    # TODO: obj pas necessaire, il est dans _host
     def done(self):
         super().done()
         self._appose_molecule()
@@ -149,4 +148,5 @@ class AntMoveBrainPart(MoveBrainPart):
     def _start_new_exploration(self):
         # On vient de rentrer dans le monde exterieur, le vecteur de départ pointe vers la case précedente
         # qui est une case dans la forteresse.
-        self._exploration_vector = get_position_with_direction_decal(self.get_host().get_previous_direction())
+        init_exploration_vector = get_position_with_direction_decal(self.get_host().get_previous_direction())
+        self._set_exploration_vector(init_exploration_vector)

@@ -33,7 +33,6 @@ class AntBrain(Brain):
         self._molecule_searching = PHEROMON_DIR_EXPLO
 
     def switch_to_mode(self, mode):
-        # TODO: Mode explo: reinit exploration vector
         self._movement_mode = mode
         self._update_molecule_gland(mode)
         self._context.metas.value.set(MOVE_MODE, self._host.get_id(), mode)
