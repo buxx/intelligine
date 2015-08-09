@@ -2,27 +2,30 @@ from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
 from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MOVE_MODE, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, PHEROMON_DIR_EXPLO, \
-    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME, SMELL_FOOD
+    BRAIN_PART_TAKE, BRAIN_PART_PUT, MOVE_MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MOVE_MODE_HOME, \
+    SMELL_FOOD, SMELL_EGG
 from intelligine.cst import MOLECULE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
 from intelligine.simulation.object.brain.part.transport.AntTakeBrainPart import AntTakeBrainPart
 from intelligine.synergy.object.Food import Food
+from intelligine.synergy.object.ant.Egg import Egg
 from synergine.core.exceptions import NotFound
 
 
 class AntBrain(Brain):
 
-    # TODO: methode __init_ pour la classe ? Pour surcharger ici.
-    _brain_parts = {
+    _brain_parts = Brain._brain_parts.copy()
+    _brain_parts.update({
         BRAIN_PART_MOVE: AntMoveBrainPart,
         BRAIN_PART_TAKE: AntTakeBrainPart,
         BRAIN_PART_PUT: AntPutBrainPart,
         BRAIN_PART_ATTACK: AttackBrainPart
-    }
+    })
 
     _taken_smell_matches = {
-        Food: SMELL_FOOD
+        Food: SMELL_FOOD,
+        Egg: SMELL_EGG
     }
     """ Correspondance entre ce qui est ramassé et où ce doit être stocké """
 
@@ -65,6 +68,7 @@ class AntBrain(Brain):
         elif mode == MOVE_MODE_NURSE:
             molecule_searching = PHEROMON_DIR_NONE
         elif mode == MOVE_MODE_HOME:
+            # TODO: Ca depend de ce que fait la fourmis, si s'occupe des oeufs, etc
             molecule_searching = self.get_part(BRAIN_PART_TAKE).get_smell_target()
         else:
             raise NotImplementedError()
@@ -76,7 +80,7 @@ class AntBrain(Brain):
         return self._movement_mode
 
     def host_moved(self, distance=1):
-        self._distance_from_objective += 1
+        self._distance_from_objective += distance
 
     def set_distance_from_objective(self, distance):
         self._distance_from_objective = distance

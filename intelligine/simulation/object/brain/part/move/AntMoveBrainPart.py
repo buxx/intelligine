@@ -6,7 +6,7 @@ from intelligine.synergy.event.move.direction import directions_modifiers, get_p
 from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoMolecule
 from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
-    EXPLORATION_VECTOR, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG, BRAIN_SCHEMA, BRAIN
+    EXPLORATION_VECTOR, MOLECULES_DIRECTION
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
 
@@ -103,21 +103,15 @@ class AntMoveBrainPart(MoveBrainPart):
         movement_mode = self._host_brain.get_movement_mode()
 
         if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(self._context, self._host.get_id()):
-            self._host_brain.switch_to_mode(MOVE_MODE_HOME)
-            ant_star = self._get_by_pass_brain(self._context, self._host.get_id())
-            ant_star.erase()
-            # TODO: on change les molecule recherché (Food => SmellFood, definis dans Take, en fct de ce qui est take)
+            self._arrived_at_home()
 
         elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(self._context, self._host.get_id()):
-            self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
             self._start_new_exploration()
 
         elif movement_mode == MOVE_MODE_EXPLO and self._on_home_smell(self._context, self._host.get_id()):
-            self._start_new_exploration()  # TODO: rename en reinit_explo
+            self._init_exploration_vector()
 
         # TODO: sitch explo si rien a faire (rien a poser par exemple) et HOME
-
-        # TODO: Poser sur StockedFood
 
     @classmethod
     def _on_home_smell(cls, context, object_id):
@@ -146,7 +140,17 @@ class AntMoveBrainPart(MoveBrainPart):
             self._update_exploration_vector()
 
     def _start_new_exploration(self):
+        self._reinit_exploration_vector()
+        self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
+
+    def _init_exploration_vector(self):
         # On vient de rentrer dans le monde exterieur, le vecteur de départ pointe vers la case précedente
         # qui est une case dans la forteresse.
         init_exploration_vector = get_position_with_direction_decal(self.get_host().get_previous_direction())
         self._set_exploration_vector(init_exploration_vector)
+
+
+    def _arrived_at_home(self):
+        self._host_brain.switch_to_mode(MOVE_MODE_HOME)
+        ant_star = self._get_by_pass_brain(self._context, self._host.get_id())
+        ant_star.erase()
