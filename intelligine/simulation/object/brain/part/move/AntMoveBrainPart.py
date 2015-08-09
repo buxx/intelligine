@@ -1,3 +1,4 @@
+from intelligine.shorcut.brain import get_brain_class
 from intelligine.simulation.object.brain.part.move.AntStar.ByPass import ByPass
 from intelligine.simulation.object.brain.part.move.AntStar.Host import Host
 from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrainPart
@@ -5,7 +6,7 @@ from intelligine.synergy.event.move.direction import directions_modifiers, get_p
 from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoMolecule
 from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
-    EXPLORATION_VECTOR, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG
+    EXPLORATION_VECTOR, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG, BRAIN_SCHEMA, BRAIN
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
 
@@ -123,17 +124,19 @@ class AntMoveBrainPart(MoveBrainPart):
     def _on_home_smell(cls, context, object_id):
         current_position = context.metas.value.get(POSITION, object_id)
         flavour = context.molecules().get_flavour(current_position)
-        # TODO: Idem, liste de smell_type ...
-        for smell_type in (SMELL_FOOD, SMELL_EGG):
-            try:
-                molecule = flavour.get_molecule(category=MOLECULES_DIRECTION, type=smell_type)
+        molecules = flavour.get_molecules(MOLECULES_DIRECTION)
+
+        if not molecules:
+            return False
+
+        brain_class = get_brain_class(context, object_id)
+        for smell_type in brain_class.get_home_smells():
+            if smell_type in molecules:
                 return True
-            except NoMolecule:
-                pass  # C'est qu'elle y est pas ^^
+
         return False
 
     def _update_exploration_vector(self):
-        # TODO: add tuple as vectors ?
         just_move_vector = directions_modifiers[self._host_brain.get_host().get_previous_direction()]
         self._set_exploration_vector((self._exploration_vector[0] + just_move_vector[1],
                                       self._exploration_vector[1] + just_move_vector[2]))

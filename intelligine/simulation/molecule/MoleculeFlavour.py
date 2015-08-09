@@ -36,6 +36,17 @@ class MoleculeFlavour():
             raise NoTypeInMolecule()
         return types[type]
 
+    def get_molecules(self, category):
+        """
+
+        :param category:
+        :return: Molecules dict or empty dict of no molecules
+        """
+        try:
+            return self.get_types(category)
+        except NoCategoryInMolecule:
+            return {}
+
     def get_types(self, category):
         if category not in self._flavour:
             raise NoCategoryInMolecule()

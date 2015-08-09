@@ -13,6 +13,7 @@ class Ant(Bug):
     _body_parts = {
         BODY_PART_PHEROMONE_GLAND: MovementMoleculeGland
     }
+    _brain_class = AntBrain
 
     def __init__(self, collection, context):
         super().__init__(collection, context)
@@ -32,9 +33,6 @@ class Ant(Bug):
         self._remove_col(COL_TRANSPORTER_NOT_CARRYING)
         self._remove_col(COL_TRANSPORTER_CARRYING, allow_not_in=True)
         self._remove_col(COL_FIGHTER)
-
-    def _get_brain_instance(self):
-        return AntBrain(self._context, self)
 
     def get_movement_molecule_gland(self):
         return self.get_body_part(BODY_PART_PHEROMONE_GLAND)

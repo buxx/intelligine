@@ -58,6 +58,7 @@ COL_TRANSPORTER_NOT_CARRYING = IncrementedNamedInt.get('intelligine.col.transpor
 COL_EATABLE = IncrementedNamedInt.get('intelligine.col.eatable')
 COL_SMELL = IncrementedNamedInt.get('intelligine.col.smell')
 
+BRAIN = IncrementedNamedInt.get('intelligine.brain')
 BRAIN_SCHEMA = IncrementedNamedInt.get('intelligine.brain_schema')
 BRAIN_PART_MOVE = IncrementedNamedInt.get('intelligine.brain.part.move')
 BRAIN_PART_TAKE = IncrementedNamedInt.get('intelligine.brain.part.take')

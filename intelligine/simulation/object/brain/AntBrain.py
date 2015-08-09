@@ -90,3 +90,11 @@ class AntBrain(Brain):
             if isinstance(obj, take_class):
                 return self._taken_smell_matches[take_class]
         raise NotFound()
+
+    @classmethod
+    def get_home_smells(cls):
+        """
+        Note: Actually return all know smells. Not really HOME smells.
+        :return:
+        """
+        return cls._taken_smell_matches.values()
