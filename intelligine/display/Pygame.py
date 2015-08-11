@@ -1,5 +1,6 @@
 from intelligine.core.exceptions import NoMolecule
 from intelligine.synergy.object.ant.Ant import Ant
+from intelligine.synergy.object.ant.Egg import Egg
 from synergine_xyz.display.Pygame import Pygame as XyzPygame
 import pygame
 from intelligine.cst import PHEROMON_DIR_EXPLO, MOLECULES, SMELL_EGG, SMELL_FOOD, MOLECULES_DIRECTION, \
@@ -103,6 +104,11 @@ class Pygame(XyzPygame):
                     self._screen.blit(label2, real_point)
 
             self._draw_callbacks.append(lambda: print_mem(ant_mem) )
+        # TODO: DEBUG
+        if isinstance(obj, Egg):
+            myfont = pygame.font.SysFont("monospace", 15)
+            label = myfont.render(str(obj.get_id()), 1, (125,255,25))
+            self._draw_callbacks.append(lambda: self._screen.blit(label, point))
 
     def start_of_cycle(self):
         super().start_of_cycle()
