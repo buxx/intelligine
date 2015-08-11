@@ -19,7 +19,6 @@ class Host:
         return self._feeler
 
     def move_to(self, direction):
-        # TODO: Heriter de Host AntStar au lieu de tout repeter ici ...
         self._moved_to_direction = direction
         self._position_3d = get_position_with_direction_decal(direction, self._position_3d)
 
