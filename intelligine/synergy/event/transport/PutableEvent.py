@@ -1,4 +1,5 @@
 from intelligine.core.exceptions import NearNothingFound, CantFindWhereToPut
+from intelligine.shorcut.brain import get_brain_part
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.cst import CANT_PUT_STILL, COL_TRANSPORTER_CARRYING, TRANSPORTABLE, BRAIN_SCHEMA, BRAIN_PART_PUT
@@ -27,7 +28,7 @@ class PutableEvent(NearEvent):
             raise NotConcernedEvent()
 
         object_near_id = parameters[self._near_name][0]
-        brain_part = self._get_brain_part(context, object_id, BRAIN_PART_PUT)
+        brain_part = get_brain_part(context, object_id, BRAIN_PART_PUT)
 
         if not brain_part.can_put(context, object_id, object_near_id):
             raise NotConcernedEvent()
@@ -47,5 +48,5 @@ class PutableEvent(NearEvent):
 
     @classmethod
     def _object_can_put(cls, object_id, context, object_to_put_id):
-        object_take_brain_part = cls._get_brain_part(context, object_id, BRAIN_PART_PUT)
+        object_take_brain_part = get_brain_part(context, object_id, BRAIN_PART_PUT)
         return object_take_brain_part.can_put(context, object_id, object_to_put_id)

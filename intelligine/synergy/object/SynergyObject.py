@@ -1,4 +1,4 @@
-from intelligine.cst import OBJ_SMELL
+from intelligine.cst import OBJ_SMELL, INSTANCE_CLASS
 from synergine_xyz.SynergyObject import SynergyObject as XyzSynergyObject
 
 
@@ -7,6 +7,7 @@ class SynergyObject(XyzSynergyObject):
     def __init__(self, collection, context):
         super().__init__(collection, context)
         self._smell = None
+        context.metas.value.set(INSTANCE_CLASS, self.get_id(), self.__class__)
 
     def _set_smell(self, smell_type):
         self._smell = smell_type

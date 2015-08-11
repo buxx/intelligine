@@ -20,7 +20,7 @@ class BaseBug(Transportable):
         self._alive = True
         self._movements_count = -1
         self._brain = self._brain_class(self._context, self)
-        self._context.metas.value.set(BRAIN, self.get_id(), self._brain_class)
+        self._context.metas.value.set(BRAIN, self.__class__, self._brain_class)
         self._parts = {}
         self._init_parts()
 

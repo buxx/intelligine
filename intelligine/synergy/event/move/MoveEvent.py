@@ -1,5 +1,6 @@
 from intelligine.core.exceptions import UnableToFoundMovement
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
+from intelligine.shorcut.brain import get_brain_part
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.Event import Event
 from synergine.core.simulation.mechanism.Mechanism import Mechanism
@@ -31,8 +32,7 @@ class MoveEvent(Event):
         return parameters
 
     def _get_direction(self, object_id, context):
-        object_brain_schema = context.metas.value.get(BRAIN_SCHEMA, object_id)
-        object_move_brain_part = object_brain_schema[BRAIN_PART_MOVE]
+        object_move_brain_part = get_brain_part(context, object_id, BRAIN_PART_MOVE)
         return object_move_brain_part.get_direction(context, object_id)
 
     @staticmethod

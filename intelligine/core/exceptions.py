@@ -50,10 +50,6 @@ class BrainException(Exception):
     pass
 
 
-class BrainPartAlreadyExist(BrainException):
-    pass
-
-
 class BodyException(Exception):
     pass
 
