@@ -1,3 +1,4 @@
+from intelligine.synergy.object.Food import Food
 from synergine.core.Core import Core
 from intelligine.core.exceptions import CantFindWhereToPut
 from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED, MODE_NURSE, TYPE_NURSERY, \
@@ -65,4 +66,5 @@ class AntPutBrainPart(TransportBrainPart):
 
     def done(self, puted_object):
         # TODO: lancer le choix d'un nouveau mode dans le brain.
-        self._host.get_brain().switch_to_mode(MODE_EXPLO)
+        if isinstance(puted_object, Food):
+            self._host.get_brain().switch_to_mode(MODE_EXPLO)
