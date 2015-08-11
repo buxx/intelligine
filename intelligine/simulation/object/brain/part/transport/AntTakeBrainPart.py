@@ -1,16 +1,16 @@
 from intelligine.simulation.object.brain.part.transport.TakeBrainPart import TakeBrainPart
 from intelligine.synergy.object.ressource.Ressource import Resource
-from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, \
-    MOVE_MODE_GOHOME, MOVE_MODE_NURSE, TYPE_NURSERY
+from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, \
+    MODE_GOHOME, MODE_NURSE, TYPE_NURSERY
 
 
 class AntTakeBrainPart(TakeBrainPart):
 
     # TODO: methode __init_ pour la classe ? Pour surcharger ici.
     _mode_matches = {
-        MOVE_MODE_EXPLO: [TYPE_RESOURCE_EXPLOITABLE],
-        MOVE_MODE_NURSE: [TYPE_NURSERY],
-        MOVE_MODE_GOHOME: []
+        MODE_EXPLO: [TYPE_RESOURCE_EXPLOITABLE],
+        MODE_NURSE: [TYPE_NURSERY],
+        MODE_GOHOME: []
     }
 
     def __init__(self, host_brain):
@@ -32,5 +32,5 @@ class AntTakeBrainPart(TakeBrainPart):
         # TODO: qqch plus generique ... (attention aux eggs)
         if isinstance(take_object, Resource):
             self._smell_target = self._host_brain.get_smell_for_object_taken(take_object)
-            self._host.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
+            self._host.get_brain().switch_to_mode(MODE_GOHOME)
             self._host.get_movement_molecule_gland().appose()

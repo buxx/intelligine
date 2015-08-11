@@ -1,8 +1,8 @@
 from intelligine.core.exceptions import MoleculeException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
-    COL_FIGHTER, MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
-    COL_TRANSPORTER_CARRYING, MOVE_MODE_NURSE, MOVE_MODE_HOME
+    COL_FIGHTER, MODE_EXPLO, MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
+    COL_TRANSPORTER_CARRYING, MODE_NURSE, MODE_HOME
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.molecule.MovementMoleculeGland import MovementMoleculeGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -22,7 +22,7 @@ class Ant(Bug):
                                                            COL_TRANSPORTER_NOT_CARRYING,
                                                            COL_FIGHTER])
         self._carried = None
-        self._brain.switch_to_mode(MOVE_MODE_EXPLO)
+        self._brain.switch_to_mode(MODE_EXPLO)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
     def die(self):
@@ -58,7 +58,7 @@ class Ant(Bug):
         obj.set_is_carried(True, self)
         # TODO: pour le moment hardcode, a gerer dans AntTakeBrainPart (callback en fct de ce qui est depose)
         if isinstance(obj, Food):
-            self.get_brain().switch_to_mode(MOVE_MODE_GOHOME)
+            self.get_brain().switch_to_mode(MODE_GOHOME)
             self.get_movement_molecule_gland().appose()
 
     def is_carrying(self):

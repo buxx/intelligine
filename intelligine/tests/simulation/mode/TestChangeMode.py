@@ -11,7 +11,7 @@ from intelligine.tests.src.event.MoveAction import MoveAction as TestMoveAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.core.Context import Context
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE, MOVE_MODE_HOME, PHEROMON_DIR_NONE
+from intelligine.cst import MODE_EXPLO, MODE_GOHOME, MODE, MODE_HOME, PHEROMON_DIR_NONE
 from intelligine.cst import PHEROMON_DIR_EXPLO
 
 
@@ -25,8 +25,8 @@ class TestChangeMode(Base):
 
     @staticmethod
     def _force_move(self_move_action, object_id, context):
-        object_movement_mode = context.metas.value.get(MOVE_MODE, object_id)
-        if object_movement_mode == MOVE_MODE_GOHOME or object_movement_mode == MOVE_MODE_HOME:
+        object_movement_mode = context.metas.value.get(MODE, object_id)
+        if object_movement_mode == MODE_GOHOME or object_movement_mode == MODE_HOME:
             return SOUTH
         return NORTH
 
@@ -104,12 +104,12 @@ class TestChangeMode(Base):
     def test_from_exploration_to_go_home(self):
         self._run_and_get_core(0)
         self.assertEquals((0, 0, 0), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_EXPLO, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         self._run_and_get_core(1)
         self.assertEquals((0, 0, -1), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_EXPLO, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         # Ant has take Food piece
@@ -121,22 +121,22 @@ class TestChangeMode(Base):
         molecule = self.ant.get_movement_molecule_gland().get_molecule()
         # Now it appose exploration molecule
         self.assertEquals((PHEROMON_DIR_EXPLO, 0), (molecule.get_type(), molecule.get_distance()))
-        self.assertEquals(MOVE_MODE_GOHOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_GOHOME, self.ant.get_brain().get_movement_mode())
         self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_molecule_gland().get_molecule_type())
 
         self._run_and_get_core(32)
         self.assertEquals((0, 0, -6), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
-        self.assertEquals(MOVE_MODE_HOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
         self._run_and_get_core(33)
         self.assertEquals((0, 0, -5), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
-        self.assertEquals(MOVE_MODE_HOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
         self._run_and_get_core(34)
         self.assertEquals((0, 0, -4), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_HOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
         self._run_and_get_core(37)
         self.assertEquals((0, 0, -1), self.ant.get_position())

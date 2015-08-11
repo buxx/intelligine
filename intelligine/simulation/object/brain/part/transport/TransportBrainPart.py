@@ -1,4 +1,4 @@
-from intelligine.cst import MOVE_MODE, TYPE
+from intelligine.cst import MODE, TYPE
 from intelligine.simulation.object.brain.part.BrainPart import BrainPart
 
 
@@ -9,7 +9,7 @@ class TransportBrainPart(BrainPart):
 
     @classmethod
     def _match_with_mode(cls, context, object_id, concerned_object_id):
-        move_mode = context.metas.value.get(MOVE_MODE, object_id)
+        move_mode = context.metas.value.get(MODE, object_id)
         for takable_type in cls._mode_matches[move_mode]:
             if context.metas.list.have(TYPE, concerned_object_id, takable_type, allow_empty=True):
                 return True

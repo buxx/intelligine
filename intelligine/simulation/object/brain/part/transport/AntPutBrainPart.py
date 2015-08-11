@@ -1,6 +1,6 @@
 from intelligine.core.exceptions import CantFindWhereToPut
-from intelligine.cst import MOVE_MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED, MOVE_MODE_NURSE, TYPE_NURSERY, \
-    MOVE_MODE_HOME, TYPE_RESOURCE_EATABLE, TYPE, MOVE_MODE, MOVE_MODE_GOHOME
+from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED, MODE_NURSE, TYPE_NURSERY, \
+    MODE_HOME, TYPE_RESOURCE_EATABLE, TYPE, MODE, MODE_GOHOME
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
 from intelligine.synergy.object.Food import Food
 from synergine_xyz.cst import POSITION, POSITIONS
@@ -10,9 +10,9 @@ class AntPutBrainPart(TransportBrainPart):
 
     # TODO: methode __nit_ pour la classe ?
     _mode_matches = {
-        MOVE_MODE_NURSE: [TYPE_NURSERY],
-        MOVE_MODE_HOME: [TYPE_RESOURCE_EATABLE],
-        MOVE_MODE_GOHOME: []
+        MODE_NURSE: [TYPE_NURSERY],
+        MODE_HOME: [TYPE_RESOURCE_EATABLE],
+        MODE_GOHOME: []
     }
 
     _types_matches = {
@@ -65,7 +65,7 @@ class AntPutBrainPart(TransportBrainPart):
         # TODO: Il faut refact/logique qqpart pour ca !! Genre Brain.done(PUT, ??)
         if isinstance(puted_object, Food):
             # TODO: Quel mode ? On vient de poser (ps forcement dans la colonie) cls._mode_swicth ?
-            self._host.get_brain().switch_to_mode(MOVE_MODE_EXPLO)
+            self._host.get_brain().switch_to_mode(MODE_EXPLO)
             # TODO: TEST Depose au -1 pour des raisons de test. Plus tard ce sera des tas comme un autre !
             puted_object.set_position((-1, 0, 0))
 

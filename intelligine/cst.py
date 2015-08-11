@@ -17,11 +17,11 @@ MOLECULE_SEARCHING = IncrementedNamedInt.get('intelligine.molecule_searching')
 MOLECULES = IncrementedNamedInt.get('intelligine.molecules')
 
 # TODO: Renommer "move_mode" en "mode" ?
-MOVE_MODE = IncrementedNamedInt.get('intelligine.basebug.move.mode')
-MOVE_MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.mode.explo')
-MOVE_MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.gohome')
-MOVE_MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.mode.nurse')
-MOVE_MODE_HOME = IncrementedNamedInt.get('intelligine.basebug.move.mode.home')
+MODE = IncrementedNamedInt.get('intelligine.basebug.move')
+MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.explo')
+MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.gohome')
+MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.nurse')
+MODE_HOME = IncrementedNamedInt.get('intelligine.basebug.move.home')
 
 MOVE_BYBASS = IncrementedNamedInt.get('intelligine.basebug.move.bypass')
 MOVE_BYBASS_DISTANCE = IncrementedNamedInt.get('intelligine.basebug.move.bypass.distance')

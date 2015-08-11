@@ -5,7 +5,7 @@ from intelligine.simulation.object.brain.part.move.MoveBrainPart import MoveBrai
 from intelligine.synergy.event.move.direction import directions_modifiers, get_position_with_direction_decal
 from synergine_xyz.cst import POSITION
 from intelligine.core.exceptions import NoMolecule
-from intelligine.cst import MOLECULE_SEARCHING, MOVE_MODE_EXPLO, MOVE_MODE_HOME, MOVE_MODE, MOVE_MODE_GOHOME, \
+from intelligine.cst import MOLECULE_SEARCHING, MODE_EXPLO, MODE_HOME, MODE, MODE_GOHOME, \
     EXPLORATION_VECTOR, MOLECULES_DIRECTION
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 
@@ -24,8 +24,8 @@ class AntMoveBrainPart(MoveBrainPart):
 
     @classmethod
     def get_direction(cls, context, object_id):
-        move_mode = context.metas.value.get(MOVE_MODE, object_id)
-        if move_mode == MOVE_MODE_GOHOME:
+        move_mode = context.metas.value.get(MODE, object_id)
+        if move_mode == MODE_GOHOME:
             return cls._get_direction_with_exploration_vector(context, object_id)
         else:
             try:
@@ -102,13 +102,13 @@ class AntMoveBrainPart(MoveBrainPart):
         """
         movement_mode = self._host_brain.get_movement_mode()
 
-        if movement_mode == MOVE_MODE_GOHOME and self._on_home_smell(self._context, self._host.get_id()):
+        if movement_mode == MODE_GOHOME and self._on_home_smell(self._context, self._host.get_id()):
             self._arrived_at_home()
 
-        elif movement_mode == MOVE_MODE_HOME and not self._on_home_smell(self._context, self._host.get_id()):
+        elif movement_mode == MODE_HOME and not self._on_home_smell(self._context, self._host.get_id()):
             self._start_new_exploration()
 
-        elif movement_mode == MOVE_MODE_EXPLO and self._on_home_smell(self._context, self._host.get_id()):
+        elif movement_mode == MODE_EXPLO and self._on_home_smell(self._context, self._host.get_id()):
             self._init_exploration_vector()
 
         # TODO: sitch explo si rien a faire (rien a poser par exemple) et HOME
@@ -136,12 +136,12 @@ class AntMoveBrainPart(MoveBrainPart):
 
     def _apply_context(self):
         movement_mode = self._host_brain.get_movement_mode()
-        if movement_mode == MOVE_MODE_EXPLO or movement_mode == MOVE_MODE_GOHOME:
+        if movement_mode == MODE_EXPLO or movement_mode == MODE_GOHOME:
             self._update_exploration_vector()
 
     def _start_new_exploration(self):
         self._reinit_exploration_vector()
-        self._host_brain.switch_to_mode(MOVE_MODE_EXPLO)
+        self._host_brain.switch_to_mode(MODE_EXPLO)
 
     def _init_exploration_vector(self):
         # On vient de rentrer dans le monde exterieur, le vecteur de départ pointe vers la case précedente
@@ -150,6 +150,6 @@ class AntMoveBrainPart(MoveBrainPart):
         self._set_exploration_vector(init_exploration_vector)
 
     def _arrived_at_home(self):
-        self._host_brain.switch_to_mode(MOVE_MODE_HOME)
+        self._host_brain.switch_to_mode(MODE_HOME)
         ant_star = self._get_by_pass_brain(self._context, self._host.get_id())
         ant_star.erase()
