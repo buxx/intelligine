@@ -149,7 +149,6 @@ class AntMoveBrainPart(MoveBrainPart):
         init_exploration_vector = get_position_with_direction_decal(self.get_host().get_previous_direction())
         self._set_exploration_vector(init_exploration_vector)
 
-
     def _arrived_at_home(self):
         self._host_brain.switch_to_mode(MOVE_MODE_HOME)
         ant_star = self._get_by_pass_brain(self._context, self._host.get_id())
