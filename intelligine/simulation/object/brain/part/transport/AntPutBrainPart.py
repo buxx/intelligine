@@ -16,7 +16,8 @@ class AntPutBrainPart(TransportBrainPart):
     })
 
     _types_matches = {
-        TYPE_RESOURCE_EXPLOITABLE: [TYPE_RESOURCE_EATABLE]
+        TYPE_RESOURCE_EXPLOITABLE: [TYPE_RESOURCE_EATABLE],
+        TYPE_NURSERY: [TYPE_NURSERY]
     }
 
     @classmethod

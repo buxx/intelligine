@@ -1,3 +1,4 @@
+from intelligine.core.exceptions import BestMoleculeHere
 from intelligine.cst import POINT_SMELL, POINTS_SMELL, MOLECULES_INFOS, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.simulation.molecule.Molecule import Molecule
@@ -23,14 +24,18 @@ class SmellAction(Action):
         context.metas.list.unset(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
 
     def run(self, obj, context, synergy_manager):
-        # TODO: Utiliser molecule
+
         points_distances = self._parameters['points_distances']
         smell_type = obj.get_smell()
 
         for smell_point in points_distances:
             distance = points_distances[smell_point]
             molecule = Molecule(MOLECULES_DIRECTION, smell_type, distance)
-            DirectionMolecule.appose(context, smell_point, molecule)
+
+            try:
+                DirectionMolecule.appose(context, smell_point, molecule)
+            except BestMoleculeHere:
+                pass  #
 
             #
             # current_point_smell = points_distances[smell_point]
