@@ -18,7 +18,10 @@ class PutableAction(Action):
         obj_transported = obj.get_carried()
 
         obj_transported.set_carried_by(None)
-        #  TODO: re controle de si posable ? (5 max etc)
+        #  TODO: re controle de si posable ? La position a été calculé
+        #  dans le process. Ce qui fait que la situation peut avoir changer.
+        # Soit: Recalculer d'office BrainPut.cant_put_at.. Soit le recalculer que si le hash
+        # de ce qu'il y a la a changer ?
         obj.put_carry(obj_transported, position_to_put)
         context.metas.value.set(CANT_CARRY_STILL, obj.get_id(), 5)
 
