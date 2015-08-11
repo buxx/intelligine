@@ -32,7 +32,7 @@ class AntBrain(Brain):
     def __init__(self, context, host):
         super().__init__(context, host)
         self._movement_mode = MODE_HOME
-        self._distance_from_objective = 0  # TODO rename: distance_since_objective
+        self._distance_from_objective = 0
         self._molecule_searching = PHEROMON_DIR_EXPLO
 
     def switch_to_mode(self, mode):
