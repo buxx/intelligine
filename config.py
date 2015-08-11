@@ -56,6 +56,9 @@ config = {
     'ant': {
         'take': {
             'cant_put_still': 5
+        },
+        'put': {
+            'max_objects_at_same_position': 5
         }
     }
 }

@@ -1,4 +1,5 @@
 from intelligine.synergy.event.move.MoveAction import MoveAction
+from intelligine.synergy.object.Food import Food
 from synergine.synergy.event.Action import Action
 from intelligine.synergy.event.transport.PutableEvent import PutableEvent
 from intelligine.cst import CANT_CARRY_STILL, BRAIN_PART_PUT
@@ -22,3 +23,7 @@ class PutableAction(Action):
         context.metas.value.set(CANT_CARRY_STILL, obj.get_id(), 5)
 
         obj.get_brain().get_part(BRAIN_PART_PUT).done(obj_transported)
+
+        # TODO: DEBUG
+        if isinstance(obj_transported, Food):
+            obj_transported.set_position((-1, 0, 0))

@@ -1,19 +1,19 @@
+from synergine.core.Core import Core
 from intelligine.core.exceptions import CantFindWhereToPut
 from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED, MODE_NURSE, TYPE_NURSERY, \
-    MODE_HOME, TYPE_RESOURCE_EATABLE, TYPE, MODE, MODE_GOHOME
+    MODE_HOME, TYPE_RESOURCE_EATABLE, MODE_GOHOME
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
-from intelligine.synergy.object.Food import Food
 from synergine_xyz.cst import POSITION, POSITIONS
 
 
 class AntPutBrainPart(TransportBrainPart):
 
-    # TODO: methode __nit_ pour la classe ?
-    _mode_matches = {
+    _mode_matches = TransportBrainPart._mode_matches.copy()
+    _mode_matches.update({
         MODE_NURSE: [TYPE_NURSERY],
         MODE_HOME: [TYPE_RESOURCE_EATABLE],
         MODE_GOHOME: []
-    }
+    })
 
     _types_matches = {
         TYPE_RESOURCE_EXPLOITABLE: [TYPE_RESOURCE_EATABLE]
@@ -54,18 +54,14 @@ class AntPutBrainPart(TransportBrainPart):
 
     @staticmethod
     def _is_available_position(context, position):
-        # TODO: Pour le moment on ne regarde pas si ce sont tous des obj identique
+        if not context.position_is_penetrable(position):
+            return False
+
         count_obj_here = len(context.metas.list.get(POSITIONS, position, allow_empty=True))
-        # TODO: 5 est hardcode; de plus cette cntrainte (not brain) devrait dependre de l'objet, du contexte ...
-        if count_obj_here <= 5 and (context.position_is_penetrable(position) or position == (0, 0, 0)):  # TODO TEST !!!
+        if count_obj_here <= Core.get_configuration_manager().get('ant.put.max_objects_at_same_position', 5):
             return True
         return False
 
     def done(self, puted_object):
-        # TODO: Il faut refact/logique qqpart pour ca !! Genre Brain.done(PUT, ??)
-        if isinstance(puted_object, Food):
-            # TODO: Quel mode ? On vient de poser (ps forcement dans la colonie) cls._mode_swicth ?
-            self._host.get_brain().switch_to_mode(MODE_EXPLO)
-            # TODO: TEST Depose au -1 pour des raisons de test. Plus tard ce sera des tas comme un autre !
-            puted_object.set_position((-1, 0, 0))
-
+        # TODO: lancer le choix d'un nouveau mode dans le brain.
+        self._host.get_brain().switch_to_mode(MODE_EXPLO)
