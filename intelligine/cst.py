@@ -16,7 +16,6 @@ ACTION_DIE = IncrementedNamedInt.get('intelligine.basebug.action.die')
 MOLECULE_SEARCHING = IncrementedNamedInt.get('intelligine.molecule_searching')
 MOLECULES = IncrementedNamedInt.get('intelligine.molecules')
 
-# TODO: Renommer "move_mode" en "mode" ?
 MODE = IncrementedNamedInt.get('intelligine.basebug.move')
 MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.explo')
 MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.gohome')
