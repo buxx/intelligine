@@ -117,7 +117,7 @@ class AntMoveBrainPart(MoveBrainPart):
     def _on_home_smell(cls, context, object_id):
         current_position = context.metas.value.get(POSITION, object_id)
         flavour = context.molecules().get_flavour(current_position)
-        molecules = flavour.get_molecules(MOLECULES_DIRECTION)
+        molecules = flavour.get_molecules_types(MOLECULES_DIRECTION)
 
         if not molecules:
             return False
@@ -140,7 +140,7 @@ class AntMoveBrainPart(MoveBrainPart):
             self._update_exploration_vector()
 
     def _start_new_exploration(self):
-        self._reinit_exploration_vector()
+        self._init_exploration_vector()
         self._host_brain.switch_to_mode(MODE_EXPLO)
 
     def _init_exploration_vector(self):

@@ -10,10 +10,10 @@ class MoleculeFlavour():
         for category in raw_data:
             molecules_by_category = raw_data[category]
             for type in molecules_by_category:
-                distance, intensity = molecules_by_category[type]
+                distance, intensity, cycle_age = molecules_by_category[type]
                 if category not in flavour:
                     flavour[category] = {}
-                flavour[category][type] = Molecule(category, type, distance, intensity)
+                flavour[category][type] = Molecule(category, type, distance, intensity, cycle_age)
         return cls(flavour)
 
     def get_raw_data(self):
@@ -24,7 +24,10 @@ class MoleculeFlavour():
                 molecule = molecules_by_category[type]
                 if category not in raw_data:
                     raw_data[category] = {}
-                raw_data[category][type] = (molecule.get_distance(), molecule.get_intensity())
+                if molecule.get_intensity() >= 0:
+                    raw_data[category][type] = (molecule.get_distance(),
+                                                molecule.get_intensity(),
+                                                molecule.get_cycle_age())
         return raw_data
 
     def __init__(self, flavour):
@@ -43,7 +46,13 @@ class MoleculeFlavour():
         :return: Molecules dict or empty dict of no molecules
         """
         try:
-            return self.get_types(category)
+            return self.get_types(category).values()
+        except NoCategoryInMolecule:
+            return {}
+
+    def get_molecules_types(self, category):
+        try:
+            return self.get_types(category).keys()
         except NoCategoryInMolecule:
             return {}
 

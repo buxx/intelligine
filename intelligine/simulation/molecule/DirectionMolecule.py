@@ -11,7 +11,7 @@ class DirectionMolecule():
 
     @classmethod
     def appose(cls, context, point, molecule):
-        context.molecules().increment_with_molecule(point, molecule)
+        context.molecules().increment_with_molecule(point, molecule, context.get_cycle())
         context.metas.list.add(MOLECULES, MOLECULES, point, assert_not_in=False)
 
     @classmethod

@@ -1,4 +1,5 @@
 from intelligine.cst import OBJ_SMELL, INSTANCE_CLASS
+from intelligine.synergy.Simulation import Simulation
 from synergine_xyz.SynergyObject import SynergyObject as XyzSynergyObject
 
 
@@ -12,6 +13,7 @@ class SynergyObject(XyzSynergyObject):
     def _set_smell(self, smell_type):
         self._smell = smell_type
         self._context.metas.value.set(OBJ_SMELL, self.get_id(), smell_type)
+        Simulation.add_smell(smell_type)
 
     def get_smell(self):
         if not self._smell:

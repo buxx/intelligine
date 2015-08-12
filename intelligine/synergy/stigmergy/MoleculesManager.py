@@ -28,14 +28,15 @@ class MoleculesManager():
                 return Molecule()
             raise
 
-    def increment_with_molecule(self, position, apposed_molecule):
+    def increment_with_molecule(self, position, apposed_molecule, cycle_age):
         flavour = self.get_flavour(position)
         try:
             position_molecule = flavour.get_molecule(apposed_molecule.get_category(), apposed_molecule.get_type())
         except NoMolecule:
             position_molecule = Molecule(apposed_molecule.get_category(),
                                          apposed_molecule.get_type(),
-                                         distance=apposed_molecule.get_distance())
+                                         distance=apposed_molecule.get_distance(),
+                                         cycle_age=cycle_age)
 
         position_molecule.increment_intensity(apposed_molecule.get_intensity())
 

@@ -35,7 +35,7 @@ class SmellAction(Action):
             try:
                 DirectionMolecule.appose(context, smell_point, molecule)
             except BestMoleculeHere:
-                pass  #
+                pass  # TODO: Pas l'inverse ? A voir apres avoir fix la disparition.
 
             #
             # current_point_smell = points_distances[smell_point]
