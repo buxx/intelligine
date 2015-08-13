@@ -1,6 +1,6 @@
 from intelligine.core.exceptions import BodyPartAlreadyExist
 from intelligine.synergy.object.Transportable import Transportable
-from intelligine.cst import COL_ALIVE, COLONY, ACTION_DIE
+from intelligine.cst import COL_ALIVE, COLONY, ACTION_DIE, BRAIN
 from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.cst import ALIVE, ATTACKABLE
 from synergine.core.Signals import Signals
@@ -9,6 +9,7 @@ from synergine.core.Signals import Signals
 class BaseBug(Transportable):
 
     _body_parts = {}
+    _brain_class = Brain
 
     def __init__(self, collection, context):
         super().__init__(collection, context)
@@ -18,7 +19,8 @@ class BaseBug(Transportable):
         self._life_points = 10
         self._alive = True
         self._movements_count = -1
-        self._brain = self._get_brain_instance()
+        self._brain = self._brain_class(self._context, self)
+        self._context.metas.value.set(BRAIN, self.__class__, self._brain_class)
         self._parts = {}
         self._init_parts()
 
@@ -61,9 +63,6 @@ class BaseBug(Transportable):
 
     def get_movements_count(self):
         return self._movements_count
-
-    def _get_brain_instance(self):
-        return Brain(self._context, self)
 
     def get_brain(self):
         return self._brain

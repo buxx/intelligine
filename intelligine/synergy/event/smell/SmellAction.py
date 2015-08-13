@@ -1,4 +1,9 @@
-from intelligine.cst import POINT_SMELL, POINTS_SMELL
+from intelligine.core.exceptions import BestMoleculeHere
+from intelligine.cst import POINT_SMELL, POINTS_SMELL, MOLECULES_INFOS, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG, \
+    PHEROMON_DIR_EXPLO
+from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
+from intelligine.simulation.molecule.Evaporation import Evaporation
+from intelligine.simulation.molecule.Molecule import Molecule
 from intelligine.synergy.event.smell.SmellEvent import SmellEvent
 from synergine.synergy.event.Action import Action
 
@@ -9,10 +14,8 @@ class SmellAction(Action):
 
     @classmethod
     def cycle_pre_run(cls, context, synergy_manager):
-        smell_positions = context.metas.list.get(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
-        for smell_position in smell_positions:
-            context.metas.value.unset(POINT_SMELL, smell_position)
-        context.metas.list.unset(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
+        evaporation = Evaporation(context, molecules_include_types=[SMELL_FOOD, SMELL_EGG])
+        evaporation.remove()
 
     def run(self, obj, context, synergy_manager):
 
@@ -20,16 +23,25 @@ class SmellAction(Action):
         smell_type = obj.get_smell()
 
         for smell_point in points_distances:
+            distance = points_distances[smell_point]
+            molecule = Molecule(MOLECULES_DIRECTION, smell_type, distance)
 
-            where_to_put_smells = context.metas.value.get(POINT_SMELL, smell_point, allow_empty=True, empty_value={})
-            current_point_smell = points_distances[smell_point]
+            try:
+                DirectionMolecule.appose(context, smell_point, molecule)
+            except BestMoleculeHere:
+                pass  # TODO: Pas l'inverse ? A voir apres avoir fix la disparition.
 
-            if smell_type not in where_to_put_smells:
-                where_to_put_smells[smell_type] = current_point_smell
-            else:
-                where_to_put_smell = where_to_put_smells[smell_type]
-                if current_point_smell < where_to_put_smell:
-                    where_to_put_smells[smell_type] = where_to_put_smell
-
-            context.metas.value.set(POINT_SMELL, smell_point, where_to_put_smells)
-            context.metas.list.add(POINTS_SMELL, POINTS_SMELL, smell_point, assert_not_in=False)
+            #
+            # current_point_smell = points_distances[smell_point]
+            # where_to_put_smells = context.metas.value.get(POINT_SMELL, smell_point, allow_empty=True, empty_value={})
+            #
+            #
+            # if smell_type not in where_to_put_smells:
+            #     where_to_put_smells[smell_type] = current_point_smell
+            # else:
+            #     where_to_put_smell = where_to_put_smells[smell_type]
+            #     if current_point_smell < where_to_put_smell:
+            #         where_to_put_smells[smell_type] = where_to_put_smell
+            #
+            # context.metas.value.set(POINT_SMELL, smell_point, where_to_put_smells)
+            # context.metas.list.add(POINTS_SMELL, POINTS_SMELL, smell_point, assert_not_in=False)

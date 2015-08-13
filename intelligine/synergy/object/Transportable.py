@@ -1,4 +1,4 @@
-from intelligine.cst import TRANSPORTABLE, CARRIED
+from intelligine.cst import TRANSPORTABLE, CARRIED_BY, CARRY
 from intelligine.synergy.object.SynergyObject import SynergyObject
 
 
@@ -34,6 +34,6 @@ class Transportable(SynergyObject):
     def set_is_carried(self, is_carried, by_obj):
         self._is_carried = bool(is_carried)
         if self._is_carried:
-            self._context.metas.value.set(CARRIED, subject=by_obj.get_id(), value=self.get_id())
+            self._context.metas.value.set(CARRIED_BY, self.get_id(), by_obj.get_id())
         else:
-            self._context.metas.value.unset(CARRIED, subject=by_obj.get_id())
+            self._context.metas.value.unset(CARRIED_BY, self.get_id())

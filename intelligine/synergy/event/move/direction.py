@@ -17,6 +17,9 @@ directions = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20,
 directions_under_level = (1, 2, 3, 4, 5, 6, 7, 8, 9)
 directions_same_level = (10, 11, 12, 13, 15, 16, 17, 18)
 directions_upper_level = (19, 20, 21, 22, 23, 24, 25, 26, 27)
+
+directions_by_levels = (directions_under_level, directions_same_level, directions_upper_level)
+
 directions_modifiers = {
     # (z, x, y)
     1: (-1, -1, -1),
@@ -117,6 +120,7 @@ directions_degrees = {
     (202.5, 247.5): 16,
     (247.5, 292.5): 13,
     (292.5, 337.5): 10,
+    (337.5, 360): 11,
     (337.5, 0): 11
 }
 
@@ -127,7 +131,7 @@ def get_direction_for_degrees(degrees):
     for plage in directions_degrees:
         if plage[0] <= degrees <= plage[1]:
             return directions_degrees[plage]
-    raise Exception("Unknow plage for degree \"" + degrees + '"')
+    raise Exception("Unknow plage for degree \"" + str(degrees) + '"')
 
 
 """

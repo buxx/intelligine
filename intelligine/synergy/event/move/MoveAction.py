@@ -29,4 +29,4 @@ class MoveAction(Action):
 
         obj.set_position(self._parameters[MoveEvent.PARAM_POSITION])
         obj.set_previous_direction(self._parameters[MoveEvent.PARAM_DIRECTION])
-        obj.get_brain().get_part(BRAIN_PART_MOVE).done(obj, context)
+        obj.get_brain().get_part(BRAIN_PART_MOVE).done()

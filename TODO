@@ -1,3 +1,3 @@
 * Fourmis (map.tmx) pas en mode nurse (-> algo de choix d'activité plus tard)
-* Pygame: smell, pheromons: rendre + generique
-* Smell: Calcul de la distance max
+* Ant: MOVE_MODE_HOME && rien à faire (pas de truc à stocker, switch to mode EXPLO)
+* Nourriture posé: Comme oeufs, plus de debug. Implique algo pour pas remplir couloirs. Implique ne plus travailler a xplo de nourriture si plus de place ? etc ...

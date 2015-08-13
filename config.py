@@ -28,7 +28,8 @@ config = {
             'mainprocess': True,
             'cycles': -1,
             'seed': 42
-        }
+        },
+        'clean_each_cycle': 100
     },
     'simulations': simulations,
     'connections': [Pygame],
@@ -56,6 +57,16 @@ config = {
     'ant': {
         'take': {
             'cant_put_still': 5
+        },
+        'put': {
+            'max_objects_at_same_position': 5
+        }
+    },
+    'stigmergy': {
+        'molecule': {
+            'evaporate_decrement': 5,
+            'evaporate_min_age': 100,
+            'evaporate_each_cycle': 100
         }
     }
 }

@@ -1,4 +1,5 @@
 from intelligine.core.exceptions import NearNothingFound
+from intelligine.shorcut.brain import get_brain_part
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from synergine_xyz.mechanism.AroundMechanism import AroundMechanism
@@ -22,7 +23,7 @@ class NearAttackableEvent(NearEvent):
         except NearNothingFound:
             raise NotConcernedEvent()
 
-        brain_part = self._get_brain_part(context, object_id, BRAIN_PART_ATTACK)
+        brain_part = get_brain_part(context, object_id, BRAIN_PART_ATTACK)
         if not brain_part.can_attack(context, object_id, parameters[self._near_name][0]):
             raise NotConcernedEvent()
 

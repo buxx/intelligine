@@ -1,11 +1,6 @@
-from os import getcwd
-from sys import path as ppath
-from intelligine.core.exceptions import NoPheromone
-
-ppath.insert(1,getcwd()+'/modules')
-
-
+from intelligine.synergy.Environment import Environment
 from intelligine.synergy.object.Food import Food
+from intelligine.synergy.object.StockedFood import StockedFood
 from intelligine.tests.simulation.mode.Base import Base
 from intelligine.synergy.Colony import Colony
 from intelligine.synergy.Simulation import Simulation
@@ -16,27 +11,27 @@ from intelligine.tests.src.event.MoveAction import MoveAction as TestMoveAction
 from synergine.synergy.collection.SynergyCollection import SynergyCollection
 from synergine.synergy.collection.Configuration import Configuration
 from intelligine.core.Context import Context
-from intelligine.cst import MOVE_MODE_EXPLO, MOVE_MODE_GOHOME, MOVE_MODE
-from intelligine.cst import PHEROMON_DIR_HOME, PHEROMON_DIR_EXPLO
+from intelligine.cst import MODE_EXPLO, MODE_GOHOME, MODE, MODE_HOME, PHEROMON_DIR_NONE
+from intelligine.cst import PHEROMON_DIR_EXPLO
 
 
 class TestChangeMode(Base):
 
-    def __init__(self, methodName='runTest'):
-        super().__init__(methodName)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.ant = None
         self.food = None
         self._force_move = self._force_move
 
     @staticmethod
     def _force_move(self_move_action, object_id, context):
-        object_movement_mode = context.metas.value.get(MOVE_MODE, object_id)
-        if object_movement_mode == MOVE_MODE_GOHOME:
+        object_movement_mode = context.metas.value.get(MODE, object_id)
+        if object_movement_mode == MODE_GOHOME or object_movement_mode == MODE_HOME:
             return SOUTH
         return NORTH
 
     def _get_set_up_simulations(self):
-        return [Simulation([self._get_colony(), self._get_foods()])]
+        return [Simulation([self._get_colony(), self._get_foods(), self._get_environment()])]
 
     def _get_colony(self):
         test_case = self
@@ -70,16 +65,24 @@ class TestChangeMode(Base):
             def get_start_objects(self, collection, context):
                 foods = []
                 food = Food(collection, context)
-                food.set_position((0, 0, -3))
-                #  TEST (en attendant d'avoir des algo pour deposer dans un depot)
-                food1 = Food(collection, context)
-                food1.set_position((0, 0, -1))
-                food1.is_takable = lambda: False
-                foods.append(food1)
+                stocked_food = StockedFood(collection, context)
+                food.set_position((0, 0, -20))
+                stocked_food.set_position((0, 0, 0))
+                foods.append(stocked_food)
                 foods.append(food)
                 test_case.food = food
                 return foods
         return FoodConfiguration()
+
+    def _get_environment(self):
+        class TestEnvironment(Environment):
+            pass
+        return TestEnvironment(self._get_environment_configuration())
+
+    def _get_environment_configuration(self):
+        class TestEnvironmentConfiguration(Configuration):
+            pass
+        return TestEnvironmentConfiguration()
 
     def _get_core_configuration(self, cycles, main_process=True):
         config = super()._get_core_configuration(cycles, main_process)
@@ -101,33 +104,45 @@ class TestChangeMode(Base):
     def test_from_exploration_to_go_home(self):
         self._run_and_get_core(0)
         self.assertEquals((0, 0, 0), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_EXPLO, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         self._run_and_get_core(1)
         self.assertEquals((0, 0, -1), self.ant.get_position())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(MODE_EXPLO, self.ant.get_brain().get_movement_mode())
         self.assertFalse(self.ant.is_carrying())
 
         # Ant has take Food piece
-        self._run_and_get_core(2)
-        self.assertEquals((0, 0, -2), self.ant.get_position())
+        self._run_and_get_core(19)
+        self.assertEquals((0, 0, -19), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
         self.assertIsNotNone(self.ant.get_carried())
         self.assertEquals(self.food.__class__, self.ant.get_carried().__class__)
-        pheromone = self.ant.get_movement_pheromone_gland().get_pheromone()
-        # Now it appose exploration pheromone
-        self.assertEquals((PHEROMON_DIR_EXPLO, 0), (pheromone.get_type(), pheromone.get_distance()))
-        self.assertEquals(MOVE_MODE_GOHOME, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_pheromone_gland().get_pheromone_type())
+        molecule = self.ant.get_movement_molecule_gland().get_molecule()
+        # Now it appose exploration molecule
+        self.assertEquals((PHEROMON_DIR_EXPLO, 0), (molecule.get_type(), molecule.get_distance()))
+        self.assertEquals(MODE_GOHOME, self.ant.get_brain().get_movement_mode())
+        self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_molecule_gland().get_molecule_type())
 
-        self._run_and_get_core(3)
-        self.assertEquals((0, 0, -1), self.ant.get_position())
+        self._run_and_get_core(32)
+        self.assertEquals((0, 0, -6), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
-        self._run_and_get_core(4)
-        self.assertEquals((0, 0, 0), self.ant.get_position())
-        # Ant has put his food piece
+        self._run_and_get_core(33)
+        self.assertEquals((0, 0, -5), self.ant.get_position())
+        self.assertTrue(self.ant.is_carrying())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
+
+        self._run_and_get_core(34)
+        self.assertEquals((0, 0, -4), self.ant.get_position())
+        self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
+
+        self._run_and_get_core(37)
+        self.assertEquals((0, 0, -1), self.ant.get_position())
+        # Ant has NOT put his food piece
         self.assertFalse(self.ant.is_carrying())
-        self.assertEquals(MOVE_MODE_EXPLO, self.ant.get_brain().get_movement_mode())
-        self.assertEquals(PHEROMON_DIR_HOME, self.ant.get_movement_pheromone_gland().get_pheromone_type())
+
+        self._run_and_get_core(38)
+        self.assertEquals((0, 0, -2), self.ant.get_position())
+        self.assertFalse(self.ant.is_carrying())

@@ -1,2 +1,5 @@
 git+http://github.com/buxx/synergine.git
 git+http://github.com/buxx/synergine_xyz.git
+git+https://github.com/buxx/AntStar.git
+tmx==1.2.3
+Pillow==2.8.1
