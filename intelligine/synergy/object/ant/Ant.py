@@ -2,7 +2,7 @@ from intelligine.core.exceptions import MoleculeException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
     COL_FIGHTER, MODE_EXPLO, MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
-    COL_TRANSPORTER_CARRYING, MODE_NURSE, MODE_HOME
+    COL_TRANSPORTER_CARRYING, MODE_NURSE, MODE_HOME, CARRY
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.molecule.MovementMoleculeGland import MovementMoleculeGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -23,7 +23,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = None
         #  TODO: Comme pour lorsque une action put est faite, lancer un algo de choix de la mission a suivre.
-        self._brain.switch_to_mode(MODE_EXPLO)
+        self._brain.switch_to_mode(MODE_NURSE)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
     def die(self):
@@ -45,6 +45,7 @@ class Ant(Bug):
         obj.set_position(position)
         obj.set_is_carried(False, self)
         self._context.metas.states.remove(self.get_id(), CARRYING)
+        self._context.metas.value.unset(CARRY, self.get_id())
         self._add_col(COL_TRANSPORTER_NOT_CARRYING)
         self._remove_col(COL_TRANSPORTER_CARRYING)
 
@@ -57,6 +58,7 @@ class Ant(Bug):
         self._add_col(COL_TRANSPORTER_CARRYING)
         self._remove_col(COL_TRANSPORTER_NOT_CARRYING)
         obj.set_is_carried(True, self)
+        self._context.metas.value.set(CARRY, self.get_id(), obj.get_id())
         # TODO: pour le moment hardcode, a gerer dans AntTakeBrainPart (callback en fct de ce qui est depose)
         if isinstance(obj, Food):
             self.get_brain().switch_to_mode(MODE_GOHOME)

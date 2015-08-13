@@ -1,8 +1,8 @@
 from intelligine.synergy.object.Food import Food
 from synergine.core.Core import Core
 from intelligine.core.exceptions import CantFindWhereToPut
-from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, CARRIED, MODE_NURSE, TYPE_NURSERY, \
-    MODE_HOME, TYPE_RESOURCE_EATABLE, MODE_GOHOME
+from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, MODE_NURSE, TYPE_NURSERY, \
+    MODE_HOME, TYPE_RESOURCE_EATABLE, MODE_GOHOME, CARRY
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
 from synergine_xyz.cst import POSITION, POSITIONS
 
@@ -26,7 +26,7 @@ class AntPutBrainPart(TransportBrainPart):
         # Si l'objet à coté fait partie des objets concernés par le mode du porteur
         if cls._match_with_mode(context, object_id, object_near_id):
             # Et si les objet sont rangeable enssemble:
-            object_carried_id = context.metas.value.get(CARRIED, object_id)
+            object_carried_id = context.metas.value.get(CARRY, object_id)
             return cls._objects_types_match(context, object_carried_id, object_near_id)
         return False
 

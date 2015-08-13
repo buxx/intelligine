@@ -1,6 +1,8 @@
 from intelligine.core.exceptions import BestMoleculeHere
-from intelligine.cst import POINT_SMELL, POINTS_SMELL, MOLECULES_INFOS, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG
+from intelligine.cst import POINT_SMELL, POINTS_SMELL, MOLECULES_INFOS, MOLECULES_DIRECTION, SMELL_FOOD, SMELL_EGG, \
+    PHEROMON_DIR_EXPLO
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
+from intelligine.simulation.molecule.Evaporation import Evaporation
 from intelligine.simulation.molecule.Molecule import Molecule
 from intelligine.synergy.event.smell.SmellEvent import SmellEvent
 from synergine.synergy.event.Action import Action
@@ -12,16 +14,8 @@ class SmellAction(Action):
 
     @classmethod
     def cycle_pre_run(cls, context, synergy_manager):
-        smell_positions = context.metas.list.get(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
-        for smell_position in smell_positions:
-            # TODO: Remonter ca dans MoleculeManager ?
-            flavour_raw_data = context.metas.value.get(MOLECULES_INFOS, smell_position)
-            # TODO: Calculer ou definir qqpart la liste des smells
-            for smell_type in (SMELL_FOOD, SMELL_EGG):
-                if smell_type in flavour_raw_data:
-                    del(flavour_raw_data[smell_type])
-                context.metas.value.set(MOLECULES_INFOS, smell_position, flavour_raw_data)
-        context.metas.list.unset(POINTS_SMELL, POINTS_SMELL, allow_empty=True)
+        evaporation = Evaporation(context, molecules_include_types=[SMELL_FOOD, SMELL_EGG])
+        evaporation.remove()
 
     def run(self, obj, context, synergy_manager):
 

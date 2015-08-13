@@ -69,3 +69,8 @@ class MoleculeFlavour():
             self._flavour[category] = {}
 
         self._flavour[category][type] = molecule
+
+    def remove_molecule(self, molecule):
+        category = molecule.get_category()
+        type = molecule.get_type()
+        del(self._flavour[category][type])
