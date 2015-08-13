@@ -184,18 +184,14 @@ class TestDirection(Base):
 
     def test_no_molecules_around(self):
         # No molecule
-        try:  # WTF ?
-            self.assertRaises(NoMolecule, self._test_direction_for_points({}, -1))
-        except NoMolecule:
-            self.assertTrue(True)
+        with self.assertRaises(NoMolecule):
+            self._test_direction_for_points({}, -1)
 
         # Wrong molecule type
-        try:  # WTF ?
-            self.assertRaises(NoMolecule, self._test_direction_for_points({
+        with self.assertRaises(NoMolecule):
+            self._test_direction_for_points({
                 _p(SOUTH_EST): {MOLECULES_DIRECTION: {PHEROMON_DIR_NONE: (9, 5, 0)}}
-            }, -1))
-        except NoMolecule:
-            self.assertTrue(True)
+            }, -1)
 
     def test_appose(self):
         self._test_point_raise_no_molecule()
@@ -217,20 +213,15 @@ class TestDirection(Base):
         self._test_direction_for_points({}, NORTH, re_init=False)
         self._test_direction_for_point({}, NORTH, re_init=False)
 
-
     def _test_point_raise_no_molecule(self, molecules={}, direction=-1, molecule_type=PHEROMON_DIR_EXPLO,
                                  reference_point=_p(CENTER), re_init=True):
-        try:  # WTF ?
+        with self.assertRaises(NoMolecule):
             self._test_direction_for_point(molecules, direction, re_init=re_init)
-        except NoMolecule:
-            self.assertTrue(True)
 
     def _test_points_raise_no_molecule(self, molecules={}, direction=-1, molecule_type=PHEROMON_DIR_EXPLO,
                                  reference_point=_p(CENTER), re_init=True):
-        try:  # WTF ?
+        with self.assertRaises(NoMolecule):
             self._test_direction_for_points(molecules, direction, re_init=re_init)
-        except NoMolecule:
-            self.assertTrue(True)
 
     def _get_molecule(self, type, distance):
         return Molecule(MOLECULES_DIRECTION, type, distance=distance)
