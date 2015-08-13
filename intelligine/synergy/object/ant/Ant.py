@@ -23,7 +23,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = None
         #  TODO: Comme pour lorsque une action put est faite, lancer un algo de choix de la mission a suivre.
-        self._brain.switch_to_mode(MODE_NURSE)
+        self._brain.switch_to_mode(MODE_EXPLO)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
 
     def die(self):
