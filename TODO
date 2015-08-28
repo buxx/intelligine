@@ -2,3 +2,5 @@
 * Ant: MOVE_MODE_HOME && rien à faire (pas de truc à stocker, switch to mode EXPLO)
 * Nourriture posé: Comme oeufs, plus de debug. Implique algo pour pas remplir couloirs. Implique ne plus travailler a xplo de nourriture si plus de place ? etc ...
 * La date de pheromone doit etre mise a jour a chaque depot.
+* Poser (nourriture, etc): que si a carre penetrable tout autour (pour pas remplir couloir)
+* Poser à coté: moins envie de prendre plus le tas est petit, et plus envie de poser si tas grand etc
