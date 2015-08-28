@@ -11,3 +11,6 @@ class StockedFood(Food):
         self._add_col(COL_EATABLE)
         self._add_col(COL_SMELL)
         self._set_smell(SMELL_FOOD)
+
+    def __new__(cls, *args, **kwargs):
+        return Food(*args, **kwargs)

@@ -29,4 +29,5 @@ class PutableAction(Action):
 
         # TODO: DEBUG
         if isinstance(obj_transported, Food):
-            obj_transported.set_position((-1, 0, 0))
+            #obj_transported.set_position((-1, 0, 0))
+            obj_transported.transform_to_stocked()

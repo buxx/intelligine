@@ -1,6 +1,5 @@
 from intelligine.synergy.Environment import Environment
 from intelligine.synergy.object.Food import Food
-from intelligine.synergy.object.StockedFood import StockedFood
 from intelligine.tests.simulation.mode.Base import Base
 from intelligine.synergy.Colony import Colony
 from intelligine.synergy.Simulation import Simulation
@@ -65,7 +64,8 @@ class TestChangeMode(Base):
             def get_start_objects(self, collection, context):
                 foods = []
                 food = Food(collection, context)
-                stocked_food = StockedFood(collection, context)
+                stocked_food = Food(collection, context)
+                stocked_food.transform_to_stocked()
                 food.set_position((0, 0, -20))
                 stocked_food.set_position((0, 0, 0))
                 foods.append(stocked_food)
