@@ -4,6 +4,7 @@ from intelligine.cst import POINT_SMELL, POINTS_SMELL, MOLECULES_INFOS, MOLECULE
 from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.simulation.molecule.Evaporation import Evaporation
 from intelligine.simulation.molecule.Molecule import Molecule
+from intelligine.synergy.event.move.MoveAction import MoveAction
 from intelligine.synergy.event.smell.SmellEvent import SmellEvent
 from synergine.synergy.event.Action import Action
 
@@ -11,6 +12,7 @@ from synergine.synergy.event.Action import Action
 class SmellAction(Action):
 
     _listen = SmellEvent
+    _depend = [MoveAction]
 
     @classmethod
     def cycle_pre_run(cls, context, synergy_manager):
@@ -29,19 +31,4 @@ class SmellAction(Action):
             try:
                 DirectionMolecule.appose(context, smell_point, molecule)
             except BestMoleculeHere:
-                pass  # TODO: Pas l'inverse ? A voir apres avoir fix la disparition.
-
-            #
-            # current_point_smell = points_distances[smell_point]
-            # where_to_put_smells = context.metas.value.get(POINT_SMELL, smell_point, allow_empty=True, empty_value={})
-            #
-            #
-            # if smell_type not in where_to_put_smells:
-            #     where_to_put_smells[smell_type] = current_point_smell
-            # else:
-            #     where_to_put_smell = where_to_put_smells[smell_type]
-            #     if current_point_smell < where_to_put_smell:
-            #         where_to_put_smells[smell_type] = where_to_put_smell
-            #
-            # context.metas.value.set(POINT_SMELL, smell_point, where_to_put_smells)
-            # context.metas.list.add(POINTS_SMELL, POINTS_SMELL, smell_point, assert_not_in=False)
+                pass
