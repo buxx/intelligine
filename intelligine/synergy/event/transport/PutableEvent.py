@@ -23,24 +23,26 @@ class PutableEvent(NearEvent):
             raise NotConcernedEvent()
 
         try:
-            self.map(context, parameters, stop_at_first=True)
+            self.map(context, parameters, stop_at_first=False)
         except NearNothingFound:
             raise NotConcernedEvent()
 
-        object_near_id = parameters[self._near_name][0]
         brain_part = get_brain_part(context, object_id, BRAIN_PART_PUT)
+        parameters[self.PARAM_PUT] = []
+        parameters[self.PARAM_PUT_TO] = []
 
-        if not brain_part.can_put(context, object_id, object_near_id):
-            raise NotConcernedEvent()
+        for object_near_id in parameters[self._near_name]:
+            if brain_part.can_put(context, object_id, object_near_id):
+                try:
+                    put_position = brain_part.get_put_position(context, object_id, object_near_id)
+                    parameters[self.PARAM_PUT].append(object_near_id)
+                    parameters[self.PARAM_PUT_TO].append(put_position)
+                    return parameters  # Si a terme on veut tous les calculer a l'avance, ne pas retourner ici
+                except CantFindWhereToPut:
+                    pass  # On continu la booucle
 
-        try:
-            put_position = brain_part.get_put_position(context, object_id, object_near_id)
-        except CantFindWhereToPut:
-            raise NotConcernedEvent()
-
-        parameters[self.PARAM_PUT] = parameters[self._near_name][0]
-        parameters[self.PARAM_PUT_TO] = put_position
-        return parameters
+        # Si a terme on veut tous les calculer a l'avance, raise que si rien trouve
+        raise NotConcernedEvent()
 
     @staticmethod
     def _can_put(object_id, context):
