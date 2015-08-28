@@ -11,11 +11,11 @@ class NearEvent(Event):
 
     # TODO: parameters en entre/sortie c pas bon ca
     def map(self, context, parameters, stop_at_first=False, filter=lambda near_object_id, context: True):
+        parameters[self._near_name] = []
         for near_object_id in parameters['objects_ids_near']:
             if self._near_map(near_object_id, context) and filter(near_object_id, context):
-                if self._near_name not in parameters:
-                    parameters[self._near_name] = []
                 parameters[self._near_name].append(near_object_id)
                 if stop_at_first:
                     return
-        raise NearNothingFound()
+        if not parameters[self._near_name]:
+            raise NearNothingFound()
