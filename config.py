@@ -4,7 +4,7 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Select sandbox.')
 parser.add_argument('sandbox', metavar='sandbox', type=str, nargs=1,
-                    help='Name of sandbox: ' + ', '.join(['exploration', 'all']))
+                    help='Name of sandbox: ' + ', '.join(['exploration', 'all', 'test']))
 
 args = parser.parse_args()
 
@@ -12,6 +12,8 @@ if 'all' in args.sandbox:
     from intelligine.sandbox.all.all import simulations, visualisation as pygame_visualisation
 elif 'exploration' in args.sandbox:
     from intelligine.sandbox.exploration.exploration import simulations, visualisation as pygame_visualisation
+elif 'test' in args.sandbox:
+    from intelligine.sandbox.test.test import simulations, visualisation as pygame_visualisation
 else:
     parser.parse_args(['-h'])
 
