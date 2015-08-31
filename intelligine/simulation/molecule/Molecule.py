@@ -25,5 +25,8 @@ class Molecule():
     def get_cycle_age(self):
         return self._cycle_age
 
+    def set_cycle_age(self, cycle_age):
+        self._cycle_age = cycle_age
+
     def increment_intensity(self, increment_value):
         self._intensity += increment_value

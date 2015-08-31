@@ -39,6 +39,7 @@ class MoleculesManager():
                                          cycle_age=cycle_age)
 
         position_molecule.increment_intensity(apposed_molecule.get_intensity())
+        position_molecule.set_cycle_age(cycle_age)
 
         if apposed_molecule.get_distance() < position_molecule.get_distance():
             position_molecule.set_distance(apposed_molecule.get_distance())
