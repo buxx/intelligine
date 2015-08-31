@@ -4,3 +4,4 @@
 * La date de pheromone doit etre mise a jour a chaque depot.
 * Poser (nourriture, etc): que si a carre penetrable tout autour (pour pas remplir couloir)
 * Poser à coté: moins envie de prendre plus le tas est petit, et plus envie de poser si tas grand etc
+* Poser: Si échoué à poser x fois: Mode "evacuer": Sortie de la zone odorante et poser.
