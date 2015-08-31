@@ -70,7 +70,7 @@ class AntPutBrainPart(TransportBrainPart):
     @classmethod
     def _position_is_enought_place(cls, context, position):
         count_obj_here = len(context.metas.list.get(POSITIONS, position, allow_empty=True))
-        if count_obj_here <= Core.get_configuration_manager().get('ant.put.max_objects_at_same_position', 5):
+        if count_obj_here < Core.get_configuration_manager().get('ant.put.max_objects_at_same_position', 5):
             return True
         return False
 
