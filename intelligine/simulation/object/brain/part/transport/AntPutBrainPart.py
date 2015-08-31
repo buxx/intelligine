@@ -54,15 +54,35 @@ class AntPutBrainPart(TransportBrainPart):
                     return pos_around_target
         raise CantFindWhereToPut()
 
-    @staticmethod
-    def _is_available_position(context, position):
+    @classmethod
+    def _is_available_position(cls, context, position):
         if not context.position_is_penetrable(position):
             return False
 
+        if not cls._position_is_enought_place(context, position):
+            return False
+
+        if not cls._position_have_free_space_around(context, position):
+            return False
+
+        return True
+
+    @classmethod
+    def _position_is_enought_place(cls, context, position):
         count_obj_here = len(context.metas.list.get(POSITIONS, position, allow_empty=True))
         if count_obj_here <= Core.get_configuration_manager().get('ant.put.max_objects_at_same_position', 5):
             return True
         return False
+
+    @classmethod
+    def _position_have_free_space_around(cls, context, position):
+        # TODO: On regarde ces cases qui ne sont pas forcement visible par l'individu. On presupose ici qu'elle peut les
+        # voir. Pour etre au top il faudrait une logie propre a l'individu qui definis ce qu'il voie.
+        around_positions = context.get_around_points_of_point(position)
+        for around_position in around_positions:
+            if not context.position_is_penetrable(around_position):
+                return False
+        return True
 
     def done(self, puted_object):
         # TODO: lancer le choix d'un nouveau mode dans le brain.
