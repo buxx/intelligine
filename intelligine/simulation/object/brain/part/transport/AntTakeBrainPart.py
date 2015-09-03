@@ -1,7 +1,7 @@
 from intelligine.simulation.object.brain.part.transport.TakeBrainPart import TakeBrainPart
 from intelligine.synergy.object.ressource.Ressource import Resource
 from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, \
-    MODE_GOHOME, MODE_NURSE, TYPE_NURSERY, MODE_HOME
+    MODE_GOHOME, MODE_NURSE, TYPE_NURSERY, MODE_HOME, MODE_SEARCH_AROUND
 
 
 class AntTakeBrainPart(TakeBrainPart):
@@ -10,7 +10,8 @@ class AntTakeBrainPart(TakeBrainPart):
     _mode_matches = {
         MODE_EXPLO: [TYPE_RESOURCE_EXPLOITABLE],
         MODE_NURSE: [TYPE_NURSERY],
-        MODE_GOHOME: []
+        MODE_GOHOME: [],
+        MODE_SEARCH_AROUND: []
     }
 
     def __init__(self, host_brain):

@@ -13,6 +13,16 @@ class UnableToFoundMovement(MovementException):
     pass
 
 
+class MovementModeExpired(MovementException):
+
+    def __init__(self, *args, mode, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._switch_to_mode = mode
+
+    def get_switch_to_mode(self):
+        return self._switch_to_mode
+
+
 class MoleculeException(Exception):
     pass
 
@@ -75,4 +85,8 @@ class NearNothingFound(NearException):
 
 
 class CantFindWhereToPut(ActionException):
+    pass
+
+
+class ExplorationAlreadyResolved(DirectionException):
     pass

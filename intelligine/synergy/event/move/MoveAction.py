@@ -15,6 +15,10 @@ class MoveAction(Action):
         self._move_to_direction = None
 
     def run(self, obj, context, synergy_manager):
+        if self._parameters.get(MoveEvent.PARAM_NEW_MODE, None):
+            obj.get_brain().switch_to_mode(self._parameters[MoveEvent.PARAM_NEW_MODE])
+            return
+
         try:
             self._apply_move(obj, context)
         except ActionAborted:

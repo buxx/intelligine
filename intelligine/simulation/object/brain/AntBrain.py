@@ -1,15 +1,16 @@
+from intelligine.simulation.molecule.DirectionMolecule import DirectionMolecule
 from intelligine.simulation.object.brain.Brain import Brain
 from intelligine.simulation.object.brain.part.attack.AttackBrainPart import AttackBrainPart
-from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.cst import MODE, MODE_EXPLO, MODE_GOHOME, PHEROMON_DIR_EXPLO, \
     BRAIN_PART_TAKE, BRAIN_PART_PUT, MODE_NURSE, PHEROMON_DIR_NONE, BRAIN_PART_ATTACK, MODE_HOME, \
-    SMELL_FOOD, SMELL_EGG
+    SMELL_FOOD, SMELL_EGG, MODE_GO_OUTSIDE, MOLECULE_SEARCHING_WAY, MODE_SEARCH_AROUND
 from intelligine.cst import MOLECULE_SEARCHING
 from intelligine.cst import BRAIN_PART_MOVE
 from intelligine.simulation.object.brain.part.transport.AntPutBrainPart import AntPutBrainPart
 from intelligine.simulation.object.brain.part.transport.AntTakeBrainPart import AntTakeBrainPart
 from intelligine.synergy.object.Food import Food
 from intelligine.synergy.object.ant.Egg import Egg
+from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from synergine.core.exceptions import NotFound
 
 
@@ -51,6 +52,10 @@ class AntBrain(Brain):
             molecule_direction_type = None
         elif mode == MODE_HOME:
             molecule_direction_type = PHEROMON_DIR_EXPLO
+        elif mode == MODE_GO_OUTSIDE:
+            molecule_direction_type = None
+        elif mode == MODE_SEARCH_AROUND:
+            molecule_direction_type = PHEROMON_DIR_EXPLO
         else:
             raise NotImplementedError()
 
@@ -61,6 +66,7 @@ class AntBrain(Brain):
             self._host.get_movement_molecule_gland().disable()
 
     def _update_molecule_searching(self, mode):
+        way = DirectionMolecule.WAY_UP
         if mode == MODE_EXPLO:
             molecule_searching = PHEROMON_DIR_EXPLO
         elif mode == MODE_GOHOME:
@@ -68,13 +74,20 @@ class AntBrain(Brain):
         elif mode == MODE_NURSE:
             molecule_searching = PHEROMON_DIR_NONE
         elif mode == MODE_HOME:
-            # TODO: Ca depend de ce que fait la fourmis, si s'occupe des oeufs, etc
             molecule_searching = self.get_part(BRAIN_PART_TAKE).get_smell_target()
+        elif mode == MODE_GO_OUTSIDE:
+            #  TODO: Dans l'idée c'est sortir, donc il faudrait remonter toutes les smells ...
+            molecule_searching = self.get_part(BRAIN_PART_TAKE).get_smell_target()
+            way = DirectionMolecule.WAY_DOWN
+        elif mode == MODE_SEARCH_AROUND:
+            molecule_searching = PHEROMON_DIR_NONE
         else:
             raise NotImplementedError()
 
         self._molecule_searching = molecule_searching
+        self._molecule_searching_way = way
         self._context.metas.value.set(MOLECULE_SEARCHING, self._host.get_id(), molecule_searching)
+        self._context.metas.value.set(MOLECULE_SEARCHING_WAY, self._host.get_id(), way)
 
     def get_movement_mode(self):
         return self._movement_mode

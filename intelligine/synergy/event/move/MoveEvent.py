@@ -1,4 +1,4 @@
-from intelligine.core.exceptions import UnableToFoundMovement
+from intelligine.core.exceptions import UnableToFoundMovement, MovementModeExpired
 from intelligine.synergy.event.move.direction import get_position_with_direction_decal
 from intelligine.shorcut.brain import get_brain_part
 from synergine.core.exceptions import NotConcernedEvent
@@ -12,6 +12,7 @@ class MoveEvent(Event):
 
     PARAM_POSITION = 'pos'
     PARAM_DIRECTION = 'dir'
+    PARAM_NEW_MODE = 'mod'
 
     _mechanism = Mechanism
     _concern = COL_WALKER
@@ -21,6 +22,9 @@ class MoveEvent(Event):
             direction = self._get_direction(object_id, context)
         except UnableToFoundMovement:
             raise NotConcernedEvent()
+        except MovementModeExpired as movement_expired:
+            parameters[self.PARAM_NEW_MODE] = movement_expired.get_switch_to_mode()
+            return parameters
 
         object_point = context.metas.value.get(POSITION, object_id)
         move_to_point = get_position_with_direction_decal(direction, object_point)

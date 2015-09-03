@@ -5,3 +5,6 @@
 * Poser (nourriture, etc): que si a carre penetrable tout autour (pour pas remplir couloir)
 * Poser à coté: moins envie de prendre plus le tas est petit, et plus envie de poser si tas grand etc
 * Poser: Si échoué à poser x fois: Mode "evacuer": Sortie de la zone odorante et poser.
+* Les ordres de mouvement doivent dependre des differents bout de brain
+* il commence a y avoir grosse embrouille dans les cerveaux :/
+* !!! GO_OUTSIDE: Remlacer par EXPLO. Ca evite de vouloir suivreles molecules a l'envers ! Mais QUID des larves ?

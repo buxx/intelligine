@@ -2,7 +2,7 @@ from intelligine.core.exceptions import MoleculeException
 from intelligine.synergy.object.Bug import Bug
 from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, COL_TRANSPORTER_NOT_CARRYING, \
     COL_FIGHTER, MODE_EXPLO, MODE_GOHOME, BODY_PART_PHEROMONE_GLAND, TYPE, TYPE_ANT, \
-    COL_TRANSPORTER_CARRYING, MODE_NURSE, MODE_HOME, CARRY
+    COL_TRANSPORTER_CARRYING, MODE_NURSE, MODE_HOME, CARRY, PUT_FAIL_COUNT
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.molecule.MovementMoleculeGland import MovementMoleculeGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
@@ -25,6 +25,7 @@ class Ant(Bug):
         #  TODO: Comme pour lorsque une action put est faite, lancer un algo de choix de la mission a suivre.
         self._brain.switch_to_mode(MODE_EXPLO)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
+        self._put_fail_count = 0
 
     def die(self):
         super().die()
@@ -86,3 +87,14 @@ class Ant(Bug):
 
     def get_colony(self):
         return self.get_collection()
+
+    def get_put_fail_count(self):
+        return self._put_fail_count
+
+    def increment_put_fail_count(self):
+        self._put_fail_count += 1
+        self._context.metas.value.set(PUT_FAIL_COUNT, self.get_id(), self._put_fail_count)
+
+    def reinit_put_fail_count(self):
+        self._put_fail_count = 0
+        self._context.metas.value.set(PUT_FAIL_COUNT, self.get_id(), self._put_fail_count)

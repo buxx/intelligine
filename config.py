@@ -61,13 +61,14 @@ config = {
             'cant_put_still': 5
         },
         'put': {
-            'max_objects_at_same_position': 5
+            'max_objects_at_same_position': 1,
+            'max_put_fail_count': 20
         }
     },
     'stigmergy': {
         'molecule': {
             'evaporate_decrement': 5,
-            'evaporate_min_age': 100,
+            'evaporate_min_age': 1000,
             'evaporate_each_cycle': 100
         }
     }

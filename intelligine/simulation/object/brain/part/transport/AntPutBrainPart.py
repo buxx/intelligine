@@ -2,7 +2,7 @@ from intelligine.synergy.object.Food import Food
 from synergine.core.Core import Core
 from intelligine.core.exceptions import CantFindWhereToPut
 from intelligine.cst import MODE_EXPLO, TYPE_RESOURCE_EXPLOITABLE, MODE_NURSE, TYPE_NURSERY, \
-    MODE_HOME, TYPE_RESOURCE_EATABLE, MODE_GOHOME, CARRY
+    MODE_HOME, TYPE_RESOURCE_EATABLE, MODE_GOHOME, CARRY, PUT_FAIL_COUNT, MODE_SEARCH_AROUND
 from intelligine.simulation.object.brain.part.transport.TransportBrainPart import TransportBrainPart
 from synergine_xyz.cst import POSITION, POSITIONS
 
@@ -13,7 +13,8 @@ class AntPutBrainPart(TransportBrainPart):
     _mode_matches.update({
         MODE_NURSE: [TYPE_NURSERY],
         MODE_HOME: [TYPE_RESOURCE_EATABLE],
-        MODE_GOHOME: []
+        MODE_GOHOME: [],
+        MODE_SEARCH_AROUND: []
     })
 
     _types_matches = {
@@ -23,6 +24,11 @@ class AntPutBrainPart(TransportBrainPart):
 
     @classmethod
     def can_put(cls, context, object_id, object_near_id):
+        put_fail_count = context.metas.value.get(PUT_FAIL_COUNT, object_id, allow_empty=True, empty_value=0)
+        put_fail_count_max = Core.get_configuration_manager().get('ant.max_put_fail_count', 20)
+        if put_fail_count >= put_fail_count_max:
+            return False
+
         # Si l'objet à coté fait partie des objets concernés par le mode du porteur
         if cls._match_with_mode(context, object_id, object_near_id):
             # Et si les objet sont rangeable enssemble:

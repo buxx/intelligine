@@ -11,13 +11,12 @@ class PutableAction(Action):
     _listen = PutableEvent
     _depend = [MoveAction]
 
-    def __init__(self, object_id, parameters):
-        super().__init__(object_id, parameters)
-
     def run(self, obj, context, synergy_manager):
         obj_transported = obj.get_carried()
 
         if not self._parameters[PutableEvent.PARAM_PUT_TO]:
+            if self._parameters[PutableEvent.PARAM_HOME_FAIL]:
+                obj.increment_put_fail_count()
             raise ActionAborted()
 
         for position_to_put in self._parameters[PutableEvent.PARAM_PUT_TO]:
@@ -30,6 +29,7 @@ class PutableAction(Action):
             obj_transported.set_carried_by(None)
             obj.put_carry(obj_transported, position_to_put)
             context.metas.value.set(CANT_CARRY_STILL, obj.get_id(), 5)
+            obj.reinit_put_fail_count()
 
             obj.get_brain().get_part(BRAIN_PART_PUT).done(obj_transported)
 

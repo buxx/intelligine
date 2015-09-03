@@ -15,13 +15,18 @@ CANT_CARRY_STILL = IncrementedNamedInt.get('intelligine.cantcarry.still')
 CANT_PUT_STILL = IncrementedNamedInt.get('intelligine.cantput.still')
 ACTION_DIE = IncrementedNamedInt.get('intelligine.basebug.action.die')
 MOLECULE_SEARCHING = IncrementedNamedInt.get('intelligine.molecule_searching')
+MOLECULE_SEARCHING_WAY = IncrementedNamedInt.get('intelligine.molecule_searching_way')
 MOLECULES = IncrementedNamedInt.get('intelligine.molecules')
+
+PUT_FAIL_COUNT = IncrementedNamedInt.get('intelligine.put.fail.count')
 
 MODE = IncrementedNamedInt.get('intelligine.basebug.move')
 MODE_EXPLO = IncrementedNamedInt.get('intelligine.basebug.move.explo')
 MODE_GOHOME = IncrementedNamedInt.get('intelligine.basebug.move.gohome')
 MODE_NURSE = IncrementedNamedInt.get('intelligine.basebug.move.nurse')
 MODE_HOME = IncrementedNamedInt.get('intelligine.basebug.move.home')
+MODE_GO_OUTSIDE = IncrementedNamedInt.get('intelligine.basebug.move.go_outside')
+MODE_SEARCH_AROUND = IncrementedNamedInt.get('intelligine.basebug.move.search_around')
 
 MOVE_BYBASS = IncrementedNamedInt.get('intelligine.basebug.move.bypass')
 MOVE_BYBASS_DISTANCE = IncrementedNamedInt.get('intelligine.basebug.move.bypass.distance')
@@ -57,6 +62,7 @@ COL_TRANSPORTER_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_
 COL_TRANSPORTER_NOT_CARRYING = IncrementedNamedInt.get('intelligine.col.transporter_not_carrying')
 COL_EATABLE = IncrementedNamedInt.get('intelligine.col.eatable')
 COL_SMELL = IncrementedNamedInt.get('intelligine.col.smell')
+COL_PUT_OUTSIDE = IncrementedNamedInt.get('intelligine.col.put_outside')
 
 INSTANCE_CLASS = IncrementedNamedInt.get('intelligine.instance_class')
 

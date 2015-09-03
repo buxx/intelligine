@@ -7,6 +7,9 @@ from intelligine.synergy.event.move.direction import get_direction_for_degrees
 
 class DirectionMolecule():
 
+    WAY_UP = 'u'
+    WAY_DOWN = 'd'
+
     _positions_key = None
 
     @classmethod
@@ -15,16 +18,19 @@ class DirectionMolecule():
         context.metas.list.add(MOLECULES, MOLECULES, point, assert_not_in=False)
 
     @classmethod
-    def get_direction_for_point(cls, context, point, molecule_type):
+    def get_direction_for_point(cls, context, point, molecule_type, molecule_way=WAY_UP):
         flavour = context.molecules().get_flavour(point)
         molecule = flavour.get_molecule(category=MOLECULES_DIRECTION, type=molecule_type)
 
         distance = molecule.get_distance()
-        around_molecule_filter = lambda around_molecule: around_molecule.get_distance() < distance
+        around_molecule_filter = lambda around_molecule: around_molecule.get_distance() < distance #  TODO <= ?
+        if molecule_way == cls.WAY_DOWN:
+            around_molecule_filter = lambda around_molecule: around_molecule.get_distance() >= distance
         around_molecules_points = cls._get_around_molecules(context, point, molecule_type,
                                                             molecule_filter=around_molecule_filter)
 
-        if not around_molecules_points:
+        if not around_molecules_points \
+           or (len(around_molecules_points) == 1 and around_molecules_points[0][0] == point):
             raise NoMolecule()
 
         shuffle(around_molecules_points)
@@ -36,9 +42,12 @@ class DirectionMolecule():
             if around_molecule_sorted[1].get_intensity() == max_intensity:
                 around_molecules_max.append(around_molecule_sorted)
 
+        reverse = False
+        if molecule_way == cls.WAY_DOWN:
+            reverse = True
         around_molecules_sorted_by_distance = sorted(around_molecules_max,
                                                       key=lambda x: x[1].get_distance(),
-                                                      reverse=False)
+                                                      reverse=reverse)
 
         go_to_point = around_molecules_sorted_by_distance[0][0]
 

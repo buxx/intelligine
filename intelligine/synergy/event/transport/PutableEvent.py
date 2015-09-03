@@ -13,6 +13,7 @@ class PutableEvent(NearEvent):
 
     PARAM_PUT = 'put'
     PARAM_PUT_TO = 'put_to'
+    PARAM_HOME_FAIL = 'home_fail'
     _mechanism = AroundMechanism
     _concern = COL_TRANSPORTER_CARRYING
     _near_name = 'objects_ids_putable'
@@ -37,12 +38,14 @@ class PutableEvent(NearEvent):
                     put_position = brain_part.get_put_position(context, object_id, object_near_id)
                     parameters[self.PARAM_PUT].append(object_near_id)
                     parameters[self.PARAM_PUT_TO].append(put_position)
+                    parameters[self.PARAM_HOME_FAIL] = False
                     return parameters  # Si a terme on veut tous les calculer a l'avance, ne pas retourner ici
                 except CantFindWhereToPut:
                     pass  # On continu la booucle
 
         # Si a terme on veut tous les calculer a l'avance, raise que si rien trouve
-        raise NotConcernedEvent()
+        parameters[self.PARAM_HOME_FAIL] = True
+        return parameters
 
     @staticmethod
     def _can_put(object_id, context):
