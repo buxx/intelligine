@@ -23,7 +23,7 @@ class DirectionMolecule():
         molecule = flavour.get_molecule(category=MOLECULES_DIRECTION, type=molecule_type)
 
         distance = molecule.get_distance()
-        around_molecule_filter = lambda around_molecule: around_molecule.get_distance() < distance #  TODO <= ?
+        around_molecule_filter = lambda around_molecule: around_molecule.get_distance() <= distance #  TODO <= ?
         if molecule_way == cls.WAY_DOWN:
             around_molecule_filter = lambda around_molecule: around_molecule.get_distance() >= distance
         around_molecules_points = cls._get_around_molecules(context, point, molecule_type,
