@@ -83,7 +83,8 @@ class DirectionMolecule():
             except NoMolecule:
                 pass  # Ok, no molecule, continue to sniff around
 
-        if not around_molecules_points:
+        if not around_molecules_points \
+           or (len(around_molecules_points) == 1 and around_molecules_points[0][0] == reference_point):
             raise NoMolecule()
 
         shuffle(around_molecules_points)
