@@ -76,7 +76,7 @@ config = {
     'stigmergy': {
         'molecule': {
             'evaporate_decrement': 5,
-            'evaporate_min_age': 100,
+            'evaporate_min_age': 1000,
             'evaporate_each_cycle': 100
         }
     }
