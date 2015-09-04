@@ -113,8 +113,8 @@ class TestChangeMode(Base):
         self.assertFalse(self.ant.is_carrying())
 
         # Ant has take Food piece
-        self._run_and_get_core(19)
-        self.assertEquals((0, 0, -19), self.ant.get_position())
+        self._run_and_get_core(20)
+        self.assertEquals((0, 0, -20), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
         self.assertIsNotNone(self.ant.get_carried())
         self.assertEquals(self.food.__class__, self.ant.get_carried().__class__)
@@ -124,25 +124,25 @@ class TestChangeMode(Base):
         self.assertEquals(MODE_GOHOME, self.ant.get_brain().get_movement_mode())
         self.assertEquals(PHEROMON_DIR_EXPLO, self.ant.get_movement_molecule_gland().get_molecule_type())
 
-        self._run_and_get_core(32)
+        self._run_and_get_core(34)
         self.assertEquals((0, 0, -6), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
         self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
-        self._run_and_get_core(33)
+        self._run_and_get_core(35)
         self.assertEquals((0, 0, -5), self.ant.get_position())
         self.assertTrue(self.ant.is_carrying())
         self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
-        self._run_and_get_core(34)
+        self._run_and_get_core(36)
         self.assertEquals((0, 0, -4), self.ant.get_position())
         self.assertEquals(MODE_HOME, self.ant.get_brain().get_movement_mode())
 
-        self._run_and_get_core(37)
+        self._run_and_get_core(39)
         self.assertEquals((0, 0, -1), self.ant.get_position())
         # Ant has NOT put his food piece
         self.assertFalse(self.ant.is_carrying())
 
-        self._run_and_get_core(38)
+        self._run_and_get_core(40)
         self.assertEquals((0, 0, -2), self.ant.get_position())
         self.assertFalse(self.ant.is_carrying())
