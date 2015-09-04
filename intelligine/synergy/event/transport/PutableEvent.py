@@ -1,5 +1,6 @@
 from intelligine.core.exceptions import NearNothingFound, CantFindWhereToPut
 from intelligine.shorcut.brain import get_brain_part
+from intelligine.simulation.object.brain.part.move.AntMoveBrainPart import AntMoveBrainPart
 from intelligine.synergy.event.src.NearEvent import NearEvent
 from synergine.core.exceptions import NotConcernedEvent
 from intelligine.cst import CANT_PUT_STILL, COL_TRANSPORTER_CARRYING, TRANSPORTABLE, BRAIN_SCHEMA, BRAIN_PART_PUT
@@ -31,6 +32,7 @@ class PutableEvent(NearEvent):
         brain_part = get_brain_part(context, object_id, BRAIN_PART_PUT)
         parameters[self.PARAM_PUT] = []
         parameters[self.PARAM_PUT_TO] = []
+        parameters[self.PARAM_HOME_FAIL] = False
 
         for object_near_id in parameters[self._near_name]:
             if brain_part.can_put(context, object_id, object_near_id):
@@ -38,13 +40,13 @@ class PutableEvent(NearEvent):
                     put_position = brain_part.get_put_position(context, object_id, object_near_id)
                     parameters[self.PARAM_PUT].append(object_near_id)
                     parameters[self.PARAM_PUT_TO].append(put_position)
-                    parameters[self.PARAM_HOME_FAIL] = False
                     return parameters  # Si a terme on veut tous les calculer a l'avance, ne pas retourner ici
                 except CantFindWhereToPut:
                     pass  # On continu la booucle
 
         # Si a terme on veut tous les calculer a l'avance, raise que si rien trouve
-        parameters[self.PARAM_HOME_FAIL] = True
+        if AntMoveBrainPart._on_home_smell(context, object_id):  # TODO: Reanger code (._ acces protege)
+            parameters[self.PARAM_HOME_FAIL] = True
         return parameters
 
     @staticmethod
