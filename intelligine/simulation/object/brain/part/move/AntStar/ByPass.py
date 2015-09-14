@@ -1,8 +1,9 @@
-from antstar.GlueWallAntBrain import GlueWallAntBrain
-from intelligine.cst import EXPLORATION_VECTOR, MOVE_BYBASS, MOVE_BYBASS_DISTANCE, MOVE_BYBASS_MEMORY, MOVE_BYBASS_WALL, MOVE_BYBASS_RE_WALKING
+from antstar.StickWallAntBrain import StickWallAntBrain
+from intelligine.cst import EXPLORATION_VECTOR, MOVE_BYBASS, MOVE_BYBASS_DISTANCE, MOVE_BYBASS_MEMORY, MOVE_BYBASS_WALL,\
+    MOVE_BYBASS_PREV_WALL
 
 
-class ByPass(GlueWallAntBrain):
+class ByPass(StickWallAntBrain):
 
     def __init__(self, host, home_vector, context, object_id):
         """
@@ -30,14 +31,14 @@ class ByPass(GlueWallAntBrain):
                                                               object_id,
                                                               allow_empty=True,
                                                               empty_value=None)
-        self._current_wall_square_position = context.metas.value.get(MOVE_BYBASS_WALL,
-                                                                     object_id,
-                                                                     allow_empty=True,
-                                                                     empty_value=None)
-        self._is_re_walking = context.metas.value.get(MOVE_BYBASS_RE_WALKING,
-                                                      object_id,
-                                                      allow_empty=True,
-                                                      empty_value=False)
+        self._current_wall_position = context.metas.value.get(MOVE_BYBASS_WALL,
+                                                              object_id,
+                                                              allow_empty=True,
+                                                              empty_value=None)
+        self._previous_wall_position = context.metas.value.get(MOVE_BYBASS_PREV_WALL,
+                                                               object_id,
+                                                               allow_empty=True,
+                                                               empty_value=None)
 
     def _set_home_vector(self, home_vector):
         super()._set_home_vector(home_vector)
@@ -55,10 +56,10 @@ class ByPass(GlueWallAntBrain):
         super()._set_distance_when_blocked(distance)
         self._context.metas.value.set(MOVE_BYBASS_DISTANCE, self._object_id, distance)
 
-    def _set_current_wall_square(self, position_of_square):
-        super()._set_current_wall_square(position_of_square)
-        self._context.metas.value.set(MOVE_BYBASS_WALL, self._object_id, position_of_square)
+    def _set_current_wall_position(self, position):
+        super()._set_current_wall_position(position)
+        self._context.metas.value.set(MOVE_BYBASS_WALL, self._object_id, position)
 
-    def _set_is_re_walking(self, is_re_walking):
-        super()._set_is_re_walking(is_re_walking)
-        self._context.metas.value.set(MOVE_BYBASS_RE_WALKING, self._object_id, is_re_walking)
+    def _set_previous_wall_position(self, position):
+        super()._set_previous_wall_position(position)
+        self._context.metas.value.set(MOVE_BYBASS_PREV_WALL, self._object_id, position)

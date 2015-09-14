@@ -32,7 +32,7 @@ MOVE_BYBASS = IncrementedNamedInt.get('intelligine.basebug.move.bypass')
 MOVE_BYBASS_DISTANCE = IncrementedNamedInt.get('intelligine.basebug.move.bypass.distance')
 MOVE_BYBASS_MEMORY = IncrementedNamedInt.get('intelligine.basebug.move.bypass.memory')
 MOVE_BYBASS_WALL = IncrementedNamedInt.get('intelligine.basebug.move.bypass.wall')
-MOVE_BYBASS_RE_WALKING = IncrementedNamedInt.get('intelligine.basebug.move.bypass.re_walking')
+MOVE_BYBASS_PREV_WALL = IncrementedNamedInt.get('intelligine.basebug.move.bypass.prev_wall')
 
 TYPE = IncrementedNamedInt.get('intelligine.object.type')
 TYPE_RESOURCE_EXPLOITABLE = IncrementedNamedInt.get('intelligine.object.type.resource.transformable')
