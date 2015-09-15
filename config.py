@@ -5,7 +5,7 @@ import argparse
 parser = argparse.ArgumentParser(description='Select sandbox.')
 parser.add_argument('sandbox', metavar='sandbox', type=str, nargs=1,
                     help='Name of sandbox: ' + ', '.join(['exploration', 'all', 'test', 'load']))
-parser.add_argument('path', metavar='sandbox', type=str, nargs=1)
+#parser.add_argument('path', metavar='sandbox', type=str, nargs=1)
 
 args = parser.parse_args()
 
