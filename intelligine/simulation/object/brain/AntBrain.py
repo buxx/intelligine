@@ -51,11 +51,11 @@ class AntBrain(Brain):
         elif mode == MODE_NURSE:
             molecule_direction_type = None
         elif mode == MODE_HOME:
-            molecule_direction_type = PHEROMON_DIR_EXPLO
+            molecule_direction_type = None
         elif mode == MODE_GO_OUTSIDE:
             molecule_direction_type = None
         elif mode == MODE_SEARCH_AROUND:
-            molecule_direction_type = PHEROMON_DIR_EXPLO
+            molecule_direction_type = None
         else:
             raise NotImplementedError()
 

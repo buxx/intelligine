@@ -52,6 +52,8 @@ class AntMoveBrainPart(MoveBrainPart):
             movement_mode = context.metas.value.get(MODE, object_id)
             if movement_mode == MODE_GO_OUTSIDE:
                 raise
+            if movement_mode == MODE_EXPLO:
+                raise
 
             try:
                 direction = cls._get_direction_of_molecule(context, object_point, molecule_type)

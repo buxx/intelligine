@@ -49,6 +49,16 @@ class DirectionMolecule():
                                                       key=lambda x: x[1].get_distance(),
                                                       reverse=reverse)
 
+        all_same_distance = True
+        for mol in around_molecules_sorted_by_distance:
+            mol_mol = mol[1]
+            if mol_mol.get_distance() != distance:
+                all_same_distance = False
+                break
+
+        if all_same_distance:
+            raise NoMolecule()
+
         go_to_point = around_molecules_sorted_by_distance[0][0]
 
         direction_degrees = get_degree_from_north(point, go_to_point)
