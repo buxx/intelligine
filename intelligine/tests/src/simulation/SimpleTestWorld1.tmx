@@ -180,36 +180,36 @@
   </tile>
   <tile id="2">
    <properties>
-    <property name="object" value="stocked_food"/>
     <property name="callbacks" value="stocked_food"/>
+    <property name="object" value="stocked_food"/>
    </properties>
   </tile>
   <tile id="3">
    <properties>
     <property name="actions" value="clone(),"/>
-    <property name="object" value="stocked_food"/>
     <property name="callbacks" value="stocked_food"/>
+    <property name="object" value="stocked_food"/>
    </properties>
   </tile>
   <tile id="4">
    <properties>
     <property name="actions" value="clone(2),"/>
-    <property name="object" value="stocked_food"/>
     <property name="callbacks" value="stocked_food"/>
+    <property name="object" value="stocked_food"/>
    </properties>
   </tile>
   <tile id="5">
    <properties>
     <property name="actions" value="clone(3),"/>
-    <property name="object" value="stocked_food"/>
     <property name="callbacks" value="stocked_food"/>
+    <property name="object" value="stocked_food"/>
    </properties>
   </tile>
   <tile id="6">
    <properties>
     <property name="actions" value="clone(4),"/>
-    <property name="object" value="stocked_food"/>
     <property name="callbacks" value="stocked_food"/>
+    <property name="object" value="stocked_food"/>
    </properties>
   </tile>
  </tileset>
@@ -2135,42 +2135,40 @@
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="0"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
+   <tile gid="241"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
@@ -2214,6 +2212,8 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
@@ -2234,8 +2234,8 @@
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="1"/>
    <tile gid="241"/>
    <tile gid="241"/>
@@ -2333,10 +2333,10 @@
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
-   <tile gid="241"/>
+   <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
@@ -2614,7 +2614,6 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
@@ -2635,6 +2634,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
+   <tile gid="0"/>
    <tile gid="241"/>
    <tile gid="0"/>
    <tile gid="241"/>
@@ -2731,7 +2731,7 @@
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
-   <tile gid="241"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="244"/>
    <tile gid="0"/>
@@ -2831,7 +2831,7 @@
    <tile gid="241"/>
    <tile gid="241"/>
    <tile gid="241"/>
-   <tile gid="241"/>
+   <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
