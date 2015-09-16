@@ -24,7 +24,7 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = None
         #  TODO: Comme pour lorsque une action put est faite, lancer un algo de choix de la mission a suivre.
-        if random.choice([0, 1]):
+        if random.choice([1, 0]):
             self._brain.switch_to_mode(MODE_EXPLO)
         else:
             self._brain.switch_to_mode(MODE_NURSE)
