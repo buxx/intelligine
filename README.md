@@ -17,7 +17,7 @@ Project is not ready, but if you want to test it you will need:
 * pygame (see [here](http://www.pygame.org/wiki/CompileUbuntu#Python%203.x) for pygame python3 installation)
 * requirements.txt dependencies (install them with pip install -r requirements.txt)
 
-Then run ``run.py exploration`` or ``run.py all``. Keep in mind it's in developpment mode !
+Then run ``python3.4 run.py exploration`` or ``python3.4 run.py all``. Keep in mind it's in developpment mode !
 
 ## Screens
 
