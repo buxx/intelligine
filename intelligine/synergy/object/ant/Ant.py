@@ -6,6 +6,7 @@ from intelligine.cst import CARRYING, TRANSPORTER, ATTACKER, COL_TRANSPORTER, CO
 from intelligine.synergy.object.Food import Food
 from intelligine.simulation.object.molecule.MovementMoleculeGland import MovementMoleculeGland
 from intelligine.simulation.object.brain.AntBrain import AntBrain
+import random
 
 
 class Ant(Bug):
@@ -23,7 +24,10 @@ class Ant(Bug):
                                                            COL_FIGHTER])
         self._carried = None
         #  TODO: Comme pour lorsque une action put est faite, lancer un algo de choix de la mission a suivre.
-        self._brain.switch_to_mode(MODE_EXPLO)
+        if random.choice([0, 1]):
+            self._brain.switch_to_mode(MODE_EXPLO)
+        else:
+            self._brain.switch_to_mode(MODE_NURSE)
         context.metas.list.add(TYPE, self.get_id(), TYPE_ANT)
         self._put_fail_count = 0
 

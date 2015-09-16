@@ -70,7 +70,7 @@ config = {
             'cant_put_still': 5
         },
         'put': {
-            'max_objects_at_same_position': 1,
+            'max_objects_at_same_position': 5,
             'max_put_fail_count': 20
         }
     },
