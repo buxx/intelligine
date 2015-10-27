@@ -19,6 +19,10 @@ Project is not ready, but if you want to test it you will need:
 
 Then run ``python3.4 run.py exploration`` or ``python3.4 run.py all``. Keep in mind it's in developpment mode !
 
+## Quick test with Docker
+
+Simply run (assuming docker installed) ``docker run -w /intelligine -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged -e DISPLAY buxx/intelligine python3.4 run.py exploration``
+
 ## Screens
 
 ### Egg management
