@@ -19,6 +19,15 @@ Project is not ready, but if you want to test it you will need:
 
 Then run ``python3.4 run.py exploration`` or ``python3.4 run.py all``. Keep in mind it's in developpment mode !
 
+### Graphic keys
+
+On current default graphic output, following keys can be used:
+
+* Z: Zoom
+* A: Unzoom
+* Left,Right,...: Move screen
+* M: Display/Hide molecules
+
 ## Screens
 
 ### Egg management
