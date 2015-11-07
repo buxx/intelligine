@@ -28,6 +28,10 @@ On current default graphic output, following keys can be used:
 * Left,Right,...: Move screen
 * M: Display/Hide molecules
 
+## Quick test with Docker
+
+Allow the docker user to communicate with your X session with ``xhost +local:docker`` then run (assuming docker installed) ``docker run -w /intelligine -v /tmp/.X11-unix:/tmp/.X11-unix -v /dev/snd:/dev/snd --privileged -e DISPLAY buxx/intelligine python3.4 run.py exploration``
+
 ## Screens
 
 ### Egg management
