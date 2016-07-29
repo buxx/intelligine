@@ -21,17 +21,18 @@ class MoveBrainPart(BrainPart):
         if blocked_since <= 3:  #TODO: config
             try:
                 previous_direction = context.metas.value.get(PREVIOUS_DIRECTION, object_id)
-                # TODO: Faut mettre ca en plus propre (proba d'aller tou droit, config, etc)
-                if randrange(100) < 75:  # 75% de change d'aller tout droit
-                    # Dans le futur: les fourmis vont moins tout droit quand elle se croient et se touche
-                    return previous_direction
-
-                directions_list = directions_slighty[previous_direction]
-                # TODO: TMP tant que 1 niveau (z)
-                directions_list = [direction for direction in directions_list if 9 < direction < 19]
-                return choice(directions_list)
             except KeyError:
-                pass
+                # No previous direction
+                return cls._get_random_direction(context, object_id)
+            # TODO: Faut mettre ca en plus propre (proba d'aller tou droit, config, etc)
+            if randrange(100) < 75:  # 75% de change d'aller tout droit
+                # Dans le futur: les fourmis vont moins tout droit quand elle se croient et se touche
+                return previous_direction
+
+            directions_list = directions_slighty[previous_direction]
+            # TODO: TMP tant que 1 niveau (z)
+            directions_list = [direction for direction in directions_list if 9 < direction < 19]
+            return choice(directions_list)
 
         raise DirectionException()
 
